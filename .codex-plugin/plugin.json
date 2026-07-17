@@ -1,0 +1,41 @@
+{
+  "name": "threejs-sculpt-dna",
+  "version": "0.5.0",
+  "description": "Reconstruct object images as quality-gated procedural Three.js models and deterministic asset families.",
+  "author": {
+    "name": "hyeonsangjeon"
+  },
+  "license": "MIT",
+  "keywords": [
+    "threejs",
+    "procedural-3d",
+    "image-analysis",
+    "object-reconstruction",
+    "asset-variants",
+    "webgpu"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Three.js Sculpt DNA",
+    "shortDescription": "Build, validate, and vary procedural Three.js models from references.",
+    "longDescription": "A Codex workflow for converting references into modular sculpt specs, procedural geometry, evidence-bound reviews, action-ready runtime hierarchies, and deterministic Sculpt DNA asset families.",
+    "developerName": "hyeonsangjeon",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Image Analysis",
+      "Three.js",
+      "Procedural Modeling",
+      "Deterministic Asset Families",
+      "Modular Sculpt Specs",
+      "Action-Ready Models",
+      "Quality Gates",
+      "Validation"
+    ],
+    "defaultPrompt": [
+      "Analyze this object photo for procedural Three.js reconstruction.",
+      "Build a Three.js sculpt spec from this reference image.",
+      "Validate whether this object can be rebuilt procedurally."
+    ],
+    "brandColor": "#19B7A5"
+  }
+}

@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0",
-  "sourceFingerprint": "cb90fa7a4cfc097e186c6ca34763c66ad3b4fa81b464d078bea71a12f1aa0f8b",
+  "sourceFingerprint": "7c91bef53b1103666a72660f829ef66478b81940cc63f3fef9659f9bbc49e78c",
   "sourceFiles": [
     "../seoul-challenge/assessment.json",
     "../seoul-challenge/object-sculpt-spec.json",
@@ -35,7 +35,7 @@
     "../showcase/variants/seoul-production/seoul-palace-hero-v002.json": "0845b95d3a79cfe35233eaf79a3d0da400a1495653ac4542de904e4e8f91b9ac",
     "../showcase/variants/seoul-production/seoul-palace-hero-v003.json": "9c08d0dd634fc837dc0e1e72c5b4f9d1c4b6770b5925c9bf860bd3fcd468ab3e",
     "../../assets/seoul-challenge-reference.jpeg": "c227a3ac8958b14cf64e7e95b0943f9cdc1ab9455beca2b9ab8fb1f6d0931290",
-    "../../scripts/make_visual_comparison_sheet.py": "85fb27acca3ef9d8c0f1a13c6a0267ce61bb46e3f8bca7257404084237f43858",
+    "../../scripts/make_visual_comparison_sheet.py": "2ec1b859c5e77c65366bf461c03d549373c9b721f69f2e34f7e09e5d45e256c4",
     "index.html": "b9e527caad7c4a8ed74f7c299847d1d2660f6a01bedaa67e727b75bba8531b0b",
     "main.js": "cee89f164ebb3a11fc9d5b5f9c52faa9e2bafebf6977d123c1566192112f2e22",
     "package-lock.json": "46610c2eac0139dd6985fbef0b36aa39c399adc358a176a280ca99e65bb8dc72",
@@ -1326,7 +1326,7 @@
     "generatedTextureCount": 35,
     "renderCalls": 388,
     "renderedTriangles": 288944,
-    "sourceFingerprint": "cb90fa7a4cfc097e186c6ca34763c66ad3b4fa81b464d078bea71a12f1aa0f8b",
+    "sourceFingerprint": "7c91bef53b1103666a72660f829ef66478b81940cc63f3fef9659f9bbc49e78c",
     "runtimeFingerprint": "e4f25666ef6044cd243191f6be417a1e4288979cb0a01dfedc3b21dbcab7350a"
   },
   "variantRuntimeStats": [
@@ -1349,7 +1349,7 @@
       "generatedTextureCount": 35,
       "renderCalls": 388,
       "renderedTriangles": 282928,
-      "sourceFingerprint": "cb90fa7a4cfc097e186c6ca34763c66ad3b4fa81b464d078bea71a12f1aa0f8b",
+      "sourceFingerprint": "7c91bef53b1103666a72660f829ef66478b81940cc63f3fef9659f9bbc49e78c",
       "runtimeFingerprint": "e4f25666ef6044cd243191f6be417a1e4288979cb0a01dfedc3b21dbcab7350a"
     },
     {
@@ -1371,7 +1371,7 @@
       "generatedTextureCount": 35,
       "renderCalls": 388,
       "renderedTriangles": 291360,
-      "sourceFingerprint": "cb90fa7a4cfc097e186c6ca34763c66ad3b4fa81b464d078bea71a12f1aa0f8b",
+      "sourceFingerprint": "7c91bef53b1103666a72660f829ef66478b81940cc63f3fef9659f9bbc49e78c",
       "runtimeFingerprint": "e4f25666ef6044cd243191f6be417a1e4288979cb0a01dfedc3b21dbcab7350a"
     },
     {
@@ -1393,7 +1393,7 @@
       "generatedTextureCount": 35,
       "renderCalls": 388,
       "renderedTriangles": 286912,
-      "sourceFingerprint": "cb90fa7a4cfc097e186c6ca34763c66ad3b4fa81b464d078bea71a12f1aa0f8b",
+      "sourceFingerprint": "7c91bef53b1103666a72660f829ef66478b81940cc63f3fef9659f9bbc49e78c",
       "runtimeFingerprint": "e4f25666ef6044cd243191f6be417a1e4288979cb0a01dfedc3b21dbcab7350a"
     }
   ],

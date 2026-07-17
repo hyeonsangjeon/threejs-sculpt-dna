@@ -79,9 +79,9 @@ def sample_check() -> Check:
     image_result = probe(image)
     spec_path = ROOT / "examples" / "repolis-tree" / "object-sculpt-spec.json"
     spec = load_json_object(spec_path, "committed sample spec")
-    errors, warnings = validate_spec(spec, spec_path)
+    errors, warnings = validate_spec(spec)
     strict_warnings = [item for item in warnings if item.startswith("quality:")]
-    status = status_payload(spec, spec_path)
+    status = status_payload(spec)
     problems = [
         *errors,
         *strict_warnings,

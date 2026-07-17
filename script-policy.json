@@ -10,6 +10,12 @@
       "subprocesses": []
     },
     {
+      "path": "scripts/append_sculpt_review_legacy.py",
+      "mode": "library",
+      "network": false,
+      "subprocesses": []
+    },
+    {
       "path": "scripts/audit_script_policy.py",
       "mode": "read-only",
       "network": false,
@@ -28,9 +34,7 @@
       "path": "scripts/extract_reference_pbr.py",
       "mode": "generated-output",
       "network": false,
-      "subprocesses": [
-        "sips"
-      ]
+      "subprocesses": []
     },
     {
       "path": "scripts/generate_threejs_factory.py",
@@ -39,15 +43,27 @@
       "subprocesses": []
     },
     {
+      "path": "scripts/generate_threejs_factory_legacy.py",
+      "mode": "library",
+      "network": false,
+      "subprocesses": []
+    },
+    {
       "path": "scripts/make_visual_comparison_sheet.py",
       "mode": "generated-output",
       "network": false,
       "subprocesses": [
-        "sips"
+        "ffmpeg"
       ]
     },
     {
       "path": "scripts/migrate_review_policy.py",
+      "mode": "explicit-in-place",
+      "network": false,
+      "subprocesses": []
+    },
+    {
+      "path": "scripts/migrate_sculpt_spec.py",
       "mode": "explicit-in-place",
       "network": false,
       "subprocesses": []
@@ -61,6 +77,12 @@
     {
       "path": "scripts/new_sculpt_spec.py",
       "mode": "generated-output",
+      "network": false,
+      "subprocesses": []
+    },
+    {
+      "path": "scripts/new_sculpt_spec_legacy.py",
+      "mode": "library",
       "network": false,
       "subprocesses": []
     },
@@ -83,6 +105,12 @@
       "subprocesses": []
     },
     {
+      "path": "scripts/sculpt.py",
+      "mode": "explicit-in-place",
+      "network": false,
+      "subprocesses": []
+    },
+    {
       "path": "scripts/sculpt_contract.py",
       "mode": "library",
       "network": false,
@@ -101,7 +129,81 @@
       "subprocesses": []
     },
     {
+      "path": "scripts/sculpt_geometry.py",
+      "mode": "library",
+      "network": false,
+      "subprocesses": []
+    },
+    {
+      "path": "scripts/sculpt_image_io.py",
+      "mode": "library",
+      "network": false,
+      "subprocesses": [
+        "sips"
+      ]
+    },
+    {
+      "path": "scripts/sculpt_manifest.py",
+      "mode": "library",
+      "network": false,
+      "subprocesses": []
+    },
+    {
+      "path": "scripts/sculpt_module_cli.py",
+      "mode": "explicit-in-place",
+      "network": false,
+      "subprocesses": []
+    },
+    {
+      "path": "scripts/sculpt_module_contract.py",
+      "mode": "library",
+      "network": false,
+      "subprocesses": []
+    },
+    {
+      "path": "scripts/sculpt_module_review.py",
+      "mode": "library",
+      "network": false,
+      "subprocesses": []
+    },
+    {
+      "path": "scripts/sculpt_module_state.py",
+      "mode": "library",
+      "network": false,
+      "subprocesses": []
+    },
+    {
+      "path": "scripts/sculpt_modules.py",
+      "mode": "library",
+      "network": false,
+      "subprocesses": []
+    },
+    {
       "path": "scripts/sculpt_pass_orchestrator.py",
+      "mode": "explicit-in-place",
+      "network": false,
+      "subprocesses": []
+    },
+    {
+      "path": "scripts/sculpt_pass_orchestrator_legacy.py",
+      "mode": "library",
+      "network": false,
+      "subprocesses": []
+    },
+    {
+      "path": "scripts/sculpt_special_geometry_typescript.py",
+      "mode": "library",
+      "network": false,
+      "subprocesses": []
+    },
+    {
+      "path": "scripts/sculpt_specialized_regions.py",
+      "mode": "library",
+      "network": false,
+      "subprocesses": []
+    },
+    {
+      "path": "scripts/sculpt_view_hypotheses.py",
       "mode": "explicit-in-place",
       "network": false,
       "subprocesses": []
@@ -109,6 +211,12 @@
     {
       "path": "scripts/validate_sculpt_spec.py",
       "mode": "read-only",
+      "network": false,
+      "subprocesses": []
+    },
+    {
+      "path": "scripts/validate_sculpt_spec_legacy.py",
+      "mode": "library",
       "network": false,
       "subprocesses": []
     },

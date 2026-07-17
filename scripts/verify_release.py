@@ -10,8 +10,8 @@ from pathlib import Path, PureWindowsPath
 from typing import Any
 
 from sculpt_contract import (
-    DEFAULT_PASS_ORDER as PRODUCTION_PASS_ORDER,
     PRODUCTION_REVIEW_POLICY,
+    SCULPT_DNA_PRODUCTION_PASS_ORDER as PRODUCTION_PASS_ORDER,
     score_meets_threshold,
 )
 from sculpt_dna import variant_gate
@@ -89,11 +89,15 @@ BRICK_CANONICAL_SOURCE_FILES = (
     "brick-output/brick-variant-config.json",
     "brick-output/brick-offroad-profile.json",
     "../../scripts/append_sculpt_review.py",
+    "../../scripts/append_sculpt_review_legacy.py",
     "../../scripts/sculpt_contract.py",
     "../../scripts/make_visual_comparison_sheet.py",
     "../../scripts/sculpt_dna.py",
+    "../../scripts/sculpt_dna_core.py",
     "../../scripts/sculpt_pass_orchestrator.py",
+    "../../scripts/sculpt_pass_orchestrator_legacy.py",
     "../../scripts/validate_sculpt_spec.py",
+    "../../scripts/validate_sculpt_spec_legacy.py",
     "../../scripts/visual_evidence_hashes.py",
     "../../scripts/visual_feature_gate.py",
     "../../scripts/visual_regression_matrix.py",
