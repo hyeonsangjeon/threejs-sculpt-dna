@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0",
   "artifactType": "threejs-sculpt-dna-capability-proof",
-  "release": "0.5.0",
+  "release": "0.5.1",
   "repository": "https://github.com/hyeonsangjeon/threejs-sculpt-dna",
   "upstreamLineage": {
     "repository": "https://github.com/vinhhien112/Three.js-Object-Sculptor-Codex-Plugin",

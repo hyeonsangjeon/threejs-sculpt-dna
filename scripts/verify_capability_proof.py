@@ -16,7 +16,7 @@ from audit_script_policy import audit_policy
 
 ROOT = Path(__file__).resolve().parents[1]
 PROOF_PATH = ROOT / "capability-proof.json"
-EXPECTED_RELEASE = "0.5.0"
+EXPECTED_RELEASE = "0.5.1"
 EXPECTED_REPOSITORY = "https://github.com/hyeonsangjeon/threejs-sculpt-dna"
 EXPECTED_UPSTREAM = (
     "https://github.com/vinhhien112/Three.js-Object-Sculptor-Codex-Plugin"

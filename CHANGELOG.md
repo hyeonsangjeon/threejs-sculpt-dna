@@ -4,6 +4,18 @@ All notable changes to `threejs-sculpt-dna` are documented here.
 
 ## [Unreleased]
 
+## [0.5.1] - 2026-07-31
+
+### Fixed
+
+- Restored direct Markdown reachability from the reconstruction skill to all
+  ten bundled reference documents, including the Render Integration Contract,
+  so external Vally validation no longer classifies them as orphan files.
+- Added a repository contract that fails when any bundled Skill reference is
+  not directly linked from its `SKILL.md`.
+- Aligned one consistent patch version across the Copilot, Codex,
+  marketplace, capability-proof, and verified-release surfaces.
+
 ## [0.5.0] - 2026-07-31
 
 ### Added
@@ -64,9 +76,8 @@ All notable changes to `threejs-sculpt-dna` are documented here.
 
 ### Registry status
 
-- The `github/copilot-plugins` submission is still awaiting review. Version
-  0.5.0 is prepared in this source tree but is not represented as published,
-  tagged, or accepted until those external actions occur.
+- Version 0.5.0 was published as a GitHub release. External catalog acceptance
+  remained pending and was not implied by the source release.
 
 ## [0.4.3] - 2026-07-12
 
@@ -93,4 +104,5 @@ All notable changes to `threejs-sculpt-dna` are documented here.
 - [github/awesome-copilot external plugin issue #2274](https://github.com/github/awesome-copilot/issues/2274)
 
 [0.4.3]: https://github.com/hyeonsangjeon/threejs-sculpt-dna/releases/tag/v0.4.3
-[0.5.0]: https://github.com/hyeonsangjeon/threejs-sculpt-dna/compare/v0.4.3...HEAD
+[0.5.0]: https://github.com/hyeonsangjeon/threejs-sculpt-dna/compare/v0.4.3...v0.5.0
+[0.5.1]: https://github.com/hyeonsangjeon/threejs-sculpt-dna/compare/v0.5.0...HEAD

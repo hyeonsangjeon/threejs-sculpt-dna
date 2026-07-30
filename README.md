@@ -30,10 +30,10 @@ recorded in [`UPSTREAM.md`](UPSTREAM.md).
 release by the committed [`capability-proof.json`](capability-proof.json), not
 by a popularity counter.
 
-| Verifiable contract | `0.5.0` state |
+| Verifiable contract | `0.5.1` state |
 | --- | --- |
 | Combined reconstruction surface | modular v4 kernel + adaptive v3.1 + explicit schema-v2 Sculpt DNA compatibility |
-| Python contracts | 273 tests |
+| Python contracts | 274 tests |
 | Executable boundary | 40 declared scripts, network disabled |
 | Production evidence | 3 artifact manifests; Brick 4/4 and Seoul 4/4 family matrices |
 | Public CI | proof, doctor, tests, release evidence, 4 browser builds, capture tests, and dependency audits |

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import re
 import unittest
 from pathlib import Path
 
@@ -48,6 +49,30 @@ class PluginManifestTests(unittest.TestCase):
             "assets/github-copilot-image-prompt-example.png",
             readme,
         )
+
+    def test_every_skill_reference_is_directly_linked(self) -> None:
+        for skill_dir in sorted((ROOT / "skills").iterdir()):
+            references_dir = skill_dir / "references"
+            if not references_dir.is_dir():
+                continue
+
+            skill = (skill_dir / "SKILL.md").read_text(encoding="utf-8")
+            linked = set(
+                re.findall(
+                    r"\]\((references/[^)#\s]+)(?:#[^)]+)?\)",
+                    skill,
+                )
+            )
+            expected = {
+                path.relative_to(skill_dir).as_posix()
+                for path in references_dir.rglob("*")
+                if path.is_file()
+            }
+            self.assertFalse(
+                expected - linked,
+                f"{skill_dir.name} has unlinked references: "
+                f"{sorted(expected - linked)}",
+            )
 
     def test_overview_links_canonical_repo_skill_and_reproducible_check(self) -> None:
         readme = (ROOT / "README.md").read_text(encoding="utf-8")

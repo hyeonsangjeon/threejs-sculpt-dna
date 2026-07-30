@@ -255,12 +255,23 @@ If any check cannot run, state that limitation instead of implying success.
 
 For module work, follow the `module context.references` list and load those files together; do not preload all references. Outside a module, read only what the current work requires:
 
-- suitability, complexity, and global quality contract: `references/pre-spec-assessment.md`;
-- geometry and representation patterns: `references/procedural-patterns.md`;
-- face and hand contracts: `references/anatomical-regions.md`;
-- attachment correctness: `references/attachment-joint-correctness.md`;
-- material, PBR, and lighting: `references/material-lighting-realism.md`;
-- interaction/physics/destruction: `references/action-ready-models.md`;
-- screenshot evidence and score layers: `references/browser-screenshot-feedback.md`;
-- root-cause and next-action choice: `references/self-correction-loop.md`;
-- terminology: `references/3d-graphics-terminology.md`.
+- suitability, complexity, and global quality contract:
+  [pre-spec assessment](references/pre-spec-assessment.md);
+- geometry and representation patterns:
+  [procedural patterns](references/procedural-patterns.md);
+- face and hand contracts:
+  [anatomical regions](references/anatomical-regions.md);
+- attachment correctness:
+  [attachment and joint correctness](references/attachment-joint-correctness.md);
+- material, PBR, and lighting:
+  [material and lighting realism](references/material-lighting-realism.md);
+- interaction, physics, and destruction:
+  [action-ready models](references/action-ready-models.md);
+- screenshot evidence and score layers:
+  [browser screenshot feedback](references/browser-screenshot-feedback.md);
+- root-cause and next-action choice:
+  [self-correction loop](references/self-correction-loop.md);
+- standalone-to-host runtime verification:
+  [render integration contract](references/render-integration-contract.md);
+- terminology:
+  [3D graphics terminology](references/3d-graphics-terminology.md).
