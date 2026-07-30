@@ -12,9 +12,9 @@ from dataclasses import dataclass
 from pathlib import Path, PurePosixPath
 from typing import Any
 
+from sculpt_contract import score_meets_threshold
 from sculpt_pass_orchestrator import VISUAL_PASS_IDS, pass_order, review_completes_pass
 from validate_sculpt_spec import load_spec, validate_spec
-from verify_release import score_meets_threshold
 from visual_evidence_hashes import (
     LATEST_REVIEW_SELECTION,
     authoritative_reviews,

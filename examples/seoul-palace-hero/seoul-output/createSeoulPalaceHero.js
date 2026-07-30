@@ -254,7 +254,9 @@ export function createSeoulPalaceHero(options = {}) {
   const started = performance.now();
   const stage = options.stage ?? 'blockout';
   if (!SEOUL_STAGES.includes(stage)) {
-    throw new RangeError(`Unsupported Seoul sculpt stage "${stage}". Only "blockout" is unlocked.`);
+    throw new RangeError(
+      `Unsupported Seoul sculpt stage "${stage}". Expected one of: ${SEOUL_STAGES.join(', ')}.`,
+    );
   }
   const seed = seedValue(
     options.seed ?? options.variant?.seed ?? SEOUL_DEFAULT_SEED,

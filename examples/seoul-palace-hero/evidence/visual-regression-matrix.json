@@ -1,0 +1,468 @@
+{
+  "schemaVersion": "1.0",
+  "kind": "sculpt-dna-visual-regression-matrix",
+  "ok": true,
+  "authority": {
+    "finalVisualAuthority": "ai-vision",
+    "pixelMetrics": "diagnostic-only",
+    "pixelMetricsCanApprove": false
+  },
+  "inputs": {
+    "baseSpec": "examples/seoul-challenge/object-sculpt-spec.json",
+    "baseSpecSha256": "f293de26124014148ece6ec92bad5dd86769ae65101be6ca2e68b0537265c562",
+    "curatedManifest": "examples/showcase/variants/seoul-production/sculpt-dna-manifest.json",
+    "curatedManifestSha256": "cefd594fb9bbedf8306a8146f6efce95442eac6b71472e710e49ebccb750e5ae"
+  },
+  "policy": {
+    "authoritativeReview": "latest-per-pass",
+    "statusOrder": [
+      "missing",
+      "stale",
+      "passing",
+      "failing"
+    ],
+    "assetOrder": "base then variantId ascending",
+    "viewpointOrder": "viewpoint id ascending"
+  },
+  "viewpoints": [
+    {
+      "id": "production-aerial",
+      "passId": "optimization-pass",
+      "cameraView": "reference-aerial-canonical-release",
+      "renderPathTemplate": null,
+      "comparisonPathTemplate": null,
+      "featureIds": []
+    }
+  ],
+  "assets": [
+    {
+      "id": "base",
+      "role": "base",
+      "path": "examples/seoul-challenge/object-sculpt-spec.json",
+      "sha256": "f293de26124014148ece6ec92bad5dd86769ae65101be6ca2e68b0537265c562",
+      "variantIndex": 0,
+      "targetName": "Seoul Palace Scene Challenge"
+    },
+    {
+      "id": "seoul-palace-hero-v001",
+      "role": "variant",
+      "path": "examples/showcase/variants/seoul-production/seoul-palace-hero-v001.json",
+      "sha256": "0963f19e92bab334ffcb2af26561bbb3cec93453baa7b5c032dc953afa5a47d2",
+      "variantIndex": 1,
+      "targetName": "Seoul Palace Scene Challenge"
+    },
+    {
+      "id": "seoul-palace-hero-v002",
+      "role": "variant",
+      "path": "examples/showcase/variants/seoul-production/seoul-palace-hero-v002.json",
+      "sha256": "0845b95d3a79cfe35233eaf79a3d0da400a1495653ac4542de904e4e8f91b9ac",
+      "variantIndex": 2,
+      "targetName": "Seoul Palace Scene Challenge"
+    },
+    {
+      "id": "seoul-palace-hero-v003",
+      "role": "variant",
+      "path": "examples/showcase/variants/seoul-production/seoul-palace-hero-v003.json",
+      "sha256": "9c08d0dd634fc837dc0e1e72c5b4f9d1c4b6770b5925c9bf860bd3fcd468ab3e",
+      "variantIndex": 3,
+      "targetName": "Seoul Palace Scene Challenge"
+    }
+  ],
+  "cells": [
+    {
+      "assetId": "base",
+      "assetRole": "base",
+      "viewpointId": "production-aerial",
+      "passId": "optimization-pass",
+      "cameraView": "reference-aerial-canonical-release",
+      "status": "passing",
+      "expected": {
+        "renderScreenshot": "examples/seoul-palace-hero/evidence/final.png",
+        "comparisonImage": "examples/seoul-palace-hero/evidence/final-comparison.png"
+      },
+      "actual": {
+        "cameraView": "reference-aerial-canonical-release",
+        "renderScreenshot": "examples/seoul-palace-hero/evidence/final.png",
+        "comparisonImage": "examples/seoul-palace-hero/evidence/final-comparison.png",
+        "renderSha256": "949c602517b73ed10c6889ef8b62601ea4a182773513693308635157b638be10",
+        "comparisonSha256": "b3a7f8392d88ec4ab60ac1475ae2862112530d6fe9434cbf13d50b9b498bb101"
+      },
+      "review": {
+        "historyIndex": 17,
+        "reviewId": "optimization-pass-canonical-release-2026-07-13T04:09:37.358Z",
+        "reviewedAt": "2026-07-13T04:09:37.358Z",
+        "action": "continue",
+        "aiVisionScore": 0.88,
+        "requiredThreshold": 0.86
+      },
+      "layerScores": [
+        {
+          "id": "componentStructure",
+          "score": 0.9,
+          "minimum": 0.86,
+          "status": "passing"
+        },
+        {
+          "id": "formDetail",
+          "score": 0.9,
+          "minimum": 0.86,
+          "status": "passing"
+        },
+        {
+          "id": "lightingCamera",
+          "score": 0.88,
+          "minimum": 0.86,
+          "status": "passing"
+        },
+        {
+          "id": "materialSurface",
+          "score": 0.88,
+          "minimum": 0.86,
+          "status": "passing"
+        },
+        {
+          "id": "silhouetteProportion",
+          "score": 0.89,
+          "minimum": 0.86,
+          "status": "passing"
+        }
+      ],
+      "semanticFeatures": [
+        {
+          "id": "asymmetric-mountain-composition",
+          "visible": true,
+          "score": 0.86,
+          "minimum": 0.86,
+          "status": "passing"
+        },
+        {
+          "id": "atmospheric-depth-layers",
+          "visible": true,
+          "score": 0.87,
+          "minimum": 0.86,
+          "status": "passing"
+        },
+        {
+          "id": "ceremonial-negative-space",
+          "visible": true,
+          "score": 0.89,
+          "minimum": 0.86,
+          "status": "passing"
+        },
+        {
+          "id": "korean-roof-system",
+          "visible": true,
+          "score": 0.91,
+          "minimum": 0.86,
+          "status": "passing"
+        },
+        {
+          "id": "palace-axial-hierarchy",
+          "visible": true,
+          "score": 0.89,
+          "minimum": 0.86,
+          "status": "passing"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "assetId": "seoul-palace-hero-v001",
+      "assetRole": "variant",
+      "viewpointId": "production-aerial",
+      "passId": "optimization-pass",
+      "cameraView": "reference-aerial-canonical-release",
+      "status": "passing",
+      "expected": {
+        "renderScreenshot": "examples/seoul-palace-hero/evidence/variant-1.png",
+        "comparisonImage": "examples/seoul-palace-hero/evidence/variant-1-comparison.png"
+      },
+      "actual": {
+        "cameraView": "reference-aerial-canonical-release",
+        "renderScreenshot": "examples/seoul-palace-hero/evidence/variant-1.png",
+        "comparisonImage": "examples/seoul-palace-hero/evidence/variant-1-comparison.png",
+        "renderSha256": "fdf5b694662ce0bd2fe53a93f12f638bcc86c73aeebd60e333f1dc307a74a787",
+        "comparisonSha256": "708aa9bfa99a7468d888a8ef09da2a8cd399ab91ab3d710f9f22a23390009fe5"
+      },
+      "review": {
+        "historyIndex": 15,
+        "reviewId": "seoul-palace-hero-v001-sol-max-polish-fresh-review-2026-07-13T02:56:06Z-optimization-pass",
+        "reviewedAt": "2026-07-13T02:56:06.071Z",
+        "action": "continue",
+        "aiVisionScore": 0.87,
+        "requiredThreshold": 0.86
+      },
+      "layerScores": [
+        {
+          "id": "componentStructure",
+          "score": 0.9,
+          "minimum": 0.86,
+          "status": "passing"
+        },
+        {
+          "id": "formDetail",
+          "score": 0.89,
+          "minimum": 0.86,
+          "status": "passing"
+        },
+        {
+          "id": "lightingCamera",
+          "score": 0.87,
+          "minimum": 0.86,
+          "status": "passing"
+        },
+        {
+          "id": "materialSurface",
+          "score": 0.87,
+          "minimum": 0.86,
+          "status": "passing"
+        },
+        {
+          "id": "silhouetteProportion",
+          "score": 0.89,
+          "minimum": 0.86,
+          "status": "passing"
+        }
+      ],
+      "semanticFeatures": [
+        {
+          "id": "asymmetric-mountain-composition",
+          "visible": true,
+          "score": 0.86,
+          "minimum": 0.86,
+          "status": "passing"
+        },
+        {
+          "id": "atmospheric-depth-layers",
+          "visible": true,
+          "score": 0.87,
+          "minimum": 0.86,
+          "status": "passing"
+        },
+        {
+          "id": "ceremonial-negative-space",
+          "visible": true,
+          "score": 0.88,
+          "minimum": 0.86,
+          "status": "passing"
+        },
+        {
+          "id": "korean-roof-system",
+          "visible": true,
+          "score": 0.9,
+          "minimum": 0.86,
+          "status": "passing"
+        },
+        {
+          "id": "palace-axial-hierarchy",
+          "visible": true,
+          "score": 0.89,
+          "minimum": 0.86,
+          "status": "passing"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "assetId": "seoul-palace-hero-v002",
+      "assetRole": "variant",
+      "viewpointId": "production-aerial",
+      "passId": "optimization-pass",
+      "cameraView": "reference-aerial-canonical-release",
+      "status": "passing",
+      "expected": {
+        "renderScreenshot": "examples/seoul-palace-hero/evidence/variant-2.png",
+        "comparisonImage": "examples/seoul-palace-hero/evidence/variant-2-comparison.png"
+      },
+      "actual": {
+        "cameraView": "reference-aerial-canonical-release",
+        "renderScreenshot": "examples/seoul-palace-hero/evidence/variant-2.png",
+        "comparisonImage": "examples/seoul-palace-hero/evidence/variant-2-comparison.png",
+        "renderSha256": "132f8361638e4521b1fbf2e42508f210a31c23b94b742aa5880700e65e246474",
+        "comparisonSha256": "4cb00c6d1521a58be68706c372a47027ee715bb86e79e8a35479b4962a7eac08"
+      },
+      "review": {
+        "historyIndex": 15,
+        "reviewId": "seoul-palace-hero-v002-sol-max-polish-fresh-review-2026-07-13T02:56:06Z-optimization-pass",
+        "reviewedAt": "2026-07-13T02:56:06.071Z",
+        "action": "continue",
+        "aiVisionScore": 0.87,
+        "requiredThreshold": 0.86
+      },
+      "layerScores": [
+        {
+          "id": "componentStructure",
+          "score": 0.9,
+          "minimum": 0.86,
+          "status": "passing"
+        },
+        {
+          "id": "formDetail",
+          "score": 0.89,
+          "minimum": 0.86,
+          "status": "passing"
+        },
+        {
+          "id": "lightingCamera",
+          "score": 0.87,
+          "minimum": 0.86,
+          "status": "passing"
+        },
+        {
+          "id": "materialSurface",
+          "score": 0.87,
+          "minimum": 0.86,
+          "status": "passing"
+        },
+        {
+          "id": "silhouetteProportion",
+          "score": 0.88,
+          "minimum": 0.86,
+          "status": "passing"
+        }
+      ],
+      "semanticFeatures": [
+        {
+          "id": "asymmetric-mountain-composition",
+          "visible": true,
+          "score": 0.86,
+          "minimum": 0.86,
+          "status": "passing"
+        },
+        {
+          "id": "atmospheric-depth-layers",
+          "visible": true,
+          "score": 0.87,
+          "minimum": 0.86,
+          "status": "passing"
+        },
+        {
+          "id": "ceremonial-negative-space",
+          "visible": true,
+          "score": 0.88,
+          "minimum": 0.86,
+          "status": "passing"
+        },
+        {
+          "id": "korean-roof-system",
+          "visible": true,
+          "score": 0.9,
+          "minimum": 0.86,
+          "status": "passing"
+        },
+        {
+          "id": "palace-axial-hierarchy",
+          "visible": true,
+          "score": 0.88,
+          "minimum": 0.86,
+          "status": "passing"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "assetId": "seoul-palace-hero-v003",
+      "assetRole": "variant",
+      "viewpointId": "production-aerial",
+      "passId": "optimization-pass",
+      "cameraView": "reference-aerial-canonical-release",
+      "status": "passing",
+      "expected": {
+        "renderScreenshot": "examples/seoul-palace-hero/evidence/variant-3.png",
+        "comparisonImage": "examples/seoul-palace-hero/evidence/variant-3-comparison.png"
+      },
+      "actual": {
+        "cameraView": "reference-aerial-canonical-release",
+        "renderScreenshot": "examples/seoul-palace-hero/evidence/variant-3.png",
+        "comparisonImage": "examples/seoul-palace-hero/evidence/variant-3-comparison.png",
+        "renderSha256": "9fc1d13648444979c705e17944d2b4e3c35dd9819fa3819367051bba052e47e5",
+        "comparisonSha256": "931dda66043fea201d1ddbb81c7f2b6a76989aeef85484b0af9c3240970cfbd0"
+      },
+      "review": {
+        "historyIndex": 15,
+        "reviewId": "seoul-palace-hero-v003-sol-max-polish-fresh-review-2026-07-13T02:56:06Z-optimization-pass",
+        "reviewedAt": "2026-07-13T02:56:06.071Z",
+        "action": "continue",
+        "aiVisionScore": 0.88,
+        "requiredThreshold": 0.86
+      },
+      "layerScores": [
+        {
+          "id": "componentStructure",
+          "score": 0.91,
+          "minimum": 0.86,
+          "status": "passing"
+        },
+        {
+          "id": "formDetail",
+          "score": 0.9,
+          "minimum": 0.86,
+          "status": "passing"
+        },
+        {
+          "id": "lightingCamera",
+          "score": 0.88,
+          "minimum": 0.86,
+          "status": "passing"
+        },
+        {
+          "id": "materialSurface",
+          "score": 0.88,
+          "minimum": 0.86,
+          "status": "passing"
+        },
+        {
+          "id": "silhouetteProportion",
+          "score": 0.89,
+          "minimum": 0.86,
+          "status": "passing"
+        }
+      ],
+      "semanticFeatures": [
+        {
+          "id": "asymmetric-mountain-composition",
+          "visible": true,
+          "score": 0.87,
+          "minimum": 0.86,
+          "status": "passing"
+        },
+        {
+          "id": "atmospheric-depth-layers",
+          "visible": true,
+          "score": 0.88,
+          "minimum": 0.86,
+          "status": "passing"
+        },
+        {
+          "id": "ceremonial-negative-space",
+          "visible": true,
+          "score": 0.89,
+          "minimum": 0.86,
+          "status": "passing"
+        },
+        {
+          "id": "korean-roof-system",
+          "visible": true,
+          "score": 0.91,
+          "minimum": 0.86,
+          "status": "passing"
+        },
+        {
+          "id": "palace-axial-hierarchy",
+          "visible": true,
+          "score": 0.89,
+          "minimum": 0.86,
+          "status": "passing"
+        }
+      ],
+      "issues": []
+    }
+  ],
+  "summary": {
+    "total": 4,
+    "missing": 0,
+    "stale": 0,
+    "passing": 4,
+    "failing": 0
+  }
+}

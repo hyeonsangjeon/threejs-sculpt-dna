@@ -7,15 +7,40 @@
 [![Copilot Plugin](https://img.shields.io/badge/GitHub%20Copilot-Plugin-8957e5)](docs/USER_GUIDE.md)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
+[![Rotating high-detail procedural Repolis Tree](assets/repolis-tree-hero.gif)](https://hyeonsangjeon.github.io/threejs-sculpt-dna/)
+
 Turn an object reference image into a quality-gated, action-ready procedural Three.js model, then expand that model into a deterministic family of constraint-safe variants.
 
 `threejs-sculpt-dna` is an evidence-gated GitHub Copilot workflow, not a one-click image-to-mesh converter or a manifest-only port. It treats every reconstruction as a versioned production system: semantic topology, action contracts, deterministic variation, browser evidence, and release integrity advance together.
 
+This repository integrates a reviewed source snapshot of the original
+[`Three.js-Object-Sculptor-Codex-Plugin`](https://github.com/vinhhien112/Three.js-Object-Sculptor-Codex-Plugin)
+modular modeling kernel with **Sculpt DNA**, Coverage Curator, schema-v2
+compatibility, SHA-bound pass evidence, production family matrices,
+action-ready contracts, and host-integration gates. Exact source provenance is
+recorded in [`UPSTREAM.md`](UPSTREAM.md).
+
 > **Canonical repository:** [`hyeonsangjeon/threejs-sculpt-dna`](https://github.com/hyeonsangjeon/threejs-sculpt-dna). GitHub redirects the previous repository name here, but use this canonical path for installs, links, and clones.
 
-**Start here:** [Use the reconstruction Skill](skills/object-to-threejs-procedural/SKILL.md) · [Install the plugin](#quick-start) · [Run the 5-minute check](#5-minute-reproducible-check) · [Open the live flagships](https://hyeonsangjeon.github.io/threejs-sculpt-dna/)
+**Start here:** [Run the proof](#verified-release-state) · [Install the plugin](#quick-start) · [Run the doctor](#5-minute-reproducible-check) · [Use the reconstruction Skill](skills/object-to-threejs-procedural/SKILL.md) · [Open the live flagships](https://hyeonsangjeon.github.io/threejs-sculpt-dna/) · [Review script safety](SECURITY.md)
 
-<sub>If this workflow saves you time, star the canonical repository so other GitHub Copilot users can find it.</sub>
+### Verified release state
+
+**Stars measure attention; executable gates measure this repository.** Judge the
+release by the committed [`capability-proof.json`](capability-proof.json), not
+by a popularity counter.
+
+| Verifiable contract | `0.5.0` state |
+| --- | --- |
+| Combined reconstruction surface | modular v4 kernel + adaptive v3.1 + explicit schema-v2 Sculpt DNA compatibility |
+| Python contracts | 273 tests |
+| Executable boundary | 40 declared scripts, network disabled |
+| Production evidence | 3 artifact manifests; Brick 4/4 and Seoul 4/4 family matrices |
+| Public CI | proof, doctor, tests, release evidence, 4 browser builds, capture tests, and dependency audits |
+
+[Read the verified capability matrix](docs/VERIFIED_CAPABILITIES.md) ·
+[Audit upstream lineage](UPSTREAM.md) ·
+[Use the fair comparison protocol](docs/FAIR_COMPARISON_PROTOCOL.md)
 
 | You provide | The workflow produces |
 | --- | --- |
@@ -31,6 +56,18 @@ Clone the canonical repository and run the committed public sample through the s
 git clone https://github.com/hyeonsangjeon/threejs-sculpt-dna.git
 cd threejs-sculpt-dna
 
+python3 scripts/doctor.py --skip-copilot
+```
+
+Expected result: `READY`. The doctor is read-only: it audits every declared
+Python executable, plugin manifests, the committed reference/spec, all eight
+passes, and the Brick/Seoul production matrices. It does not install, update,
+render, or access the network.
+
+<details>
+<summary>See the underlying checks</summary>
+
+```bash
 python3 scripts/probe_reference_image.py \
   assets/brick-offroad-reference.jpeg
 
@@ -43,6 +80,8 @@ python3 scripts/sculpt_pass_orchestrator.py status \
 ```
 
 Expected result: the image probe reports `"technicalSuitability": "pass"`, strict validation prints `PASS`, and the committed flagship reports `currentPass: complete`.
+
+</details>
 
 Then open GitHub Copilot, attach your own reference, and paste:
 
@@ -68,8 +107,6 @@ and runtime metadata in the target project. Do not use an imported mesh.
 ## 03 · Flagship: Repolis Living Archive
 
 [Open the interactive Repolis Tree demo](https://hyeonsangjeon.github.io/threejs-sculpt-dna/)
-
-![Rotating high-detail procedural Repolis Tree](assets/repolis-tree-hero.gif)
 
 <sub>Built and visually reviewed with GitHub Copilot · GPT-5.6 Sol.</sub>
 
@@ -335,7 +372,7 @@ technical probe -> pre-spec assessment -> ObjectSculptSpec
 | PNG/PBR processing | `zlib`, `struct`, `math`, custom RGB/RGBA PNG reader/writer | Generates albedo, roughness, height, normal, and AO evidence without Python image dependencies |
 | Non-PNG fallback | macOS `sips`, detected with `shutil.which` | Converts source images when direct PNG decoding is unavailable; other platforms should provide RGB/RGBA PNG input |
 | Three.js generation | Python source generator emitting TypeScript | Produces plain Three.js factories that can be hand-refined in an existing application |
-| Geometry | `BoxGeometry`, `SphereGeometry`, `CylinderGeometry`, `ConeGeometry`, `CapsuleGeometry`, `TorusGeometry`, attachment endpoint cylinders | Covers blockout primitives and root-to-tip child construction while leaving complex procedural shapes explicit |
+| Geometry | Shared validation/generation registry for primitives, assemblies, curves, sweeps, lathes, extrusions, lofts, fitted shells, branches, scatter, instancing, modifiers, sculpted surfaces, and specialized regions | Rejects unsupported geometry instead of silently substituting boxes and keeps complex procedural shapes explicit |
 | Materials | `MeshPhysicalMaterial`, emissive controls, deterministic Canvas textures, independent PBR channels | Keeps bark readable beneath glow, avoids flat-color placeholders, and prevents albedo reuse across unrelated PBR channels |
 | Runtime structure | `THREE.Group` pivots plus `userData.sculptRuntime` maps | Keeps nodes, meshes, sockets, collider proxies, and destruction groups addressable for animation and physics |
 | Visual QA | Browser screenshots, custom comparison sheets, semantic feature gates | Makes visual evidence—not code inspection—the acceptance authority |
@@ -349,10 +386,17 @@ The plugin itself has no required PyPI or npm dependencies. Python scripts opera
 
 The browser, TypeScript compiler, bundler, and Three.js version belong to the target project. The plugin intentionally does not install Playwright or Chromium solely for screenshots.
 
-## Inherited Workflow, Script by Script
+## Workflow, Script by Script
 
 | Script | Responsibility |
 | --- | --- |
+| `doctor.py` | Run the read-only first-clone health check, including plugin, policy, sample, runtime, duplicate-install, and production-matrix status |
+| `audit_script_policy.py` | Compare every Python executable with the network-disabled trust inventory in `script-policy.json` |
+| `verify_capability_proof.py` | Bind release metadata, upstream provenance, capability claims, evidence files, tests, production matrices, and public CI into one read-only proof |
+| `sculpt.py` | Provide the unified command surface for the adaptive modular workflow |
+| `sculpt_manifest.py` / `sculpt_modules.py` | Manage v4 root manifests and independently authored module specs |
+| `sculpt_geometry.py` | Share the supported procedural geometry registry between validation and TypeScript generation |
+| `sculpt_module_state.py` / `sculpt_module_review.py` | Enforce module reuse, correction batches, multi-view evidence, critical-feature vetoes, and build/runtime receipts |
 | `probe_reference_image.py` | Detect image format, dimensions, aspect ratio, and basic technical risks |
 | `new_pre_spec_assessment.py` | Create a complexity assessment and minimum quality contract |
 | `new_sculpt_spec.py` | Create the versioned `ObjectSculptSpec` skeleton |
@@ -379,22 +423,8 @@ For non-PNG source images on platforms without macOS `sips`, convert the input t
 
 ## Install
 
-Install from this local checkout:
-
-```bash
-copilot plugin install "$(pwd)"
-copilot plugin list
-```
-
-Install directly from GitHub:
-
-```bash
-copilot plugin install hyeonsangjeon/threejs-sculpt-dna
-```
-
-Copilot currently warns that direct repository installs will eventually move to marketplace-only distribution, but the public repository install is supported today.
-
-Install through this repository's Copilot plugin marketplace:
+Use exactly one installation source. The repository marketplace is the
+recommended and tested path:
 
 ```bash
 copilot plugin marketplace add \
@@ -402,9 +432,32 @@ copilot plugin marketplace add \
 
 copilot plugin install \
   threejs-sculpt-dna@threejs-copilot-plugins
+
+copilot plugin list
 ```
 
 GitHub Copilot plugin marketplaces are decentralized repositories rather than a single approval-based catalog. The checked-in `.github/plugin/marketplace.json` makes this repository a supported marketplace source.
+
+Do not also install the same plugin from a local path or direct repository URL.
+Duplicate cached copies can shadow one another and make upgrades appear stale.
+From a cloned checkout, `python3 scripts/doctor.py` warns when it detects more
+than one `threejs-sculpt-dna` installation.
+
+<details>
+<summary>Local contributor install</summary>
+
+Use this only while developing the plugin, and remove the marketplace copy
+first:
+
+```bash
+copilot plugin install "$(pwd)"
+copilot plugin list
+```
+
+Direct repository installs still work in current Copilot CLI builds but emit a
+marketplace-migration warning, so they are not the recommended onboarding path.
+
+</details>
 
 Start a new Copilot CLI session, then verify the skills:
 
@@ -412,7 +465,8 @@ Start a new Copilot CLI session, then verify the skills:
 /skills list
 ```
 
-Copilot caches installed plugins. Reinstall the local path after modifying the plugin:
+Copilot caches installed plugins. Contributors using the local-only mode should
+reinstall that path after modifying the plugin:
 
 ```bash
 copilot plugin install "$(pwd)"

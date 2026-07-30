@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0",
   "sourceSpec": "object-sculpt-spec.json",
-  "sourceSpecSha256": "3443f4bdf0fabd9f609324dd0235af668ff6ef3541dab8a78589898a674bbdea",
+  "sourceSpecSha256": "f293de26124014148ece6ec92bad5dd86769ae65101be6ca2e68b0537265c562",
   "rootSeed": 20260712,
   "count": 3,
   "variants": [
@@ -180,7 +180,7 @@
         "interaction-pass",
         "optimization-pass"
       ],
-      "performanceEvidenceSha256": "416f4234e15efc2ea30ae72a435c03e9cdeca048cb8402e8dae1000c4cb48f75"
+      "performanceEvidenceSha256": "80e3687b3d64e6edd437b2d29ab63ca0a98bc66b38ccd78c96466b0fb380973b"
     },
     {
       "variantId": "seoul-palace-hero-v002",
@@ -357,7 +357,7 @@
         "interaction-pass",
         "optimization-pass"
       ],
-      "performanceEvidenceSha256": "416f4234e15efc2ea30ae72a435c03e9cdeca048cb8402e8dae1000c4cb48f75"
+      "performanceEvidenceSha256": "80e3687b3d64e6edd437b2d29ab63ca0a98bc66b38ccd78c96466b0fb380973b"
     },
     {
       "variantId": "seoul-palace-hero-v003",
@@ -534,7 +534,7 @@
         "interaction-pass",
         "optimization-pass"
       ],
-      "performanceEvidenceSha256": "416f4234e15efc2ea30ae72a435c03e9cdeca048cb8402e8dae1000c4cb48f75"
+      "performanceEvidenceSha256": "80e3687b3d64e6edd437b2d29ab63ca0a98bc66b38ccd78c96466b0fb380973b"
     }
   ],
   "samplingMode": "coverage-curated",
@@ -569,6 +569,16 @@
     "optimization-pass"
   ],
   "missingBasePasses": [],
+  "visualRegressionMatrix": {
+    "schemaVersion": "1.0",
+    "viewpoints": [
+      {
+        "id": "production-aerial",
+        "passId": "optimization-pass",
+        "cameraView": "reference-aerial-canonical-release"
+      }
+    ]
+  },
   "visualReviewSet": {
     "reviewedAt": "2026-07-13T02:56:06.071Z",
     "authority": "fresh independent AI-vision review of exact Sol Max polish render/comparison hashes",
@@ -582,7 +592,7 @@
     "canonicalReleaseReviewId": "optimization-pass-canonical-release-2026-07-13T04:09:37.358Z",
     "variantPerformanceEvidence": {
       "path": "examples/seoul-palace-hero/evidence/variant-runtime-metrics.json",
-      "sha256": "416f4234e15efc2ea30ae72a435c03e9cdeca048cb8402e8dae1000c4cb48f75",
+      "sha256": "80e3687b3d64e6edd437b2d29ab63ca0a98bc66b38ccd78c96466b0fb380973b",
       "binding": "local-sha256"
     }
   }

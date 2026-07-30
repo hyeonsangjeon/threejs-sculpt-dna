@@ -32,6 +32,37 @@ class CommunityFilesTests(unittest.TestCase):
         self.assertIn("python3 -m unittest discover -s tests -v", pull_request)
         self.assertIn("Preview variants are not described as production-ready", pull_request)
 
+    def test_trust_and_quality_contracts_are_public(self) -> None:
+        security = (ROOT / "SECURITY.md").read_text(encoding="utf-8")
+        conduct = (ROOT / "CODE_OF_CONDUCT.md").read_text(encoding="utf-8")
+        bolt = (ROOT / "docs" / "V2_IMPROVEMENT_BOLT.md").read_text(
+            encoding="utf-8"
+        )
+        quality = (
+            ROOT / ".github" / "workflows" / "quality.yml"
+        ).read_text(encoding="utf-8")
+        self.assertIn("script-policy.json", security)
+        self.assertIn("Security", security)
+        self.assertIn("Enforcement", conduct)
+        self.assertIn("BOLT-08", bolt)
+        for required_path in (
+            '"plugin.json"',
+            '".github/plugin/**"',
+            '"skills/**"',
+            '"scripts/**"',
+            '"docs/**"',
+            '"examples/**"',
+        ):
+            self.assertIn(required_path, quality)
+        self.assertIn("python3 scripts/doctor.py --skip-copilot", quality)
+        self.assertIn(
+            "python3 -m unittest tests.test_brick_offroad_hero -q",
+            quality,
+        )
+        self.assertIn("npm audit --omit=dev --audit-level=high", quality)
+        self.assertIn("--bundle", quality)
+        self.assertIn("--external:three", quality)
+
 
 if __name__ == "__main__":
     unittest.main()

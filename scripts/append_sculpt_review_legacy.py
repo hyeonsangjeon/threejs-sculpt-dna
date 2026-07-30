@@ -1,0 +1,387 @@
+#!/usr/bin/env python3
+"""Compatibility review writer for Sculpt DNA policy-v2 specs."""
+
+from __future__ import annotations
+
+import argparse
+import json
+import math
+import sys
+from datetime import datetime, timezone
+from pathlib import Path
+
+from sculpt_contract import (
+    SCULPT_DNA_PRODUCTION_PASS_ORDER as DEFAULT_PASS_ORDER,
+    load_json_object,
+)
+from sculpt_pass_orchestrator_legacy import next_required_evidence
+from visual_feature_gate import feature_gate_failures
+from visual_evidence_hashes import (
+    bind_visual_evidence_hashes,
+    is_remote_or_virtual_path,
+    latest_review_for_pass,
+    review_visual_evidence_failures,
+)
+
+
+VALID_ACTIONS = {"continue", "refine-spec", "refine-code", "request-input", "stop"}
+VISUAL_PASS_IDS = frozenset(DEFAULT_PASS_ORDER[:-1])
+
+
+def split_items(value: str | None) -> list[str]:
+    if not value:
+        return []
+    return [item.strip() for item in value.split(";") if item.strip()]
+
+
+def load_spec(path: Path) -> dict:
+    return load_json_object(path, "spec")
+
+
+def load_json_argument(value: str | None, label: str) -> object | None:
+    if not value:
+        return None
+    candidate = Path(value).expanduser()
+    try:
+        is_file = candidate.is_file()
+    except OSError:
+        is_file = False
+    text = candidate.read_text(encoding="utf-8") if is_file else value
+
+    def reject_constant(constant: str) -> None:
+        raise ValueError(f"non-standard JSON constant {constant}")
+
+    try:
+        return json.loads(text, parse_constant=reject_constant)
+    except (json.JSONDecodeError, ValueError) as exc:
+        raise ValueError(f"{label} must be valid inline JSON or a JSON file path") from exc
+
+
+def clamp_score(value: float) -> float:
+    score = float(value)
+    if not math.isfinite(score):
+        raise ValueError("score must be finite")
+    return max(0.0, min(1.0, score))
+
+
+def validate_optional_file(value: str | None, label: str) -> None:
+    if not value or is_remote_or_virtual_path(value):
+        return
+    if not Path(value).expanduser().exists():
+        raise FileNotFoundError(f"{label} does not exist: {value}")
+
+
+def visual_acceptance_threshold(spec: dict) -> float:
+    loop = spec.get("selfCorrectLoop")
+    if isinstance(loop, dict):
+        acceptance = loop.get("visualAcceptance")
+        if isinstance(acceptance, dict) and isinstance(acceptance.get("threshold"), (int, float)):
+            return clamp_score(float(acceptance["threshold"]))
+    targets = spec.get("qualityTargets")
+    if isinstance(targets, dict) and isinstance(targets.get("targetFidelity"), (int, float)):
+        return clamp_score(float(targets["targetFidelity"]))
+    return 0.7
+
+
+def visual_acceptance_config(spec: dict) -> dict:
+    loop = spec.get("selfCorrectLoop")
+    if not isinstance(loop, dict):
+        return {}
+    acceptance = loop.get("visualAcceptance")
+    return acceptance if isinstance(acceptance, dict) else {}
+
+
+def pass_order(spec: dict) -> list[str]:
+    ids: list[str] = []
+    for item in spec.get("buildPasses", []):
+        if isinstance(item, dict) and isinstance(item.get("id"), str) and item["id"].strip():
+            ids.append(item["id"])
+    return ids or list(DEFAULT_PASS_ORDER)
+
+
+def pass_acceptance(spec: dict, pass_id: str) -> list[str]:
+    for item in spec.get("buildPasses", []):
+        if isinstance(item, dict) and item.get("id") == pass_id:
+            acceptance = item.get("acceptance", [])
+            if isinstance(acceptance, list):
+                return [str(value) for value in acceptance if str(value).strip()]
+    return []
+
+
+def pass_specific_evidence(spec: dict, pass_id: str) -> list[str]:
+    if pass_id in {"structural-pass", "form-refinement"}:
+        return [
+            "attachment contracts for child appendages/connectors",
+            "no floating child roots/joints in the browser screenshot",
+        ]
+    if pass_id == "material-pass":
+        minimum_resolution = (
+            spec.get("lookDevTargets", {})
+            .get("materialPass", {})
+            .get("minimumTextureResolution", 1024)
+        )
+        return [
+            "reference-derived albedo palette with dominant, secondary, and accent colors",
+            "independent albedo, roughness, height/normal, and AO maps",
+            f"macro, meso, and micro surface-frequency response at {minimum_resolution}px or higher",
+            "local material masks: AO, dirt, wear, stains, moss, chips, scratches, wetness, or equivalent",
+            "neutral, grazing-light close-up, and reference-matched browser screenshots",
+            "AI vision comparison sheet score meeting the visual acceptance threshold",
+        ]
+    if pass_id == "surface-pass":
+        return [
+            "component surfaceDetail for tactile normal/bump/displacement and locality",
+        ]
+    if pass_id == "lighting-pass":
+        return [
+            "lightingFromPhoto with key/fill/rim or environment light",
+            "exposure, tone mapping, background, shadow softness, and contact shadow behavior",
+        ]
+    return []
+
+
+def review_completes_pass(
+    spec: dict,
+    entry: dict,
+    pass_id: str,
+    spec_path: Path | None = None,
+) -> bool:
+    if entry.get("passId") != pass_id or entry.get("action") != "continue":
+        return False
+    visual = entry.get("visualEvidence")
+    if pass_id in VISUAL_PASS_IDS and not (isinstance(visual, dict) and visual.get("renderScreenshot")):
+        return False
+    if pass_id in VISUAL_PASS_IDS:
+        score = entry.get("aiVisionScore")
+        threshold = entry.get("visualAcceptanceThreshold", 0.7)
+        if not isinstance(score, (int, float)) or not isinstance(threshold, (int, float)):
+            return False
+        if float(score) < float(threshold):
+            return False
+        if not (isinstance(visual, dict) and visual.get("comparisonImage")):
+            return False
+        if review_visual_evidence_failures(spec, visual, spec_path):
+            return False
+        if feature_gate_failures(spec, entry, pass_id):
+            return False
+    return True
+
+
+def sync_pipeline(spec: dict, spec_path: Path | None = None) -> None:
+    ids = pass_order(spec)
+    completed: list[str] = []
+    for pass_id in ids:
+        entry = latest_review_for_pass(spec, pass_id)
+        if isinstance(entry, dict) and review_completes_pass(
+            spec, entry, pass_id, spec_path
+        ):
+            completed.append(pass_id)
+        else:
+            break
+    current = "complete" if len(completed) >= len(ids) else ids[len(completed)]
+    required = next_required_evidence(spec, current)
+    pipeline = spec.setdefault("sculptPipeline", {})
+    if not isinstance(pipeline, dict):
+        pipeline = {}
+        spec["sculptPipeline"] = pipeline
+    pipeline.update(
+        {
+            "passGateMode": "locked-sequential",
+            "passOrder": ids,
+            "currentPass": current,
+            "completedPasses": completed,
+            "lastCompletedPass": completed[-1] if completed else "",
+            "blockedReason": "" if current != "complete" else "all build passes completed",
+            "nextRequiredEvidence": required,
+        }
+    )
+
+
+def main(argv: list[str]) -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("spec", type=Path)
+    parser.add_argument("--pass-id", required=True, help="Build pass being reviewed")
+    parser.add_argument("--fidelity", type=float, required=True, help="Estimated match score from 0 to 1")
+    parser.add_argument("--action", choices=sorted(VALID_ACTIONS), required=True)
+    parser.add_argument("--summary", required=True, help="Short review summary")
+    parser.add_argument("--matched", help="Semicolon-separated matched criteria")
+    parser.add_argument("--mismatches", help="Semicolon-separated mismatches")
+    parser.add_argument("--spec-fixes", help="Semicolon-separated spec refinement tasks")
+    parser.add_argument("--code-fixes", help="Semicolon-separated code refinement tasks")
+    parser.add_argument("--evidence", help="Semicolon-separated screenshot/image/render paths or notes")
+    parser.add_argument("--reference-screenshot", help="Reference image/screenshot path or URL used for visual comparison")
+    parser.add_argument("--render-screenshot", help="Rendered browser screenshot path or URL for this pass")
+    parser.add_argument("--comparison-image", help="Side-by-side reference/render contact sheet reviewed by AI vision")
+    parser.add_argument("--ai-vision-score", type=float, help="AI vision visual match score from 0 to 1")
+    parser.add_argument("--layer-scores-json", help="JSON object with AI vision layer scores, e.g. silhouette/material/lighting")
+    parser.add_argument("--feature-reviews-json", help="JSON array or file path containing per-feature scores from the same full image pair")
+    parser.add_argument("--ai-vision-notes", help="AI vision critique explaining the score and mismatch root causes")
+    parser.add_argument("--visual-threshold", type=float, help="Override visual acceptance threshold for this review")
+    parser.add_argument("--camera-view", help="Camera/viewpoint label, e.g. front, three-quarter, side, close-up")
+    parser.add_argument("--visual-notes", help="Short notes from screenshot comparison")
+    parser.add_argument(
+        "--require-screenshot-files",
+        action="store_true",
+        help="Require local screenshot paths to exist before writing the review",
+    )
+    parser.add_argument("--in-place", action="store_true", help="Write back to the input spec")
+    parser.add_argument("--out", type=Path, help="Output JSON path when not using --in-place")
+    args = parser.parse_args(argv)
+
+    if args.require_screenshot_files:
+        validate_optional_file(args.reference_screenshot, "--reference-screenshot")
+        validate_optional_file(args.render_screenshot, "--render-screenshot")
+        validate_optional_file(args.comparison_image, "--comparison-image")
+    if args.pass_id in VISUAL_PASS_IDS and args.action == "continue" and not args.render_screenshot:
+        raise ValueError(
+            "visual pass cannot use action=continue without --render-screenshot; "
+            "capture a browser screenshot or choose refine-code/request-input"
+        )
+
+    spec_path = args.spec.expanduser().resolve()
+    spec = load_spec(spec_path)
+    history = spec.setdefault("reviewHistory", [])
+    if not isinstance(history, list):
+        raise ValueError("reviewHistory must be an array")
+    threshold = clamp_score(args.visual_threshold) if args.visual_threshold is not None else visual_acceptance_threshold(spec)
+    layer_scores = None
+    if args.layer_scores_json:
+        layer_scores = load_json_argument(args.layer_scores_json, "--layer-scores-json")
+        if not isinstance(layer_scores, dict):
+            raise ValueError("--layer-scores-json must be a JSON object")
+        for key, value in layer_scores.items():
+            if not isinstance(key, str) or not isinstance(value, (int, float)):
+                raise ValueError("--layer-scores-json values must be numeric scores")
+            if not 0 <= float(value) <= 1:
+                raise ValueError("--layer-scores-json values must be from 0 to 1")
+    if args.ai_vision_score is not None and not 0 <= args.ai_vision_score <= 1:
+        raise ValueError("--ai-vision-score must be from 0 to 1")
+    if args.visual_threshold is not None and not 0 <= args.visual_threshold <= 1:
+        raise ValueError("--visual-threshold must be from 0 to 1")
+    feature_reviews = load_json_argument(args.feature_reviews_json, "--feature-reviews-json")
+    if feature_reviews is None:
+        feature_reviews = []
+    if not isinstance(feature_reviews, list):
+        raise ValueError("--feature-reviews-json must be a JSON array")
+    for index, review in enumerate(feature_reviews):
+        if not isinstance(review, dict):
+            raise ValueError(f"feature review {index} must be an object")
+        if not isinstance(review.get("id"), str) or not review["id"].strip():
+            raise ValueError(f"feature review {index}.id is required")
+        score = review.get("score")
+        if score is not None and (
+            not isinstance(score, (int, float)) or not 0 <= float(score) <= 1
+        ):
+            raise ValueError(f"feature review {index}.score must be from 0 to 1")
+    if args.pass_id in VISUAL_PASS_IDS and args.action == "continue":
+        if not args.comparison_image:
+            raise ValueError(
+                "visual pass cannot use action=continue without --comparison-image; "
+                "create one with make_visual_comparison_sheet.py"
+            )
+        if args.ai_vision_score is None:
+            raise ValueError(
+                "visual pass cannot use action=continue without --ai-vision-score; "
+                "AI vision must review the comparison sheet"
+            )
+        if clamp_score(args.ai_vision_score) < threshold:
+            raise ValueError(
+                f"AI vision score {clamp_score(args.ai_vision_score):.3f} is below threshold "
+                f"{threshold:.3f}; choose refine-spec/refine-code/request-input instead of continue"
+            )
+        acceptance = visual_acceptance_config(spec)
+        if acceptance.get("layerScoresRequired") is True and not layer_scores:
+            raise ValueError("visual pass cannot use action=continue without --layer-scores-json")
+        required_layers = acceptance.get("requiredLayerScores", [])
+        if isinstance(required_layers, list) and layer_scores:
+            missing_layers = [
+                layer
+                for layer in required_layers
+                if isinstance(layer, str) and layer not in layer_scores
+            ]
+            if missing_layers:
+                raise ValueError(
+                    "--layer-scores-json is missing required layers: "
+                    + ", ".join(missing_layers)
+                )
+
+    timestamp = datetime.now(timezone.utc).isoformat()
+    review_id = f"{args.pass_id}-review-{timestamp}"
+    entry = {
+        "timestamp": timestamp,
+        "passId": args.pass_id,
+        "estimatedFidelity": clamp_score(args.fidelity),
+        "aiVisionScore": clamp_score(args.ai_vision_score) if args.ai_vision_score is not None else None,
+        "visualAcceptanceThreshold": threshold,
+        "layerScores": layer_scores or {},
+        "featureReviews": feature_reviews,
+        "action": args.action,
+        "summary": args.summary,
+        "matched": split_items(args.matched),
+        "mismatches": split_items(args.mismatches),
+        "specFixes": split_items(args.spec_fixes),
+        "codeFixes": split_items(args.code_fixes),
+        "evidence": split_items(args.evidence),
+    }
+    if args.pass_id in VISUAL_PASS_IDS and args.action == "continue":
+        feature_failures = feature_gate_failures(spec, entry, args.pass_id)
+        if feature_failures:
+            raise ValueError(
+                "feature-level AI vision gate failed: " + "; ".join(feature_failures)
+            )
+
+    has_visual_evidence = any(
+        [
+            args.reference_screenshot,
+            args.render_screenshot,
+            args.comparison_image,
+            args.camera_view,
+            args.visual_notes,
+            args.ai_vision_notes,
+        ]
+    )
+    if has_visual_evidence:
+        visual_evidence = {
+            "reviewId": review_id,
+            "reviewedAt": timestamp,
+            "referenceScreenshot": args.reference_screenshot or spec.get("sourceImage", ""),
+            "renderScreenshot": args.render_screenshot or "",
+            "comparisonImage": args.comparison_image or "",
+            "cameraView": args.camera_view or "",
+            "notes": args.visual_notes or "",
+            "aiVisionNotes": args.ai_vision_notes or "",
+        }
+        bind_visual_evidence_hashes(visual_evidence, spec_path)
+        entry["visualEvidence"] = visual_evidence
+
+        visual_history = spec.setdefault("visualEvidence", [])
+        if not isinstance(visual_history, list):
+            raise ValueError("visualEvidence must be an array")
+        visual_history.append(
+            {
+                "timestamp": entry["timestamp"],
+                "passId": args.pass_id,
+                "estimatedFidelity": entry["estimatedFidelity"],
+                "aiVisionScore": entry["aiVisionScore"],
+                "visualAcceptanceThreshold": entry["visualAcceptanceThreshold"],
+                "layerScores": entry["layerScores"],
+                "featureReviews": entry["featureReviews"],
+                **visual_evidence,
+            }
+        )
+    history.append(entry)
+    sync_pipeline(spec, spec_path)
+
+    output = spec_path if args.in_place else (args.out.expanduser().resolve() if args.out else None)
+    payload = json.dumps(spec, indent=2, ensure_ascii=False) + "\n"
+    if output:
+        output.parent.mkdir(parents=True, exist_ok=True)
+        output.write_text(payload, encoding="utf-8")
+        print(output)
+    else:
+        print(payload, end="")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main(sys.argv[1:]))

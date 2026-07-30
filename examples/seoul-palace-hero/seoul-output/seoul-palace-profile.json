@@ -49,21 +49,21 @@
     },
     "lodPolicy": "Canonical review uses stable topology. Distant vegetation, city, tile rhythm, court markers, and rock patches use bounded instanced low-poly geometry with renderer frustum culling and linear texture minification.",
     "targetFps": 60,
-    "p95FrameMs": 18.5,
-    "measuredDesktopFps": 59.99460048595638,
-    "p50FrameMs": 16.69999999999891,
-    "p99FrameMs": 18.600000000000364,
+    "p95FrameMs": 15.200000000000728,
+    "measuredDesktopFps": 75.02688463366039,
+    "p50FrameMs": 13.300000000001091,
+    "p99FrameMs": 15.300000000001091,
     "droppedFrameCount": 0,
     "probe": {
       "runs": 3,
       "warmupFramesPerRun": 180,
       "measuredFramesPerRun": 600,
       "viewport": "1200x675@1x",
-      "browser": "Chrome 149 headed on Apple M4 / ANGLE Metal",
-      "physicalRefreshHz": 60,
+      "browser": "Chrome 150 headed on Apple M4 / ANGLE Metal",
+      "physicalRefreshHz": 75,
       "accepted": true,
-      "rawSummarySha256": "652aaeb89207cd66a9fcda4d3ccb6669331dbc8db5322c7b1dee29d35cd7cb06",
-      "runtimeFingerprint": "084ee9419b6a42d0054e0cd4ee7cf99cb588bd38067f0624f9e57ac0daa5627e"
+      "rawSummarySha256": "5092370d76dc1fa34b42fa47e69a80ad7fdab6e92f975c894a933897c3b8bdac",
+      "runtimeFingerprint": "e4f25666ef6044cd243191f6be417a1e4288979cb0a01dfedc3b21dbcab7350a"
     }
   },
   "variants": {

@@ -2,6 +2,10 @@
 
 ## 1. Install from the Copilot plugin marketplace
 
+Choose this marketplace installation as the single active copy. Installing the
+same plugin again from a local path or direct repository URL can leave multiple
+cached copies that shadow one another.
+
 Register this repository as a marketplace:
 
 ```bash
@@ -40,6 +44,17 @@ You should see:
 - `sculpt-dna-variants`
 
 GitHub Copilot plugin marketplaces are decentralized Git repositories. The file `.github/plugin/marketplace.json` registers this repository as the `threejs-copilot-plugins` marketplace.
+
+If you cloned the repository, run the read-only health check:
+
+```bash
+python3 scripts/doctor.py
+```
+
+`READY` means the manifests, two skills, executable policy, public sample, all
+eight passes, and Brick/Seoul production matrices are healthy. Warnings report
+optional runtime gaps or duplicate Copilot installations; the doctor never
+installs, updates, removes, renders, or accesses the network.
 
 ## 2. Attach a reference image
 
@@ -246,6 +261,20 @@ copilot plugin marketplace remove threejs-copilot-plugins
 Use `--force` only when you also want to uninstall plugins installed from that marketplace.
 
 ## 7. Troubleshooting
+
+### Multiple copies or stale skills appear
+
+Run:
+
+```bash
+copilot plugin list
+python3 scripts/doctor.py
+```
+
+Keep exactly one `threejs-sculpt-dna` installation, preferably
+`threejs-sculpt-dna@threejs-copilot-plugins`, remove the other source, and start
+a new Copilot session. Do not use `--force` until you have identified which
+marketplace owns the copy you intend to remove.
 
 ### Marketplace is already registered from another source
 

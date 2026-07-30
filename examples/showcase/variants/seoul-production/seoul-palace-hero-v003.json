@@ -7437,7 +7437,7 @@
       "supplementalEvidence": [
         {
           "path": "examples/seoul-palace-hero/evidence/variant-runtime-metrics.json",
-          "sha256": "416f4234e15efc2ea30ae72a435c03e9cdeca048cb8402e8dae1000c4cb48f75",
+          "sha256": "80e3687b3d64e6edd437b2d29ab63ca0a98bc66b38ccd78c96466b0fb380973b",
           "binding": "local-sha256"
         }
       ]
@@ -8700,7 +8700,7 @@
         "referenceScreenshot": "assets/seoul-challenge-reference.jpeg",
         "renderScreenshot": "examples/seoul-palace-hero/evidence/variant-3.png",
         "comparisonImage": "examples/seoul-palace-hero/evidence/variant-3-comparison.png",
-        "cameraView": "reference-aerial-production-variant",
+        "cameraView": "reference-aerial-canonical-release",
         "notes": "The accepted seoul-palace-hero-v003 full-image pair verifies the inherited optimization-pass contract after the Sol Max polish.",
         "aiVisionNotes": "Curated DNA 03 provides the strongest layered city, vegetation, and mountain recession while keeping ceremonial clearings intact. The exact full-image pair shows no roof tearing, floating geometry, seed-specific hierarchy collapse, or loss of gate, court, city, tree, and mountain systems. Simplified procedural detail and the single-view source remain explicit limitations.",
         "referenceSha256": "c227a3ac8958b14cf64e7e95b0943f9cdc1ab9455beca2b9ab8fb1f6d0931290",
@@ -8712,7 +8712,7 @@
         "supplementalEvidence": [
           {
             "path": "examples/seoul-palace-hero/evidence/variant-runtime-metrics.json",
-            "sha256": "416f4234e15efc2ea30ae72a435c03e9cdeca048cb8402e8dae1000c4cb48f75",
+            "sha256": "80e3687b3d64e6edd437b2d29ab63ca0a98bc66b38ccd78c96466b0fb380973b",
             "binding": "local-sha256"
           }
         ]
@@ -8957,7 +8957,7 @@
     "reviewEvidenceRenewed": true,
     "performanceEvidence": {
       "path": "examples/seoul-palace-hero/evidence/variant-runtime-metrics.json",
-      "sha256": "416f4234e15efc2ea30ae72a435c03e9cdeca048cb8402e8dae1000c4cb48f75",
+      "sha256": "80e3687b3d64e6edd437b2d29ab63ca0a98bc66b38ccd78c96466b0fb380973b",
       "binding": "local-sha256"
     }
   }

@@ -9,26 +9,17 @@ from hashlib import sha256
 from pathlib import Path, PureWindowsPath
 from typing import Any
 
+from sculpt_contract import (
+    PRODUCTION_REVIEW_POLICY,
+    SCULPT_DNA_PRODUCTION_PASS_ORDER as PRODUCTION_PASS_ORDER,
+    score_meets_threshold,
+)
 from sculpt_dna import variant_gate
 from validate_sculpt_spec import validate_spec
+from visual_regression_matrix import build_report
 
 
 ROOT = Path(__file__).resolve().parents[1]
-PRODUCTION_REVIEW_POLICY = {
-    "version": 2,
-    "authoritativeReview": "latest-per-pass",
-    "evidenceBinding": "local-sha256-required",
-}
-PRODUCTION_PASS_ORDER = (
-    "blockout",
-    "structural-pass",
-    "form-refinement",
-    "material-pass",
-    "surface-pass",
-    "lighting-pass",
-    "interaction-pass",
-    "optimization-pass",
-)
 SEOUL_HERO_SHA256 = "949c602517b73ed10c6889ef8b62601ea4a182773513693308635157b638be10"
 SEOUL_GIF_SHA256 = "143856881f5302ddcf1a022ec4b8cb2c9d18e06f746cd4ac289b20ad7193afc1"
 SEOUL_INTERMEDIATE_SHA256 = (
@@ -79,6 +70,10 @@ REPOLIS_CANONICAL_SOURCE_FILES = (
     "repolis-output/createRepolisHero.js",
     "repolis-output/repolis-hero-profile.json",
     "../repolis-tree/object-sculpt-spec.json",
+    "package.json",
+    "package-lock.json",
+    "scripts/capture.mjs",
+    "scripts/capture-isolation.test.mjs",
 )
 BRICK_CANONICAL_SOURCE_FILES = (
     "index.html",
@@ -88,16 +83,24 @@ BRICK_CANONICAL_SOURCE_FILES = (
     "package-lock.json",
     "vite.config.js",
     "scripts/capture.mjs",
+    "scripts/capture-isolation.test.mjs",
     "brick-output/createBrickOffroad.js",
     "brick-output/createBrickOffroad.d.ts",
     "brick-output/brick-variant-config.json",
     "brick-output/brick-offroad-profile.json",
     "../../scripts/append_sculpt_review.py",
+    "../../scripts/append_sculpt_review_legacy.py",
+    "../../scripts/sculpt_contract.py",
     "../../scripts/make_visual_comparison_sheet.py",
     "../../scripts/sculpt_dna.py",
+    "../../scripts/sculpt_dna_core.py",
     "../../scripts/sculpt_pass_orchestrator.py",
+    "../../scripts/sculpt_pass_orchestrator_legacy.py",
     "../../scripts/validate_sculpt_spec.py",
+    "../../scripts/validate_sculpt_spec_legacy.py",
     "../../scripts/visual_evidence_hashes.py",
+    "../../scripts/visual_feature_gate.py",
+    "../../scripts/visual_regression_matrix.py",
     "../../scripts/migrate_review_policy.py",
     "../../scripts/refresh_brick_reviews.py",
     "../../scripts/verify_release.py",
@@ -130,6 +133,7 @@ SEOUL_CANONICAL_SOURCE_FILES = (
     "scripts/capture-isolation.test.mjs",
     "scripts/capture.mjs",
     "scripts/factory-contract.test.mjs",
+    "scripts/performance-probe.mjs",
     "style.css",
     "vite.config.js",
     "seoul-output/createSeoulPalaceHero.d.ts",
@@ -196,6 +200,7 @@ EXPECTED_ARTIFACT_OUTPUTS = {
         "evidence/variant-2-comparison.webp",
         "evidence/variant-3.webp",
         "evidence/variant-3-comparison.webp",
+        "evidence/visual-regression-matrix.json",
     },
     "seoul-palace-hero": {
         "../../assets/seoul-palace-hero.png",
@@ -215,6 +220,7 @@ EXPECTED_ARTIFACT_OUTPUTS = {
         "evidence/optimization-material.png",
         "evidence/optimization-hierarchy.png",
         "evidence/optimization-pass-comparison.png",
+        "evidence/visual-regression-matrix.json",
     },
 }
 
@@ -628,14 +634,21 @@ def verify_performance_probe(
         )
     ):
         raise ValueError(f"{label} performance probe is stale or below gate")
-    if variant:
-        if (
-            conditions.get("physicalRefreshHz") != 60
-            or "headed physical-60Hz" not in probe.get("authority", "")
-        ):
-            raise ValueError(f"{label} is not a headed physical-60Hz probe")
-    elif conditions.get("mode") != "headed physical 60 Hz presentation":
-        raise ValueError(f"{label} is not a headed physical 60 Hz probe")
+    physical_refresh = conditions.get("physicalRefreshHz")
+    if (
+        isinstance(physical_refresh, bool)
+        or not isinstance(physical_refresh, int)
+        or physical_refresh < 60
+        or "headed physical-refresh" not in probe.get("authority", "")
+        or (
+            not variant
+            and conditions.get("mode")
+            != f"headed physical {physical_refresh} Hz presentation"
+        )
+    ):
+        raise ValueError(
+            f"{label} is not a headed physical-refresh probe at 60 Hz or higher"
+        )
 
 
 def verify_exact_artifact_outputs(
@@ -1030,15 +1043,6 @@ def verify_showcase_review() -> None:
             raise ValueError("Seoul showcase layer scores must all meet 0.86")
 
 
-def score_meets_threshold(value: Any, threshold: float) -> bool:
-    return (
-        not isinstance(value, bool)
-        and isinstance(value, (int, float))
-        and math.isfinite(value)
-        and value >= threshold
-    )
-
-
 def verify_seoul_visual_acceptance(
     variant: dict[str, Any],
     acceptance: dict[str, Any],
@@ -1396,12 +1400,75 @@ def verify_seoul_variants() -> None:
                 )
 
 
+def verify_committed_visual_matrix(
+    base_spec_path: Path,
+    manifest_path: Path,
+    report_path: Path,
+    label: str,
+) -> None:
+    report = build_report(
+        base_spec_path,
+        manifest_path,
+        cli_viewpoints=[],
+        render_template=None,
+        comparison_template=None,
+        feature_ids=(),
+    )
+    if (
+        report.get("ok") is not True
+        or report.get("summary")
+        != {
+            "total": 4,
+            "missing": 0,
+            "stale": 0,
+            "passing": 4,
+            "failing": 0,
+        }
+    ):
+        raise ValueError(f"{label} production visual matrix is not clean")
+    if load(report_path) != report:
+        raise ValueError(
+            f"{label} committed visual matrix report is missing or stale; "
+            "regenerate it with scripts/visual_regression_matrix.py"
+        )
+
+
 def main() -> int:
     verify_spec(ROOT / "examples" / "repolis-tree" / "object-sculpt-spec.json")
     verify_brick_variants()
     verify_seoul_variants()
     verify_no_absolute_evidence_paths()
     verify_showcase_review()
+    verify_committed_visual_matrix(
+        ROOT / "examples" / "brick-offroad" / "object-sculpt-spec.json",
+        ROOT
+        / "examples"
+        / "showcase"
+        / "variants"
+        / "brick"
+        / "sculpt-dna-manifest.json",
+        ROOT
+        / "examples"
+        / "brick-offroad-hero"
+        / "evidence"
+        / "visual-regression-matrix.json",
+        "Brick",
+    )
+    verify_committed_visual_matrix(
+        ROOT / "examples" / "seoul-challenge" / "object-sculpt-spec.json",
+        ROOT
+        / "examples"
+        / "showcase"
+        / "variants"
+        / "seoul-production"
+        / "sculpt-dna-manifest.json",
+        ROOT
+        / "examples"
+        / "seoul-palace-hero"
+        / "evidence"
+        / "visual-regression-matrix.json",
+        "Seoul",
+    )
     verify_artifact_manifest(ROOT / "examples" / "repolis-hero")
     verify_artifact_manifest(ROOT / "examples" / "brick-offroad-hero")
     verify_artifact_manifest(ROOT / "examples" / "seoul-palace-hero")

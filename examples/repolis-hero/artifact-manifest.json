@@ -12,7 +12,10 @@
     "rotationSeconds": 4,
     "deterministic": true,
     "canonicalElapsed": 1.25,
-    "chrome": "Google Chrome"
+    "chrome": "Google Chrome",
+    "localGitMetadataExposed": false,
+    "isolatedLoopbackServer": true,
+    "portAllocation": "ephemeral-os-assigned"
   },
   "runtimeStats": {
     "generationMs": 133.89999997615814,
@@ -28,11 +31,15 @@
   },
   "sourceSha256": {
     "index.html": "088dc70fc0d48d2126cb5e5e1daf6187b73b7d0be44d4163495e4963dcae1821",
-    "main.js": "2e58e88f1cdb79e132223096cace6246dc3483992d56effd58b86fe063d17e62",
+    "main.js": "b13c7c45f452cac4c445d9c913d73a8f328bafbafafae57f52209246e6944f33",
     "style.css": "60b00a0fd810bd5073727768497646d71a0621ea33a4549a4b58aa8166e61587",
     "repolis-output/createRepolisHero.js": "65bd7fc76013ee0f11898174095556d581be64ea8f15e76e090fb8955a17d0e3",
     "repolis-output/repolis-hero-profile.json": "dbd376bb180aae1d1d93ed579ea3a3558cbd8e397f6da9ed853f0b1325916351",
-    "../repolis-tree/object-sculpt-spec.json": "9556e708ace61dbd2a4128700e41ec8dac3d0c930f0e85e09cc2915013aa40d8"
+    "../repolis-tree/object-sculpt-spec.json": "9556e708ace61dbd2a4128700e41ec8dac3d0c930f0e85e09cc2915013aa40d8",
+    "package.json": "eefcba284f66e57fca889ef6c3ef3b9beb2f3687e3cfce7f836a8d45d8e73fe7",
+    "package-lock.json": "7d75e08265dd0f82aaff4ca7a3a3667e902f92660d8579f9c2cff2f60e7f532e",
+    "scripts/capture.mjs": "7f4e8c6215ae4d19bc9c1b1cc93d173b60d181fb8673b2c36b211567f5b7aff2",
+    "scripts/capture-isolation.test.mjs": "9528e671424d5dcd4c9f58c4b7e28153044876991904a706afd12e7eb17a12d5"
   },
   "outputSha256": {
     "../../assets/repolis-tree-hero.png": "76e0b4d0f0bdb1ad7a71a4a8817065738416be17aa92ccc8085eadf158de33b9",

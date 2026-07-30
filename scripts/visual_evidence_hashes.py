@@ -8,6 +8,11 @@ from pathlib import Path
 from typing import Any
 from urllib.parse import urlparse
 
+from sculpt_contract import (
+    LATEST_REVIEW_SELECTION,
+    REVIEW_POLICY_VERSION,
+    SHA_REQUIRED_BINDING,
+)
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 EVIDENCE_FIELDS = {
@@ -17,9 +22,6 @@ EVIDENCE_FIELDS = {
 }
 REQUIRED_LOCAL_FIELDS = ("renderScreenshot", "comparisonImage")
 SUPPLEMENTAL_EVIDENCE_FIELD = "supplementalEvidence"
-REVIEW_POLICY_VERSION = 2
-SHA_REQUIRED_BINDING = "local-sha256-required"
-LATEST_REVIEW_SELECTION = "latest-per-pass"
 LEGACY_REVIEW_POLICY = {
     "version": 1,
     "authoritativeReview": LATEST_REVIEW_SELECTION,

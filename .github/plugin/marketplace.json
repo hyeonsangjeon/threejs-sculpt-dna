@@ -11,8 +11,8 @@
   "plugins": [
     {
       "name": "threejs-sculpt-dna",
-      "description": "Reconstruct reference images as quality-gated procedural Three.js models and coverage-curated deterministic asset families.",
-      "version": "0.4.3",
+      "description": "Build verifiable modular procedural Three.js reconstructions and coverage-curated deterministic asset families from references.",
+      "version": "0.5.0",
       "source": ".",
       "author": {
         "name": "hyeonsangjeon",
@@ -24,8 +24,11 @@
       "license": "MIT",
       "keywords": [
         "github-copilot",
+        "codex",
         "threejs",
         "procedural-3d",
+        "procedural-modeling",
+        "visual-regression",
         "object-reconstruction",
         "asset-variants"
       ],

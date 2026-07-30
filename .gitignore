@@ -1,5 +1,7 @@
 __pycache__/
 *.py[cod]
+.sculpt-cache/
+.sculpt-preview/
 .DS_Store
 node_modules/
 examples/repolis-hero/dist/
