@@ -55,6 +55,10 @@ class CommunityFilesTests(unittest.TestCase):
         ):
             self.assertIn(required_path, quality)
         self.assertIn("python3 scripts/doctor.py --skip-copilot", quality)
+        self.assertIn(
+            "python3 -m unittest tests.test_brick_offroad_hero -q",
+            quality,
+        )
         self.assertIn("npm audit --omit=dev --audit-level=high", quality)
         self.assertIn("--bundle", quality)
         self.assertIn("--external:three", quality)

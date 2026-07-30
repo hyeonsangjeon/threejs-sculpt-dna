@@ -56,6 +56,9 @@ All notable changes to `threejs-sculpt-dna` are documented here.
   absolute paths.
 - Isolate Repolis capture with ephemeral ports and owned locks; preserve the
   WebGL drawing buffer only in capture mode and dispose normal-page resources.
+- Separate dependency-free Python contracts from Brick's npm-backed runtime
+  probes, then execute those probes after the locked browser dependency install
+  so clean clones and CI do not depend on an undeclared local `node_modules`.
 - Updated all Vite toolchains to 7.3.6-compatible locks with patched PostCSS
   and zero known npm audit findings at publication preparation time.
 

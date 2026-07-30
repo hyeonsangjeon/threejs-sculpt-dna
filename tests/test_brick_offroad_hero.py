@@ -12,6 +12,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 HERO = ROOT / "examples" / "brick-offroad-hero"
 FACTORY = HERO / "brick-output" / "createBrickOffroad.js"
+THREE_PACKAGE = HERO / "node_modules" / "three" / "package.json"
 SCRIPTS = ROOT / "scripts"
 sys.path.insert(0, str(SCRIPTS))
 
@@ -32,6 +33,10 @@ from verify_release import (  # noqa: E402
 
 class BrickOffroadHeroTests(unittest.TestCase):
     def run_factory_probe(self, source: str) -> dict:
+        if not THREE_PACKAGE.is_file():
+            self.skipTest(
+                "Brick runtime probe requires npm ci in examples/brick-offroad-hero"
+            )
         result = subprocess.run(
             ["node", "--input-type=module", "--eval", source],
             cwd=HERO,

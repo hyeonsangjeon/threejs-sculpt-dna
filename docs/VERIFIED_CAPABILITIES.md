@@ -30,7 +30,10 @@ Expected state for this release:
 | Source lineage | Upstream commit `543da1fc0e45a703b0ac037fb040ce082c79a1c2` |
 
 `testsDiscovered` is a structural floor, not a substitute for execution. The
-quality workflow also runs the entire suite and release gate.
+dependency-free contracts job runs the suite and may skip the three Brick
+runtime probes when `three` is not installed; the Brick browser job installs
+its locked dependency graph and then runs that module, so the combined public
+workflow executes the full 273-test surface.
 
 ## Combined capability surface
 
