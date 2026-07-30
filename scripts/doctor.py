@@ -81,7 +81,7 @@ def sample_check() -> Check:
     spec = load_json_object(spec_path, "committed sample spec")
     errors, warnings = validate_spec(spec)
     strict_warnings = [item for item in warnings if item.startswith("quality:")]
-    status = status_payload(spec)
+    status = status_payload(spec, spec_path)
     problems = [
         *errors,
         *strict_warnings,

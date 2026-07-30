@@ -545,9 +545,15 @@ def pass_specific_gaps(spec: dict[str, Any], pass_id: str) -> list[str]:
 def check_pass(
     spec: dict[str, Any],
     requested_pass: str,
+    spec_path: Path | None = None,
     *,
     _geometry_prevalidated: bool = False,
 ) -> tuple[bool, str, dict[str, Any]]:
+    if uses_sculpt_dna_v2_contract(spec):
+        from sculpt_pass_orchestrator_legacy import check_pass as legacy_check_pass
+
+        return legacy_check_pass(spec, requested_pass, spec_path)
+
     allowed, message, status = contract_check_pass(spec, requested_pass)
     if not allowed:
         return allowed, message, status
@@ -594,7 +600,17 @@ def geometry_capability_report(spec: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def status_payload(spec: dict[str, Any]) -> dict[str, Any]:
+def status_payload(
+    spec: dict[str, Any],
+    spec_path: Path | None = None,
+) -> dict[str, Any]:
+    if uses_sculpt_dna_v2_contract(spec):
+        from sculpt_pass_orchestrator_legacy import (
+            status_payload as legacy_status_payload,
+        )
+
+        return legacy_status_payload(spec, spec_path)
+
     status = pipeline_status(spec)
     capabilities = geometry_capability_report(spec)
     current_gaps = (
@@ -640,7 +656,10 @@ def main(argv: list[str]) -> int:
                     if args.command == "sync":
                         sync_pipeline(document.resolved)
                         save_document(document)
-                    modular_status["passWorkflow"] = status_payload(document.resolved)
+                    modular_status["passWorkflow"] = status_payload(
+                        document.resolved,
+                        path,
+                    )
                 print(json.dumps(modular_status, indent=2, ensure_ascii=False))
                 return 0 if not modular_status["errors"] else 1
             if not modular_status["assemblyReady"]:
@@ -661,14 +680,14 @@ def main(argv: list[str]) -> int:
                 return 1
         spec = load_spec_file(path)
         if args.command == "status":
-            print(json.dumps(status_payload(spec), indent=2, ensure_ascii=False))
+            print(json.dumps(status_payload(spec, path), indent=2, ensure_ascii=False))
             return 0
         if args.command == "sync":
-            sync_pipeline(spec)
+            sync_pipeline(spec, path)
             write_spec_atomic(path, spec)
-            print(json.dumps(status_payload(spec), indent=2, ensure_ascii=False))
+            print(json.dumps(status_payload(spec, path), indent=2, ensure_ascii=False))
             return 0
-        allowed, message, status = check_pass(spec, args.pass_id)
+        allowed, message, status = check_pass(spec, args.pass_id, path)
         print(json.dumps({"allowed": allowed, "message": message, **status}, indent=2, ensure_ascii=False))
         return 0 if allowed else 1
     except (OSError, ValueError, json.JSONDecodeError) as exc:

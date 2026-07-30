@@ -82,6 +82,17 @@ class SculptDNATests(unittest.TestCase):
         self.assertIs(sculpt_pass_orchestrator.DEFAULT_PASS_ORDER, DEFAULT_PASS_ORDER)
         self.assertIs(generate_threejs_factory.VISUAL_PASS_IDS, VISUAL_PASS_IDS)
         self.assertIs(sculpt_pass_orchestrator.VISUAL_PASS_IDS, VISUAL_PASS_IDS)
+        sample_path = ROOT / "examples" / "repolis-tree" / "object-sculpt-spec.json"
+        sample = json.loads(sample_path.read_text(encoding="utf-8"))
+        status = sculpt_pass_orchestrator.status_payload(sample, sample_path)
+        self.assertEqual(status["currentPass"], "complete")
+        self.assertEqual(len(status["completedPasses"]), 8)
+        allowed, _, _ = sculpt_pass_orchestrator.check_pass(
+            sample,
+            "optimization-pass",
+            sample_path,
+        )
+        self.assertTrue(allowed)
 
     def test_pbr_patch_uses_portable_paths(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:

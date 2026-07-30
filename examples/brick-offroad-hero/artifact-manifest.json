@@ -752,7 +752,7 @@
     "../../scripts/make_visual_comparison_sheet.py": "2ec1b859c5e77c65366bf461c03d549373c9b721f69f2e34f7e09e5d45e256c4",
     "../../scripts/sculpt_dna.py": "d8afd9b8f50033498027b31c757dc7b30b856c51f191dfeada4f68e0cd6cb7be",
     "../../scripts/sculpt_dna_core.py": "cb7f67916c51f4d51dbf65bf546ca3da7ca437605f5cb8fa05160d405bb922ee",
-    "../../scripts/sculpt_pass_orchestrator.py": "d385fe5f0371b10377a57f9846be8955dc6d31d250f081e1f0540b98c284ae60",
+    "../../scripts/sculpt_pass_orchestrator.py": "ae7bcf530242b80b0f3de49b7430ec8dd5eb7cc3777a8e3fb71b362e03f9d82b",
     "../../scripts/sculpt_pass_orchestrator_legacy.py": "c14342ea1b83198cca3c566c654cd6d40ede0bec6e63102965baa62795215c53",
     "../../scripts/validate_sculpt_spec.py": "f41b0d731dd3325e5e0c627ae1abeafda1a962c74cf6a1244158e083d4f4acd0",
     "../../scripts/validate_sculpt_spec_legacy.py": "ea45c9a51e4a46db982e67a23bbae48691e216ce91a21197efdecd23f09510a1",
