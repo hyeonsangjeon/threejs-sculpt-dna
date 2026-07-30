@@ -772,6 +772,16 @@
     "optimization-pass"
   ],
   "missingBasePasses": [],
+  "visualRegressionMatrix": {
+    "schemaVersion": "1.0",
+    "viewpoints": [
+      {
+        "id": "production-three-quarter",
+        "passId": "optimization-pass",
+        "cameraView": "reference-three-quarter"
+      }
+    ]
+  },
   "visualReviewSet": {
     "reviewedAt": "2026-07-12T02:00:26Z",
     "authority": "fresh AI vision review of exact current render/comparison hashes",

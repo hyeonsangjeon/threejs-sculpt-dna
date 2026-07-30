@@ -4,8 +4,17 @@ All notable changes to `threejs-sculpt-dna` are documented here.
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-07-31
+
 ### Added
 
+- Read-only first-clone doctor, executable script policy audit, security policy,
+  community conduct guidance, and duplicate Copilot plugin detection.
+- Committed 4-cell production visual regression matrices for the Brick and
+  Seoul base-plus-variant families, recomputed by the release gate.
+- Read-only PR quality CI covering plugin/docs/skills/scripts, Python
+  contracts, generated TypeScript parsing, four browser builds, capture tests,
+  and dependency audits.
 - Dependency-free deterministic visual regression matrix for a base sculpt and
   promoted curated variants, with fixed viewpoint plans, expected evidence
   paths, SHA-256 freshness, latest-per-pass review precedence, required layer
@@ -23,6 +32,23 @@ All notable changes to `threejs-sculpt-dna` are documented here.
   camera-direction performance, and console/network integration gates.
 - Copy/paste host-app workflow, full schema/browser-probe reference, and a
   public Repolis-bound deterministic demonstration with a golden report.
+
+### Changed
+
+- Centralized pass/review policy contracts and reject non-finite JSON or
+  fidelity values at mutation boundaries.
+- Emit portable relative PBR evidence paths instead of workstation-specific
+  absolute paths.
+- Isolate Repolis capture with ephemeral ports and owned locks; preserve the
+  WebGL drawing buffer only in capture mode and dispose normal-page resources.
+- Updated all Vite toolchains to 7.3.6-compatible locks with patched PostCSS
+  and zero known npm audit findings at publication preparation time.
+
+### Registry status
+
+- The `github/copilot-plugins` submission is still awaiting review. Version
+  0.5.0 is prepared in this source tree but is not represented as published,
+  tagged, or accepted until those external actions occur.
 
 ## [0.4.3] - 2026-07-12
 
@@ -49,3 +75,4 @@ All notable changes to `threejs-sculpt-dna` are documented here.
 - [github/awesome-copilot external plugin issue #2274](https://github.com/github/awesome-copilot/issues/2274)
 
 [0.4.3]: https://github.com/hyeonsangjeon/threejs-sculpt-dna/releases/tag/v0.4.3
+[0.5.0]: https://github.com/hyeonsangjeon/threejs-sculpt-dna/compare/v0.4.3...HEAD

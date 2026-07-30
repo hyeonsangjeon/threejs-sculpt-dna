@@ -10,6 +10,7 @@ import sys
 from pathlib import Path
 from typing import Any
 
+from sculpt_contract import DEFAULT_PASS_ORDER, VISUAL_PASS_IDS, load_json_object
 from visual_feature_gate import feature_gate_failures
 from visual_evidence_hashes import (
     latest_review_for_pass,
@@ -17,17 +18,6 @@ from visual_evidence_hashes import (
 )
 
 
-DEFAULT_PASS_ORDER = [
-    "blockout",
-    "structural-pass",
-    "form-refinement",
-    "material-pass",
-    "surface-pass",
-    "lighting-pass",
-    "interaction-pass",
-    "optimization-pass",
-]
-VISUAL_PASS_IDS = set(DEFAULT_PASS_ORDER) - {"optimization-pass"}
 ATTACHMENT_ROLES = {
     "appendage",
     "branch",
@@ -53,10 +43,7 @@ ATTACHMENT_PRIMITIVES = {"cylinder", "cone", "capsule", "tube", "curve-sweep"}
 
 
 def load_spec(path: Path) -> dict[str, Any]:
-    payload = json.loads(path.read_text(encoding="utf-8"))
-    if not isinstance(payload, dict):
-        raise ValueError("spec must be a JSON object")
-    return payload
+    return load_json_object(path, "spec")
 
 
 def write_spec(path: Path, spec: dict[str, Any]) -> None:
@@ -69,7 +56,7 @@ def pass_order(spec: dict[str, Any]) -> list[str]:
     for item in spec.get("buildPasses", []):
         if isinstance(item, dict) and isinstance(item.get("id"), str) and item["id"].strip():
             ids.append(item["id"])
-    return ids or DEFAULT_PASS_ORDER.copy()
+    return ids or list(DEFAULT_PASS_ORDER)
 
 
 def pass_acceptance(spec: dict[str, Any], pass_id: str) -> list[str]:

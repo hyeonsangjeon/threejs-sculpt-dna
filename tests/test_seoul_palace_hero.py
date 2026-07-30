@@ -70,6 +70,7 @@ CANONICAL_SOURCE_FILES = [
     "scripts/capture-isolation.test.mjs",
     "scripts/capture.mjs",
     "scripts/factory-contract.test.mjs",
+    "scripts/performance-probe.mjs",
     "style.css",
     "vite.config.js",
     "seoul-output/createSeoulPalaceHero.d.ts",

@@ -4,7 +4,7 @@
 
 The roadmap prioritizes reproducibility, visual evidence, action-ready hierarchy, and honest limits over one-shot output volume.
 
-## Current: 0.4.x
+## Current: 0.5.x
 
 - GitHub Copilot plugin and repository marketplace
 - reference suitability and complexity assessment
@@ -15,10 +15,13 @@ The roadmap prioritizes reproducibility, visual evidence, action-ready hierarchy
 - Sculpt DNA constraints, invariants, deterministic provenance, and preview mode
 - Coverage Curator
 - deterministic base/variant visual regression matrix with SHA-bound latest-review, layer, and semantic checks
+- read-only first-clone doctor and machine-audited executable trust policy
+- PR quality CI for all plugin, skill, script, documentation, and browser-example surfaces
+- isolated capture processes and capture-only WebGL drawing-buffer preservation
 - additive Render Integration Contract v1 for deterministic standalone/host renderer, target, layer/light, fixed-view, semantic, exposure, performance, and error checks
 - Repolis Living Archive flagship and reproducible capture pipeline
 
-## 0.5 — Reproducible quality
+## 0.5.x — Next reproducible quality
 
 ### Region-aware reference extraction
 

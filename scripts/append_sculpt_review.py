@@ -5,10 +5,16 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
+from sculpt_contract import (
+    DEFAULT_PASS_ORDER,
+    VISUAL_PASS_IDS,
+    load_json_object,
+)
 from sculpt_pass_orchestrator import next_required_evidence
 from visual_feature_gate import feature_gate_failures
 from visual_evidence_hashes import (
@@ -20,25 +26,6 @@ from visual_evidence_hashes import (
 
 
 VALID_ACTIONS = {"continue", "refine-spec", "refine-code", "request-input", "stop"}
-VISUAL_PASS_IDS = {
-    "blockout",
-    "structural-pass",
-    "form-refinement",
-    "material-pass",
-    "surface-pass",
-    "lighting-pass",
-    "interaction-pass",
-}
-DEFAULT_PASS_ORDER = [
-    "blockout",
-    "structural-pass",
-    "form-refinement",
-    "material-pass",
-    "surface-pass",
-    "lighting-pass",
-    "interaction-pass",
-    "optimization-pass",
-]
 
 
 def split_items(value: str | None) -> list[str]:
@@ -48,10 +35,7 @@ def split_items(value: str | None) -> list[str]:
 
 
 def load_spec(path: Path) -> dict:
-    payload = json.loads(path.read_text(encoding="utf-8"))
-    if not isinstance(payload, dict):
-        raise ValueError("spec must be a JSON object")
-    return payload
+    return load_json_object(path, "spec")
 
 
 def load_json_argument(value: str | None, label: str) -> object | None:
@@ -63,14 +47,21 @@ def load_json_argument(value: str | None, label: str) -> object | None:
     except OSError:
         is_file = False
     text = candidate.read_text(encoding="utf-8") if is_file else value
+
+    def reject_constant(constant: str) -> None:
+        raise ValueError(f"non-standard JSON constant {constant}")
+
     try:
-        return json.loads(text)
-    except json.JSONDecodeError as exc:
+        return json.loads(text, parse_constant=reject_constant)
+    except (json.JSONDecodeError, ValueError) as exc:
         raise ValueError(f"{label} must be valid inline JSON or a JSON file path") from exc
 
 
 def clamp_score(value: float) -> float:
-    return max(0.0, min(1.0, float(value)))
+    score = float(value)
+    if not math.isfinite(score):
+        raise ValueError("score must be finite")
+    return max(0.0, min(1.0, score))
 
 
 def validate_optional_file(value: str | None, label: str) -> None:
@@ -105,7 +96,7 @@ def pass_order(spec: dict) -> list[str]:
     for item in spec.get("buildPasses", []):
         if isinstance(item, dict) and isinstance(item.get("id"), str) and item["id"].strip():
             ids.append(item["id"])
-    return ids or DEFAULT_PASS_ORDER.copy()
+    return ids or list(DEFAULT_PASS_ORDER)
 
 
 def pass_acceptance(spec: dict, pass_id: str) -> list[str]:

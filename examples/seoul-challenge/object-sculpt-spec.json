@@ -7848,12 +7848,12 @@
         },
         {
           "path": "examples/seoul-palace-hero/evidence/optimization-metrics.json",
-          "sha256": "3770d3168e2a63419a9e47da6aba1517dc4dc51050436519643e9c3041300aa5",
+          "sha256": "97767925b5b85a9683385e99289edfb0e87ffda7f2f8615cb7eddedb0bd89636",
           "binding": "local-sha256"
         },
         {
           "path": "examples/seoul-palace-hero/evidence/variant-runtime-metrics.json",
-          "sha256": "416f4234e15efc2ea30ae72a435c03e9cdeca048cb8402e8dae1000c4cb48f75",
+          "sha256": "80e3687b3d64e6edd437b2d29ab63ca0a98bc66b38ccd78c96466b0fb380973b",
           "binding": "local-sha256"
         }
       ]
@@ -9736,12 +9736,12 @@
           },
           {
             "path": "examples/seoul-palace-hero/evidence/optimization-metrics.json",
-            "sha256": "3770d3168e2a63419a9e47da6aba1517dc4dc51050436519643e9c3041300aa5",
+            "sha256": "97767925b5b85a9683385e99289edfb0e87ffda7f2f8615cb7eddedb0bd89636",
             "binding": "local-sha256"
           },
           {
             "path": "examples/seoul-palace-hero/evidence/variant-runtime-metrics.json",
-            "sha256": "416f4234e15efc2ea30ae72a435c03e9cdeca048cb8402e8dae1000c4cb48f75",
+            "sha256": "80e3687b3d64e6edd437b2d29ab63ca0a98bc66b38ccd78c96466b0fb380973b",
             "binding": "local-sha256"
           }
         ]

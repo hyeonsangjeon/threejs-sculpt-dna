@@ -45,7 +45,7 @@ const loadingStatus = document.querySelector('#loading');
 const renderer = new THREE.WebGLRenderer({
   antialias: true,
   alpha: false,
-  preserveDrawingBuffer: true,
+  preserveDrawingBuffer: captureMode,
   powerPreference: 'high-performance',
 });
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));

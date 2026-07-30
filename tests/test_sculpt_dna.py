@@ -22,10 +22,14 @@ from sculpt_dna_core import (  # noqa: E402
     make_default_sculpt_dna,
     validate_sculpt_dna_block,
 )
+import generate_threejs_factory  # noqa: E402
+import sculpt_pass_orchestrator  # noqa: E402
+from extract_reference_pbr import material_patch  # noqa: E402
 from generate_threejs_factory import generate  # noqa: E402
 from migrate_review_policy import migrate_spec  # noqa: E402
 from sculpt_dna import build_parser, variant_gate  # noqa: E402
-from append_sculpt_review import load_json_argument  # noqa: E402
+from append_sculpt_review import clamp_score, load_json_argument  # noqa: E402
+from sculpt_contract import DEFAULT_PASS_ORDER, VISUAL_PASS_IDS  # noqa: E402
 from sculpt_pass_orchestrator import (  # noqa: E402
     completed_passes,
     pass_order,
@@ -60,6 +64,64 @@ class SculptDNATests(unittest.TestCase):
         self.assertEqual(
             load_json_argument(encoded, "--feature-reviews-json"),
             payload,
+        )
+
+    def test_review_inputs_reject_non_finite_numbers(self) -> None:
+        for value in ("NaN", "Infinity", "-Infinity"):
+            with self.subTest(value=value):
+                with self.assertRaisesRegex(ValueError, "valid inline JSON"):
+                    load_json_argument(
+                        f'{{"score": {value}}}',
+                        "--feature-reviews-json",
+                    )
+                with self.assertRaisesRegex(ValueError, "finite"):
+                    clamp_score(float(value))
+
+    def test_pass_contract_is_shared_by_generator_and_orchestrator(self) -> None:
+        self.assertIs(generate_threejs_factory.DEFAULT_PASS_ORDER, DEFAULT_PASS_ORDER)
+        self.assertIs(sculpt_pass_orchestrator.DEFAULT_PASS_ORDER, DEFAULT_PASS_ORDER)
+        self.assertIs(generate_threejs_factory.VISUAL_PASS_IDS, VISUAL_PASS_IDS)
+        self.assertIs(sculpt_pass_orchestrator.VISUAL_PASS_IDS, VISUAL_PASS_IDS)
+
+    def test_pbr_patch_uses_portable_paths(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            patch = material_patch(
+                "stone",
+                root / "references" / "stone.png",
+                root / "generated" / "stone",
+                "textures/stone",
+                1024,
+                0.7,
+                0.8,
+                "pass",
+                ["#888888", "#666666"],
+                {
+                    "roughnessBase": 0.7,
+                    "roughnessVariation": 0.2,
+                    "normalStrength": 0.5,
+                    "valueRange": 0.4,
+                    "heightP90Gradient": 0.03,
+                },
+                {},
+                [],
+                root,
+            )
+        reference_pbr = patch["referencePbr"]
+        self.assertEqual(reference_pbr["pathBase"], ".")
+        self.assertEqual(
+            reference_pbr["sourceImage"],
+            "references/stone.png",
+        )
+        self.assertEqual(
+            reference_pbr["maps"]["albedo"]["path"],
+            "generated/stone/stone_albedo.png",
+        )
+        self.assertFalse(
+            any(
+                Path(item["path"]).is_absolute()
+                for item in reference_pbr["maps"].values()
+            )
         )
 
     def test_default_dna_is_valid_and_semantic(self) -> None:

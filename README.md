@@ -7,15 +7,24 @@
 [![Copilot Plugin](https://img.shields.io/badge/GitHub%20Copilot-Plugin-8957e5)](docs/USER_GUIDE.md)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
+[![Rotating high-detail procedural Repolis Tree](assets/repolis-tree-hero.gif)](https://hyeonsangjeon.github.io/threejs-sculpt-dna/)
+
 Turn an object reference image into a quality-gated, action-ready procedural Three.js model, then expand that model into a deterministic family of constraint-safe variants.
 
 `threejs-sculpt-dna` is an evidence-gated GitHub Copilot workflow, not a one-click image-to-mesh converter or a manifest-only port. It treats every reconstruction as a versioned production system: semantic topology, action contracts, deterministic variation, browser evidence, and release integrity advance together.
 
+This repository extends the original
+[`Three.js-Object-Sculptor-Codex-Plugin`](https://github.com/vinhhien112/Three.js-Object-Sculptor-Codex-Plugin)
+workflow with **Sculpt DNA**, Coverage Curator, SHA-bound pass evidence,
+production family matrices, action-ready contracts, and host-integration gates.
+Upstream remains credited; this fork is deliberately positioned as the
+deterministic asset-family and production-integrity extension.
+
 > **Canonical repository:** [`hyeonsangjeon/threejs-sculpt-dna`](https://github.com/hyeonsangjeon/threejs-sculpt-dna). GitHub redirects the previous repository name here, but use this canonical path for installs, links, and clones.
 
-**Start here:** [Use the reconstruction Skill](skills/object-to-threejs-procedural/SKILL.md) · [Install the plugin](#quick-start) · [Run the 5-minute check](#5-minute-reproducible-check) · [Open the live flagships](https://hyeonsangjeon.github.io/threejs-sculpt-dna/)
+**Start here:** [Install the plugin](#quick-start) · [Run the doctor](#5-minute-reproducible-check) · [Use the reconstruction Skill](skills/object-to-threejs-procedural/SKILL.md) · [Open the live flagships](https://hyeonsangjeon.github.io/threejs-sculpt-dna/) · [Review script safety](SECURITY.md)
 
-<sub>If this workflow saves you time, star the canonical repository so other GitHub Copilot users can find it.</sub>
+⭐ If the workflow is useful, **[star the canonical repository](https://github.com/hyeonsangjeon/threejs-sculpt-dna)**. That public signal is how other GitHub Copilot and Three.js users discover an independent extension like this one.
 
 | You provide | The workflow produces |
 | --- | --- |
@@ -31,6 +40,18 @@ Clone the canonical repository and run the committed public sample through the s
 git clone https://github.com/hyeonsangjeon/threejs-sculpt-dna.git
 cd threejs-sculpt-dna
 
+python3 scripts/doctor.py --skip-copilot
+```
+
+Expected result: `READY`. The doctor is read-only: it audits every declared
+Python executable, plugin manifests, the committed reference/spec, all eight
+passes, and the Brick/Seoul production matrices. It does not install, update,
+render, or access the network.
+
+<details>
+<summary>See the underlying checks</summary>
+
+```bash
 python3 scripts/probe_reference_image.py \
   assets/brick-offroad-reference.jpeg
 
@@ -43,6 +64,8 @@ python3 scripts/sculpt_pass_orchestrator.py status \
 ```
 
 Expected result: the image probe reports `"technicalSuitability": "pass"`, strict validation prints `PASS`, and the committed flagship reports `currentPass: complete`.
+
+</details>
 
 Then open GitHub Copilot, attach your own reference, and paste:
 
@@ -68,8 +91,6 @@ and runtime metadata in the target project. Do not use an imported mesh.
 ## 03 · Flagship: Repolis Living Archive
 
 [Open the interactive Repolis Tree demo](https://hyeonsangjeon.github.io/threejs-sculpt-dna/)
-
-![Rotating high-detail procedural Repolis Tree](assets/repolis-tree-hero.gif)
 
 <sub>Built and visually reviewed with GitHub Copilot · GPT-5.6 Sol.</sub>
 
@@ -353,6 +374,8 @@ The browser, TypeScript compiler, bundler, and Three.js version belong to the ta
 
 | Script | Responsibility |
 | --- | --- |
+| `doctor.py` | Run the read-only first-clone health check, including plugin, policy, sample, runtime, duplicate-install, and production-matrix status |
+| `audit_script_policy.py` | Compare every Python executable with the network-disabled trust inventory in `script-policy.json` |
 | `probe_reference_image.py` | Detect image format, dimensions, aspect ratio, and basic technical risks |
 | `new_pre_spec_assessment.py` | Create a complexity assessment and minimum quality contract |
 | `new_sculpt_spec.py` | Create the versioned `ObjectSculptSpec` skeleton |
@@ -379,22 +402,8 @@ For non-PNG source images on platforms without macOS `sips`, convert the input t
 
 ## Install
 
-Install from this local checkout:
-
-```bash
-copilot plugin install "$(pwd)"
-copilot plugin list
-```
-
-Install directly from GitHub:
-
-```bash
-copilot plugin install hyeonsangjeon/threejs-sculpt-dna
-```
-
-Copilot currently warns that direct repository installs will eventually move to marketplace-only distribution, but the public repository install is supported today.
-
-Install through this repository's Copilot plugin marketplace:
+Use exactly one installation source. The repository marketplace is the
+recommended and tested path:
 
 ```bash
 copilot plugin marketplace add \
@@ -402,9 +411,32 @@ copilot plugin marketplace add \
 
 copilot plugin install \
   threejs-sculpt-dna@threejs-copilot-plugins
+
+copilot plugin list
 ```
 
 GitHub Copilot plugin marketplaces are decentralized repositories rather than a single approval-based catalog. The checked-in `.github/plugin/marketplace.json` makes this repository a supported marketplace source.
+
+Do not also install the same plugin from a local path or direct repository URL.
+Duplicate cached copies can shadow one another and make upgrades appear stale.
+From a cloned checkout, `python3 scripts/doctor.py` warns when it detects more
+than one `threejs-sculpt-dna` installation.
+
+<details>
+<summary>Local contributor install</summary>
+
+Use this only while developing the plugin, and remove the marketplace copy
+first:
+
+```bash
+copilot plugin install "$(pwd)"
+copilot plugin list
+```
+
+Direct repository installs still work in current Copilot CLI builds but emit a
+marketplace-migration warning, so they are not the recommended onboarding path.
+
+</details>
 
 Start a new Copilot CLI session, then verify the skills:
 
@@ -412,7 +444,8 @@ Start a new Copilot CLI session, then verify the skills:
 /skills list
 ```
 
-Copilot caches installed plugins. Reinstall the local path after modifying the plugin:
+Copilot caches installed plugins. Contributors using the local-only mode should
+reinstall that path after modifying the plugin:
 
 ```bash
 copilot plugin install "$(pwd)"

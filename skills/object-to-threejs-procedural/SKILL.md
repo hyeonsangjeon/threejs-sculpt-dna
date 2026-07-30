@@ -76,7 +76,7 @@ Use plugin scripts when they make the loop faster or more reliable:
 These scripts live at the plugin root, not inside this skill folder. From this `SKILL.md` directory, use `../../scripts/...`.
 
 - `python3 ../../scripts/probe_reference_image.py <image>` checks image type, dimensions, aspect ratio, and obvious technical issues. It does not replace visual inspection.
-- `python3 ../../scripts/extract_reference_pbr.py <image> --out-dir <dir> --material-id <id> --target-threshold 0.7` extracts reference-derived albedo, roughness, height, normal, and AO maps from image pixels. It exits non-zero when confidence is below the target threshold.
+- `python3 ../../scripts/extract_reference_pbr.py <image> --out-dir <dir> --material-id <id> --target-threshold 0.7` extracts reference-derived albedo, roughness, height, normal, and AO maps from image pixels. It exits non-zero when confidence is below the target threshold and records paths relative to `--path-root` (the spec directory by default when `--spec` is used).
 - `python3 ../../scripts/extract_reference_pbr.py <image> --out-dir <dir> --material-id <id> --spec object-sculpt-spec.json --in-place` patches a material with usable `referencePbr` maps only when the confidence gate passes, unless `--allow-low-confidence` is explicitly used.
 - `python3 ../../scripts/new_pre_spec_assessment.py "Object Name" --image <path> --complexity <simple|moderate|complex|ultra-complex> --out assessment.json` creates a pre-spec complexity assessment and quality contract skeleton.
 - `python3 ../../scripts/new_sculpt_spec.py "Object Name" --image <path> --out object-sculpt-spec.json` creates a starter spec.
@@ -443,8 +443,8 @@ Use a layered sculpting workflow:
 1. `blockout`: build the silhouette with simple primitives and correct proportions.
 2. `structural pass`: add child components, sockets, supports, hinges, handles, legs, branches, fins, or ribs.
 3. `form refinement`: bevel hard edges, taper cylinders, bend tubes, add curve sweeps, add organic noise, and break perfect symmetry where the image demands it.
-4. `surface pass`: add generated normal maps, procedural noise, vertex colors, bark/stone/metal/plastic/cloth patterns, scratches, wetness, dirt, edge highlights, and small repeated geometry only where it matters.
-5. `material pass`: tune roughness/metalness/clearcoat/transmission/alpha so surfaces do not look like plastic unless they should.
+4. `material pass`: tune roughness/metalness/clearcoat/transmission/alpha and establish independent reference-derived PBR channels so surfaces do not look like plastic unless they should.
+5. `surface pass`: add generated normal maps, procedural noise, vertex colors, bark/stone/metal/plastic/cloth patterns, scratches, wetness, dirt, edge highlights, and small repeated geometry only where it matters.
 6. `lighting pass`: separate actual object material from photo lighting; create a neutral turntable light plus optional reference-matching light.
 7. `interaction pass`: add pivots, bones, colliders, animation handles, break points, and detachable fragments only when the user needs motion or destruction.
 8. `optimization pass`: instance repeated details, merge static pieces where safe, cap geometry density, and preserve FPS targets.

@@ -11,12 +11,16 @@ import sys
 from pathlib import Path
 from typing import Any
 
-from sculpt_dna_core import validate_sculpt_dna_block
-from visual_feature_gate import feature_gate_failures, feature_review_policy
-from visual_evidence_hashes import (
+from sculpt_contract import (
+    DEFAULT_PASS_ORDER,
     LATEST_REVIEW_SELECTION,
     REVIEW_POLICY_VERSION,
     SHA_REQUIRED_BINDING,
+    VISUAL_PASS_IDS,
+)
+from sculpt_dna_core import validate_sculpt_dna_block
+from visual_feature_gate import feature_gate_failures, feature_review_policy
+from visual_evidence_hashes import (
     authoritative_reviews,
     latest_review_for_pass,
     review_policy,
@@ -53,16 +57,7 @@ VALID_COMPONENT_LEVELS = {"macro", "meso", "micro"}
 VALID_COMPLEXITY_TIERS = {"unassessed", "simple", "moderate", "complex", "ultra-complex"}
 TERMINOLOGY_LIST_FIELDS = {"geometryTerms", "materialTerms", "lightingTerms"}
 VALID_REVIEW_ACTIONS = {"continue", "refine-spec", "refine-code", "request-input", "stop"}
-VISUAL_PASS_IDS = {
-    "blockout",
-    "structural-pass",
-    "form-refinement",
-    "material-pass",
-    "surface-pass",
-    "lighting-pass",
-    "interaction-pass",
-}
-VALID_PIPELINE_PASS_IDS = VISUAL_PASS_IDS | {"optimization-pass"}
+VALID_PIPELINE_PASS_IDS = frozenset(DEFAULT_PASS_ORDER)
 ATTACHMENT_ROLES = {
     "appendage",
     "branch",

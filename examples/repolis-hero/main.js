@@ -33,7 +33,7 @@ const sceneContainer = document.querySelector('#scene');
 const renderer = new THREE.WebGLRenderer({
   antialias: true,
   alpha: true,
-  preserveDrawingBuffer: true,
+  preserveDrawingBuffer: captureMode,
   powerPreference: 'high-performance',
 });
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -222,8 +222,9 @@ window.__setHeroVariant = (variant) => {
 };
 
 let renderedFrames = 0;
+let animationFrameId = null;
 function render() {
-  if (!captureMode || renderedFrames < 4) requestAnimationFrame(render);
+  animationFrameId = null;
   const delta = captureMode ? 0 : Math.min(clock.getDelta(), 0.05);
   elapsed = captureMode ? canonicalElapsed : elapsed + delta;
   controls.update();
@@ -238,12 +239,41 @@ function render() {
       ? { frozen: true, canonicalElapsed }
       : { frozen: false };
   }
+  if (!captureMode || renderedFrames < 4) {
+    animationFrameId = requestAnimationFrame(render);
+  }
 }
 render();
 
-window.addEventListener('resize', () => {
+function handleResize() {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
   composer.setSize(window.innerWidth, window.innerHeight);
-});
+}
+window.addEventListener('resize', handleResize);
+
+let disposed = false;
+function disposeScene(event) {
+  if (disposed || event?.persisted) return;
+  disposed = true;
+  if (animationFrameId !== null) cancelAnimationFrame(animationFrameId);
+  window.removeEventListener('resize', handleResize);
+  window.removeEventListener('pagehide', disposeScene);
+  controls.dispose();
+  if (hero) {
+    scene.remove(hero.root);
+    hero.dispose();
+    hero = null;
+  }
+  scene.traverse((object) => {
+    object.geometry?.dispose();
+    const materials = Array.isArray(object.material)
+      ? object.material
+      : [object.material];
+    materials.filter(Boolean).forEach((material) => material.dispose());
+  });
+  composer.dispose();
+  renderer.dispose();
+}
+window.addEventListener('pagehide', disposeScene);

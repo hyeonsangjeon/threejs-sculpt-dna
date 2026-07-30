@@ -25,15 +25,20 @@ Clone and verify:
 git clone https://github.com/hyeonsangjeon/threejs-sculpt-dna.git
 cd threejs-sculpt-dna
 
+python3 scripts/doctor.py --skip-copilot
+python3 scripts/audit_script_policy.py
 python3 -m compileall -q scripts tests
 python3 -m unittest discover -s tests -v
+python3 scripts/verify_release.py
 ```
 
 Install example dependencies:
 
 ```bash
-npm install --prefix examples/showcase
-npm install --prefix examples/repolis-hero
+npm ci --prefix examples/showcase
+npm ci --prefix examples/repolis-hero
+npm ci --prefix examples/brick-offroad-hero
+npm ci --prefix examples/seoul-palace-hero
 ```
 
 Build the flagship:
@@ -42,7 +47,8 @@ Build the flagship:
 npm --prefix examples/repolis-hero run build
 ```
 
-Install the working plugin locally:
+Install the working plugin locally only after removing any marketplace copy;
+keep one active installation to avoid cached skill shadowing:
 
 ```bash
 copilot plugin install "$(pwd)"
@@ -127,4 +133,4 @@ copilot plugin install threejs-sculpt-dna@threejs-copilot-plugins
 
 ## Code of conduct
 
-Be respectful, specific, and constructive. Harassment, personal attacks, and unauthorized redistribution of other people's assets are not accepted.
+Be respectful, specific, and constructive. Harassment, personal attacks, and unauthorized redistribution of other people's assets are not accepted. See [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).

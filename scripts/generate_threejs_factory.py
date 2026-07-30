@@ -10,6 +10,7 @@ import sys
 from pathlib import Path
 from typing import Any
 
+from sculpt_contract import DEFAULT_PASS_ORDER, VISUAL_PASS_IDS, load_json_object
 from sculpt_pass_orchestrator import (
     completed_passes as evidence_completed_passes,
     pass_specific_gaps,
@@ -32,17 +33,6 @@ VALID_PRIMITIVES = {
     "instanced-cluster",
 }
 ENDPOINT_PRIMITIVES = {"cylinder", "cone", "capsule", "tube", "curve-sweep"}
-DEFAULT_PASS_ORDER = [
-    "blockout",
-    "structural-pass",
-    "form-refinement",
-    "material-pass",
-    "surface-pass",
-    "lighting-pass",
-    "interaction-pass",
-    "optimization-pass",
-]
-VISUAL_PASS_IDS = set(DEFAULT_PASS_ORDER) - {"optimization-pass"}
 PASS_LEVELS = {
     "blockout": {"macro"},
     "structural-pass": {"macro", "meso"},
@@ -56,10 +46,7 @@ PASS_LEVELS = {
 
 
 def load_spec(path: Path) -> dict[str, Any]:
-    payload = json.loads(path.read_text(encoding="utf-8"))
-    if not isinstance(payload, dict):
-        raise ValueError("spec must be a JSON object")
-    return payload
+    return load_json_object(path, "spec")
 
 
 def pass_order(spec: dict[str, Any]) -> list[str]:
@@ -67,7 +54,7 @@ def pass_order(spec: dict[str, Any]) -> list[str]:
     for item in spec.get("buildPasses", []):
         if isinstance(item, dict) and isinstance(item.get("id"), str) and item["id"].strip():
             ids.append(item["id"])
-    return ids or DEFAULT_PASS_ORDER.copy()
+    return ids or list(DEFAULT_PASS_ORDER)
 
 
 def unlocked_pass(spec: dict[str, Any], spec_path: Path | None = None) -> str:

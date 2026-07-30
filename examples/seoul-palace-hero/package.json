@@ -7,6 +7,7 @@
     "build": "vite build",
     "preview": "vite preview --host 127.0.0.1 --port 4178",
     "capture": "node scripts/capture.mjs",
+    "probe:performance": "node scripts/performance-probe.mjs --write",
     "test:capture": "node --test scripts/capture-isolation.test.mjs scripts/factory-contract.test.mjs"
   },
   "dependencies": {
@@ -14,6 +15,6 @@
   },
   "devDependencies": {
     "puppeteer-core": "25.3.0",
-    "vite": "7.1.7"
+    "vite": "^7.3.6"
   }
 }

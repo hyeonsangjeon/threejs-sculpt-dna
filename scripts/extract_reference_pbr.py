@@ -14,6 +14,7 @@ from __future__ import annotations
 import argparse
 import json
 import math
+import os
 import shutil
 import struct
 import subprocess
@@ -23,6 +24,8 @@ import zlib
 from collections import Counter
 from pathlib import Path
 from typing import Any
+
+from sculpt_contract import load_json_object
 
 
 PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"
@@ -586,6 +589,14 @@ def map_url(url_prefix: str, filename: str) -> str:
     return url_prefix.rstrip("/") + "/" + filename
 
 
+def portable_path(path: Path, path_root: Path) -> str:
+    """Return a POSIX path relative to the caller-declared portability root."""
+
+    return Path(
+        os.path.relpath(path.expanduser().resolve(), path_root.expanduser().resolve())
+    ).as_posix()
+
+
 def material_patch(
     material_id: str,
     image: Path,
@@ -599,11 +610,15 @@ def material_patch(
     map_stats: dict[str, Any],
     diagnostics: dict[str, Any],
     warnings: list[str],
+    path_root: Path,
 ) -> dict[str, Any]:
     prefix = slugify(material_id)
     maps = {
         channel: {
-            "path": str((out_dir / f"{prefix}_{channel}.png").resolve()),
+            "path": portable_path(
+                out_dir / f"{prefix}_{channel}.png",
+                path_root,
+            ),
             "url": map_url(url_prefix, f"{prefix}_{channel}.png"),
             "channel": channel,
             "source": "reference-pixel-extraction",
@@ -614,7 +629,8 @@ def material_patch(
     return {
         "referencePbr": {
             "version": "1.0",
-            "sourceImage": str(image.resolve()),
+            "pathBase": ".",
+            "sourceImage": portable_path(image, path_root),
             "extractor": "extract_reference_pbr.py",
             "method": "single-image pixel evidence with de-lighting estimate; not photogrammetry",
             "usable": usable,
@@ -719,6 +735,15 @@ def extract(args: argparse.Namespace) -> tuple[dict[str, Any], dict[str, Any]]:
     size = max(256, min(2048, size))
     out_dir = args.out_dir.expanduser().resolve()
     out_dir.mkdir(parents=True, exist_ok=True)
+    path_root = (
+        args.path_root.expanduser().resolve()
+        if args.path_root
+        else (
+            args.spec.expanduser().resolve().parent
+            if args.spec
+            else Path.cwd().resolve()
+        )
+    )
     width, height, source_pixels, load_warnings = load_image(image)
     mask, mask_diag, mask_warnings = build_foreground_mask(width, height, source_pixels)
     bbox = mask_bbox(width, height, mask)
@@ -767,6 +792,7 @@ def extract(args: argparse.Namespace) -> tuple[dict[str, Any], dict[str, Any]]:
         map_stats,
         diagnostics,
         warnings,
+        path_root,
     )
     report = {
         "ok": confidence >= threshold,
@@ -775,8 +801,9 @@ def extract(args: argparse.Namespace) -> tuple[dict[str, Any], dict[str, Any]]:
         "estimatedFidelity": confidence,
         "targetThreshold": threshold,
         "materialId": args.material_id,
-        "sourceImage": str(image),
-        "outDir": str(out_dir),
+        "pathBase": ".",
+        "sourceImage": portable_path(image, path_root),
+        "outDir": portable_path(out_dir, path_root),
         "palette": palette,
         "maps": patch["referencePbr"]["maps"],
         "diagnostics": diagnostics,
@@ -796,6 +823,14 @@ def main(argv: list[str]) -> int:
     parser.add_argument("--target-threshold", type=float, default=0.7)
     parser.add_argument("--url-prefix", default="")
     parser.add_argument("--spec", type=Path, help="Optional ObjectSculptSpec JSON to patch")
+    parser.add_argument(
+        "--path-root",
+        type=Path,
+        help=(
+            "Base for portable paths in reports/specs; defaults to the spec "
+            "directory, or the current working directory without --spec"
+        ),
+    )
     parser.add_argument("--in-place", action="store_true", help="Patch --spec in place when confidence passes")
     parser.add_argument("--out-spec", type=Path, help="Write patched spec to this path")
     parser.add_argument("--report", type=Path, help="Write extraction report JSON")
@@ -815,9 +850,7 @@ def main(argv: list[str]) -> int:
                     f"{report['targetThreshold']}; spec was not patched"
                 )
             spec_path = args.spec.expanduser().resolve()
-            spec = json.loads(spec_path.read_text(encoding="utf-8"))
-            if not isinstance(spec, dict):
-                raise ValueError("spec must be a JSON object")
+            spec = load_json_object(spec_path, "spec")
             merge_material_patch(spec, args.material_id, patch)
             output = spec_path if args.in_place else (args.out_spec.expanduser().resolve() if args.out_spec else None)
             if output:

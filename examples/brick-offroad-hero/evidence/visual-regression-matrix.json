@@ -1,0 +1,324 @@
+{
+  "schemaVersion": "1.0",
+  "kind": "sculpt-dna-visual-regression-matrix",
+  "ok": true,
+  "authority": {
+    "finalVisualAuthority": "ai-vision",
+    "pixelMetrics": "diagnostic-only",
+    "pixelMetricsCanApprove": false
+  },
+  "inputs": {
+    "baseSpec": "examples/brick-offroad/object-sculpt-spec.json",
+    "baseSpecSha256": "a42660533bff26330a63b25f9476f703cec1d8672e45aeb7fa4df08b77465251",
+    "curatedManifest": "examples/showcase/variants/brick/sculpt-dna-manifest.json",
+    "curatedManifestSha256": "b51c4c1ebae7b58327bf7188ef7126abccacf37eda0c0dae742e655a6c9790b5"
+  },
+  "policy": {
+    "authoritativeReview": "latest-per-pass",
+    "statusOrder": [
+      "missing",
+      "stale",
+      "passing",
+      "failing"
+    ],
+    "assetOrder": "base then variantId ascending",
+    "viewpointOrder": "viewpoint id ascending"
+  },
+  "viewpoints": [
+    {
+      "id": "production-three-quarter",
+      "passId": "optimization-pass",
+      "cameraView": "reference-three-quarter",
+      "renderPathTemplate": null,
+      "comparisonPathTemplate": null,
+      "featureIds": []
+    }
+  ],
+  "assets": [
+    {
+      "id": "base",
+      "role": "base",
+      "path": "examples/brick-offroad/object-sculpt-spec.json",
+      "sha256": "a42660533bff26330a63b25f9476f703cec1d8672e45aeb7fa4df08b77465251",
+      "variantIndex": 0,
+      "targetName": "Brick Off-Road Explorer"
+    },
+    {
+      "id": "brick-offroad-v001",
+      "role": "variant",
+      "path": "examples/showcase/variants/brick/brick-offroad-v001.json",
+      "sha256": "2689321b8caaf36264178c8a5d711a4a93f69b247e87d0a3134fd1fe1987e77d",
+      "variantIndex": 1,
+      "targetName": "Brick Off-Road Explorer"
+    },
+    {
+      "id": "brick-offroad-v002",
+      "role": "variant",
+      "path": "examples/showcase/variants/brick/brick-offroad-v002.json",
+      "sha256": "ece4a08e87bfa1ba9612ce7e02eb4ec8bcd625502f2af842cdc3515a4ee930f6",
+      "variantIndex": 2,
+      "targetName": "Brick Off-Road Explorer"
+    },
+    {
+      "id": "brick-offroad-v003",
+      "role": "variant",
+      "path": "examples/showcase/variants/brick/brick-offroad-v003.json",
+      "sha256": "2a6b4d6ae55ab121425cda8b12862f7c152d67de9afe85d1bb50b13cf9b81079",
+      "variantIndex": 3,
+      "targetName": "Brick Off-Road Explorer"
+    }
+  ],
+  "cells": [
+    {
+      "assetId": "base",
+      "assetRole": "base",
+      "viewpointId": "production-three-quarter",
+      "passId": "optimization-pass",
+      "cameraView": "reference-three-quarter",
+      "status": "passing",
+      "expected": {
+        "renderScreenshot": "examples/brick-offroad-hero/evidence/final.webp",
+        "comparisonImage": "examples/brick-offroad-hero/evidence/final-comparison.webp"
+      },
+      "actual": {
+        "cameraView": "reference-three-quarter",
+        "renderScreenshot": "examples/brick-offroad-hero/evidence/final.webp",
+        "comparisonImage": "examples/brick-offroad-hero/evidence/final-comparison.webp",
+        "renderSha256": "b915c02a83f1ea46f30cd14e9272745ea5be93a6a45c47de8e8e7005ccc9704d",
+        "comparisonSha256": "00bf968cedfb49ca330a5e3f9b58d059456419eb749681387f0b4ac1ed511baa"
+      },
+      "review": {
+        "historyIndex": 7,
+        "reviewId": "optimization-pass-review-2026-07-12T02:00:26Z",
+        "reviewedAt": "2026-07-12T02:00:26Z",
+        "action": "continue",
+        "aiVisionScore": 0.8,
+        "requiredThreshold": 0.74
+      },
+      "layerScores": [
+        {
+          "id": "componentStructure",
+          "score": 0.83,
+          "minimum": 0.74,
+          "status": "passing"
+        },
+        {
+          "id": "formDetail",
+          "score": 0.81,
+          "minimum": 0.74,
+          "status": "passing"
+        },
+        {
+          "id": "lightingCamera",
+          "score": 0.82,
+          "minimum": 0.74,
+          "status": "passing"
+        },
+        {
+          "id": "materialSurface",
+          "score": 0.8,
+          "minimum": 0.74,
+          "status": "passing"
+        },
+        {
+          "id": "silhouetteProportion",
+          "score": 0.83,
+          "minimum": 0.74,
+          "status": "passing"
+        }
+      ],
+      "semanticFeatures": [],
+      "issues": []
+    },
+    {
+      "assetId": "brick-offroad-v001",
+      "assetRole": "variant",
+      "viewpointId": "production-three-quarter",
+      "passId": "optimization-pass",
+      "cameraView": "reference-three-quarter",
+      "status": "passing",
+      "expected": {
+        "renderScreenshot": "examples/brick-offroad-hero/evidence/variant-1.webp",
+        "comparisonImage": "examples/brick-offroad-hero/evidence/variant-1-comparison.webp"
+      },
+      "actual": {
+        "cameraView": "reference-three-quarter",
+        "renderScreenshot": "examples/brick-offroad-hero/evidence/variant-1.webp",
+        "comparisonImage": "examples/brick-offroad-hero/evidence/variant-1-comparison.webp",
+        "renderSha256": "279126891ec53c48ddbd86c3a3bea51613847565018c5bd10569014329d75457",
+        "comparisonSha256": "8dfe63baee383bca9b927474389fcfc70b2ac9fd837510f58705f6d5c69e758e"
+      },
+      "review": {
+        "historyIndex": 7,
+        "reviewId": "brick-offroad-v001-fresh-review-2026-07-12T02:00:26Z",
+        "reviewedAt": "2026-07-12T02:00:26Z",
+        "action": "continue",
+        "aiVisionScore": 0.78,
+        "requiredThreshold": 0.74
+      },
+      "layerScores": [
+        {
+          "id": "componentStructure",
+          "score": 0.8,
+          "minimum": 0.74,
+          "status": "passing"
+        },
+        {
+          "id": "formDetail",
+          "score": 0.78,
+          "minimum": 0.74,
+          "status": "passing"
+        },
+        {
+          "id": "lightingCamera",
+          "score": 0.76,
+          "minimum": 0.74,
+          "status": "passing"
+        },
+        {
+          "id": "materialSurface",
+          "score": 0.76,
+          "minimum": 0.74,
+          "status": "passing"
+        },
+        {
+          "id": "silhouetteProportion",
+          "score": 0.81,
+          "minimum": 0.74,
+          "status": "passing"
+        }
+      ],
+      "semanticFeatures": [],
+      "issues": []
+    },
+    {
+      "assetId": "brick-offroad-v002",
+      "assetRole": "variant",
+      "viewpointId": "production-three-quarter",
+      "passId": "optimization-pass",
+      "cameraView": "reference-three-quarter",
+      "status": "passing",
+      "expected": {
+        "renderScreenshot": "examples/brick-offroad-hero/evidence/variant-2.webp",
+        "comparisonImage": "examples/brick-offroad-hero/evidence/variant-2-comparison.webp"
+      },
+      "actual": {
+        "cameraView": "reference-three-quarter",
+        "renderScreenshot": "examples/brick-offroad-hero/evidence/variant-2.webp",
+        "comparisonImage": "examples/brick-offroad-hero/evidence/variant-2-comparison.webp",
+        "renderSha256": "a8d84547c14dd5d3f7e05cc2f42588f25073f417cdd52e8c25d054beac785e65",
+        "comparisonSha256": "824225aae178c9278df3e26cb6e809907802336209b56d990ae1b14f18c41de2"
+      },
+      "review": {
+        "historyIndex": 7,
+        "reviewId": "brick-offroad-v002-fresh-review-2026-07-12T02:00:26Z",
+        "reviewedAt": "2026-07-12T02:00:26Z",
+        "action": "continue",
+        "aiVisionScore": 0.77,
+        "requiredThreshold": 0.74
+      },
+      "layerScores": [
+        {
+          "id": "componentStructure",
+          "score": 0.79,
+          "minimum": 0.74,
+          "status": "passing"
+        },
+        {
+          "id": "formDetail",
+          "score": 0.77,
+          "minimum": 0.74,
+          "status": "passing"
+        },
+        {
+          "id": "lightingCamera",
+          "score": 0.75,
+          "minimum": 0.74,
+          "status": "passing"
+        },
+        {
+          "id": "materialSurface",
+          "score": 0.76,
+          "minimum": 0.74,
+          "status": "passing"
+        },
+        {
+          "id": "silhouetteProportion",
+          "score": 0.81,
+          "minimum": 0.74,
+          "status": "passing"
+        }
+      ],
+      "semanticFeatures": [],
+      "issues": []
+    },
+    {
+      "assetId": "brick-offroad-v003",
+      "assetRole": "variant",
+      "viewpointId": "production-three-quarter",
+      "passId": "optimization-pass",
+      "cameraView": "reference-three-quarter",
+      "status": "passing",
+      "expected": {
+        "renderScreenshot": "examples/brick-offroad-hero/evidence/variant-3.webp",
+        "comparisonImage": "examples/brick-offroad-hero/evidence/variant-3-comparison.webp"
+      },
+      "actual": {
+        "cameraView": "reference-three-quarter",
+        "renderScreenshot": "examples/brick-offroad-hero/evidence/variant-3.webp",
+        "comparisonImage": "examples/brick-offroad-hero/evidence/variant-3-comparison.webp",
+        "renderSha256": "3dc79fb282c678313ab088aadf2db73b6dc146a903a4774d85571dd4a3d4031c",
+        "comparisonSha256": "7c5173bcc83fbf7563774dd74f51390734f98616288b0de91bc0ac8f4ada5507"
+      },
+      "review": {
+        "historyIndex": 7,
+        "reviewId": "brick-offroad-v003-fresh-review-2026-07-12T02:00:26Z",
+        "reviewedAt": "2026-07-12T02:00:26Z",
+        "action": "continue",
+        "aiVisionScore": 0.78,
+        "requiredThreshold": 0.74
+      },
+      "layerScores": [
+        {
+          "id": "componentStructure",
+          "score": 0.8,
+          "minimum": 0.74,
+          "status": "passing"
+        },
+        {
+          "id": "formDetail",
+          "score": 0.78,
+          "minimum": 0.74,
+          "status": "passing"
+        },
+        {
+          "id": "lightingCamera",
+          "score": 0.76,
+          "minimum": 0.74,
+          "status": "passing"
+        },
+        {
+          "id": "materialSurface",
+          "score": 0.77,
+          "minimum": 0.74,
+          "status": "passing"
+        },
+        {
+          "id": "silhouetteProportion",
+          "score": 0.81,
+          "minimum": 0.74,
+          "status": "passing"
+        }
+      ],
+      "semanticFeatures": [],
+      "issues": []
+    }
+  ],
+  "summary": {
+    "total": 4,
+    "missing": 0,
+    "stale": 0,
+    "passing": 4,
+    "failing": 0
+  }
+}
