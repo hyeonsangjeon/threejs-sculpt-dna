@@ -13,18 +13,34 @@ Turn an object reference image into a quality-gated, action-ready procedural Thr
 
 `threejs-sculpt-dna` is an evidence-gated GitHub Copilot workflow, not a one-click image-to-mesh converter or a manifest-only port. It treats every reconstruction as a versioned production system: semantic topology, action contracts, deterministic variation, browser evidence, and release integrity advance together.
 
-This repository extends the original
+This repository integrates a reviewed source snapshot of the original
 [`Three.js-Object-Sculptor-Codex-Plugin`](https://github.com/vinhhien112/Three.js-Object-Sculptor-Codex-Plugin)
-workflow with **Sculpt DNA**, Coverage Curator, SHA-bound pass evidence,
-production family matrices, action-ready contracts, and host-integration gates.
-Upstream remains credited; this fork is deliberately positioned as the
-deterministic asset-family and production-integrity extension.
+modular modeling kernel with **Sculpt DNA**, Coverage Curator, schema-v2
+compatibility, SHA-bound pass evidence, production family matrices,
+action-ready contracts, and host-integration gates. Exact source provenance is
+recorded in [`UPSTREAM.md`](UPSTREAM.md).
 
 > **Canonical repository:** [`hyeonsangjeon/threejs-sculpt-dna`](https://github.com/hyeonsangjeon/threejs-sculpt-dna). GitHub redirects the previous repository name here, but use this canonical path for installs, links, and clones.
 
-**Start here:** [Install the plugin](#quick-start) · [Run the doctor](#5-minute-reproducible-check) · [Use the reconstruction Skill](skills/object-to-threejs-procedural/SKILL.md) · [Open the live flagships](https://hyeonsangjeon.github.io/threejs-sculpt-dna/) · [Review script safety](SECURITY.md)
+**Start here:** [Run the proof](#verified-release-state) · [Install the plugin](#quick-start) · [Run the doctor](#5-minute-reproducible-check) · [Use the reconstruction Skill](skills/object-to-threejs-procedural/SKILL.md) · [Open the live flagships](https://hyeonsangjeon.github.io/threejs-sculpt-dna/) · [Review script safety](SECURITY.md)
 
-⭐ If the workflow is useful, **[star the canonical repository](https://github.com/hyeonsangjeon/threejs-sculpt-dna)**. That public signal is how other GitHub Copilot and Three.js users discover an independent extension like this one.
+### Verified release state
+
+**Stars measure attention; executable gates measure this repository.** Judge the
+release by the committed [`capability-proof.json`](capability-proof.json), not
+by a popularity counter.
+
+| Verifiable contract | `0.5.0` state |
+| --- | --- |
+| Combined reconstruction surface | modular v4 kernel + adaptive v3.1 + explicit schema-v2 Sculpt DNA compatibility |
+| Python contracts | 273 tests |
+| Executable boundary | 40 declared scripts, network disabled |
+| Production evidence | 3 artifact manifests; Brick 4/4 and Seoul 4/4 family matrices |
+| Public CI | proof, doctor, tests, release evidence, 4 browser builds, capture tests, and dependency audits |
+
+[Read the verified capability matrix](docs/VERIFIED_CAPABILITIES.md) ·
+[Audit upstream lineage](UPSTREAM.md) ·
+[Use the fair comparison protocol](docs/FAIR_COMPARISON_PROTOCOL.md)
 
 | You provide | The workflow produces |
 | --- | --- |
@@ -356,7 +372,7 @@ technical probe -> pre-spec assessment -> ObjectSculptSpec
 | PNG/PBR processing | `zlib`, `struct`, `math`, custom RGB/RGBA PNG reader/writer | Generates albedo, roughness, height, normal, and AO evidence without Python image dependencies |
 | Non-PNG fallback | macOS `sips`, detected with `shutil.which` | Converts source images when direct PNG decoding is unavailable; other platforms should provide RGB/RGBA PNG input |
 | Three.js generation | Python source generator emitting TypeScript | Produces plain Three.js factories that can be hand-refined in an existing application |
-| Geometry | `BoxGeometry`, `SphereGeometry`, `CylinderGeometry`, `ConeGeometry`, `CapsuleGeometry`, `TorusGeometry`, attachment endpoint cylinders | Covers blockout primitives and root-to-tip child construction while leaving complex procedural shapes explicit |
+| Geometry | Shared validation/generation registry for primitives, assemblies, curves, sweeps, lathes, extrusions, lofts, fitted shells, branches, scatter, instancing, modifiers, sculpted surfaces, and specialized regions | Rejects unsupported geometry instead of silently substituting boxes and keeps complex procedural shapes explicit |
 | Materials | `MeshPhysicalMaterial`, emissive controls, deterministic Canvas textures, independent PBR channels | Keeps bark readable beneath glow, avoids flat-color placeholders, and prevents albedo reuse across unrelated PBR channels |
 | Runtime structure | `THREE.Group` pivots plus `userData.sculptRuntime` maps | Keeps nodes, meshes, sockets, collider proxies, and destruction groups addressable for animation and physics |
 | Visual QA | Browser screenshots, custom comparison sheets, semantic feature gates | Makes visual evidence—not code inspection—the acceptance authority |
@@ -370,12 +386,17 @@ The plugin itself has no required PyPI or npm dependencies. Python scripts opera
 
 The browser, TypeScript compiler, bundler, and Three.js version belong to the target project. The plugin intentionally does not install Playwright or Chromium solely for screenshots.
 
-## Inherited Workflow, Script by Script
+## Workflow, Script by Script
 
 | Script | Responsibility |
 | --- | --- |
 | `doctor.py` | Run the read-only first-clone health check, including plugin, policy, sample, runtime, duplicate-install, and production-matrix status |
 | `audit_script_policy.py` | Compare every Python executable with the network-disabled trust inventory in `script-policy.json` |
+| `verify_capability_proof.py` | Bind release metadata, upstream provenance, capability claims, evidence files, tests, production matrices, and public CI into one read-only proof |
+| `sculpt.py` | Provide the unified command surface for the adaptive modular workflow |
+| `sculpt_manifest.py` / `sculpt_modules.py` | Manage v4 root manifests and independently authored module specs |
+| `sculpt_geometry.py` | Share the supported procedural geometry registry between validation and TypeScript generation |
+| `sculpt_module_state.py` / `sculpt_module_review.py` | Enforce module reuse, correction batches, multi-view evidence, critical-feature vetoes, and build/runtime receipts |
 | `probe_reference_image.py` | Detect image format, dimensions, aspect ratio, and basic technical risks |
 | `new_pre_spec_assessment.py` | Create a complexity assessment and minimum quality contract |
 | `new_sculpt_spec.py` | Create the versioned `ObjectSculptSpec` skeleton |

@@ -25,6 +25,16 @@ Audit it without executing the workflow:
 python3 scripts/audit_script_policy.py
 ```
 
+The release claim/evidence boundary has a separate read-only verifier:
+
+```bash
+python3 scripts/verify_capability_proof.py --json
+```
+
+It checks repository-local metadata, paths, tests, production reports, and CI
+declarations. It does not access the network or execute the declared evidence
+commands.
+
 Two image tools may invoke the local macOS `sips` executable when a source
 format cannot be decoded directly. `scripts/doctor.py` may read `copilot
 --version`, `copilot plugin list`, and `node --version`; it does not install,

@@ -9,7 +9,12 @@ The roadmap prioritizes reproducibility, visual evidence, action-ready hierarchy
 - GitHub Copilot plugin and repository marketplace
 - reference suitability and complexity assessment
 - versioned `ObjectSculptSpec`
-- locked sculpt passes with browser and AI-vision evidence
+- v4 root manifests, independently authored modules, adaptive v3.1 passes,
+  module reuse, correction batches, and build/runtime receipts
+- shared validation/generation geometry registry for compound, swept, lofted,
+  fitted, branched, scattered, instanced, modified, and sculpted surfaces
+- explicit schema-v2 Sculpt DNA compatibility lane
+- locked sculpt passes with multi-view browser and AI-vision evidence
 - generated PBR channels and Three.js factory scaffolds
 - action-ready pivots, sockets, collider proxies, and destruction groups
 - Sculpt DNA constraints, invariants, deterministic provenance, and preview mode
@@ -17,6 +22,8 @@ The roadmap prioritizes reproducibility, visual evidence, action-ready hierarchy
 - deterministic base/variant visual regression matrix with SHA-bound latest-review, layer, and semantic checks
 - read-only first-clone doctor and machine-audited executable trust policy
 - PR quality CI for all plugin, skill, script, documentation, and browser-example surfaces
+- machine-readable capability proof, exact upstream lineage, and a fair
+  same-input blinded comparison protocol
 - isolated capture processes and capture-only WebGL drawing-buffer preservation
 - additive Render Integration Contract v1 for deterministic standalone/host renderer, target, layer/light, fixed-view, semantic, exposure, performance, and error checks
 - Repolis Living Archive flagship and reproducible capture pipeline
@@ -30,11 +37,13 @@ The roadmap prioritizes reproducibility, visual evidence, action-ready hierarchy
 - compare extraction confidence per material
 - reject mixed-background or mixed-material crops
 
-### Better generated geometry
+### Published same-input benchmark
 
-- implement object-specific curve sweep, lathe, extrusion, and instancing templates
-- add attachment-safe derived controls for dimensions and collider updates
-- retain deterministic geometry across variant ordering and rebuilds
+- preregister a license-compatible six-reference comparison set
+- freeze equal model/tool/time/runtime budgets for both workflows
+- publish every raw output, failure, receipt, hash, and environment version
+- use blinded reviewers and the committed critical-veto scoring protocol
+- keep comparative visual claims blocked until the protocol's threshold passes
 
 ### Coverage Curator 2
 

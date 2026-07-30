@@ -13,6 +13,7 @@ Describe schema, deterministic output, marketplace, or migration impact.
 ## Verification
 
 - [ ] `python3 scripts/doctor.py --skip-copilot`
+- [ ] `python3 scripts/verify_capability_proof.py --json`
 - [ ] `python3 scripts/audit_script_policy.py`
 - [ ] `python3 -m compileall -q scripts tests`
 - [ ] `python3 -m unittest discover -s tests -v`
@@ -34,3 +35,5 @@ Reference, render, comparison, camera, layer scores, and semantic feature notes:
 - [ ] No secrets or sensitive image metadata are included.
 - [ ] New or changed Python executables are declared in `script-policy.json`.
 - [ ] Preview variants are not described as production-ready.
+- [ ] Comparative visual claims use identical inputs and the committed fair
+  comparison protocol.

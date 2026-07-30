@@ -1,17 +1,22 @@
 {
   "name": "threejs-sculpt-dna",
   "version": "0.5.0",
-  "description": "Reconstruct object images as quality-gated procedural Three.js models and deterministic asset families.",
+  "description": "Build verifiable modular procedural Three.js reconstructions and deterministic asset families from references.",
   "author": {
     "name": "hyeonsangjeon"
   },
   "license": "MIT",
   "keywords": [
     "threejs",
+    "codex",
     "procedural-3d",
+    "procedural-modeling",
+    "deterministic-generation",
+    "visual-regression",
     "image-analysis",
     "object-reconstruction",
     "asset-variants",
+    "webgl",
     "webgpu"
   ],
   "skills": "./skills/",

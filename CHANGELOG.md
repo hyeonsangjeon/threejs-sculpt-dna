@@ -8,6 +8,18 @@ All notable changes to `threejs-sculpt-dna` are documented here.
 
 ### Added
 
+- Integrated modular reconstruction workflow with v4 root manifests,
+  independent module specs, adaptive v3.1 passes, content/interface-hash reuse,
+  correction batches, multi-view review, and generated build/runtime receipts.
+- Shared validation/generation geometry registry covering compound assemblies,
+  curve sweeps, lathes, extrusions, section lofts, fitted shells, branch
+  networks, masked scatter, bounded instancing, modifiers, welded sculpted
+  surfaces, special surfaces, and specialized face/hand regions.
+- Explicit compatibility dispatch for the published Sculpt DNA schema-v2
+  production lane alongside the adaptive v3.1/v4 modular kernel.
+- Machine-readable capability proof, read-only proof verifier, exact upstream
+  source provenance, verified capability matrix, and same-input blinded
+  comparison protocol.
 - Read-only first-clone doctor, executable script policy audit, security policy,
   community conduct guidance, and duplicate Copilot plugin detection.
 - Committed 4-cell production visual regression matrices for the Brick and
@@ -35,6 +47,9 @@ All notable changes to `threejs-sculpt-dna` are documented here.
 
 ### Changed
 
+- Replaced the above-the-fold star request with an evidence-first release state:
+  stars are treated as attention, while executable gates determine repository
+  claims.
 - Centralized pass/review policy contracts and reject non-finite JSON or
   fidelity values at mutation boundaries.
 - Emit portable relative PBR evidence paths instead of workstation-specific

@@ -1,0 +1,213 @@
+{
+  "schemaVersion": "1.0",
+  "artifactType": "threejs-sculpt-dna-capability-proof",
+  "release": "0.5.0",
+  "repository": "https://github.com/hyeonsangjeon/threejs-sculpt-dna",
+  "upstreamLineage": {
+    "repository": "https://github.com/vinhhien112/Three.js-Object-Sculptor-Codex-Plugin",
+    "integratedSourceCommit": "543da1fc0e45a703b0ac037fb040ce082c79a1c2",
+    "license": "MIT",
+    "provenanceDocument": "UPSTREAM.md"
+  },
+  "scope": {
+    "proves": [
+      "The declared release metadata, skills, implementation surfaces, tests, trust inventory, CI gates, and production evidence are present and mutually consistent in this checkout.",
+      "The modular upstream modeling kernel and the Sculpt DNA compatibility, family-generation, evidence, and host-integration layers coexist in this release.",
+      "Every committed Python script is declared in a network-disabled executable policy and the public quality workflow runs the proof, tests, release gate, browser builds, and dependency audits."
+    ],
+    "doesNotProve": [
+      "GitHub stars, clone counts, or social reach are not treated as evidence of software quality.",
+      "Feature breadth and passing contracts do not by themselves prove better visual output than another project.",
+      "A visual-quality superiority claim requires the same references, budgets, runtime constraints, raw outputs, and blinded review protocol documented in docs/FAIR_COMPARISON_PROTOCOL.md."
+    ]
+  },
+  "claims": [
+    {
+      "id": "modular-v4-modeling-kernel",
+      "statement": "New reconstructions can use a v4 root manifest, independently validated modules, adaptive pass planning, and content/interface-hash reuse.",
+      "evidenceFiles": [
+        "scripts/sculpt_manifest.py",
+        "scripts/sculpt_modules.py",
+        "scripts/sculpt_module_contract.py",
+        "scripts/sculpt_module_state.py",
+        "scripts/sculpt_module_review.py",
+        "tests/test_modular_workflow.py"
+      ]
+    },
+    {
+      "id": "procedural-geometry-breadth",
+      "statement": "Validation and generation share a procedural geometry registry covering compound, swept, lofted, fitted, branched, scattered, instanced, modified, sculpted, and specialized surface systems.",
+      "evidenceFiles": [
+        "scripts/sculpt_geometry.py",
+        "scripts/sculpt_special_geometry_typescript.py",
+        "scripts/sculpt_specialized_regions.py",
+        "tests/test_compound_geometry.py",
+        "tests/test_modeling_kernel.py",
+        "tests/test_special_surfaces.py",
+        "tests/test_specialized_regions.py"
+      ]
+    },
+    {
+      "id": "schema-compatibility",
+      "statement": "The adaptive v3.1/v4 workflow and the published Sculpt DNA schema-v2 production lane are dispatched explicitly instead of silently weakening either contract.",
+      "evidenceFiles": [
+        "scripts/new_sculpt_spec.py",
+        "scripts/new_sculpt_spec_legacy.py",
+        "scripts/generate_threejs_factory.py",
+        "scripts/generate_threejs_factory_legacy.py",
+        "scripts/sculpt_pass_orchestrator.py",
+        "scripts/sculpt_pass_orchestrator_legacy.py",
+        "scripts/validate_sculpt_spec.py",
+        "scripts/validate_sculpt_spec_legacy.py",
+        "tests/test_sculpt_dna.py",
+        "tests/test_workflow.py"
+      ]
+    },
+    {
+      "id": "deterministic-asset-families",
+      "statement": "Named semantic controls, invariant checks, deterministic seeds, Coverage Curator selection, and a base-plus-variant regression matrix form one reproducible asset-family pipeline.",
+      "evidenceFiles": [
+        "scripts/sculpt_dna.py",
+        "scripts/sculpt_dna_core.py",
+        "scripts/visual_regression_matrix.py",
+        "skills/sculpt-dna-variants/SKILL.md",
+        "examples/showcase/variants/brick/sculpt-dna-manifest.json",
+        "examples/showcase/variants/seoul-production/sculpt-dna-manifest.json",
+        "tests/test_visual_regression_matrix.py"
+      ]
+    },
+    {
+      "id": "evidence-and-review-integrity",
+      "statement": "Multi-view comparisons, content hashes, review precedence, critical-feature vetoes, generated-runtime receipts, and production release gates bind acceptance to the implementation that produced it.",
+      "evidenceFiles": [
+        "scripts/make_visual_comparison_sheet.py",
+        "scripts/sculpt_module_review.py",
+        "scripts/visual_evidence_hashes.py",
+        "scripts/visual_feature_gate.py",
+        "scripts/verify_release.py",
+        "examples/brick-offroad-hero/evidence/visual-regression-matrix.json",
+        "examples/seoul-palace-hero/evidence/visual-regression-matrix.json",
+        "tests/test_workflow.py"
+      ]
+    },
+    {
+      "id": "action-ready-host-integration",
+      "statement": "Generated models carry action-ready hierarchy contracts and can be checked against immutable standalone and host renderer snapshots before promotion.",
+      "evidenceFiles": [
+        "skills/object-to-threejs-procedural/references/action-ready-models.md",
+        "skills/object-to-threejs-procedural/references/render-integration-contract.md",
+        "scripts/render_integration_contract.py",
+        "examples/render-integration-contract/render-integration-contract.json",
+        "examples/render-integration-contract/expected-integration-report.json",
+        "tests/test_render_integration_contract.py"
+      ]
+    },
+    {
+      "id": "first-clone-trust",
+      "statement": "A read-only doctor, complete executable inventory, static network/subprocess audit, security policy, and least-privilege CI expose the executable and release boundary before use.",
+      "evidenceFiles": [
+        "scripts/doctor.py",
+        "scripts/audit_script_policy.py",
+        "script-policy.json",
+        "SECURITY.md",
+        ".github/workflows/quality.yml",
+        "tests/test_plugin_manifest.py",
+        "tests/test_community_files.py"
+      ]
+    },
+    {
+      "id": "production-flagships",
+      "statement": "Three code-native flagships carry committed artifact manifests, while Brick and Seoul additionally carry passing base-plus-variant production matrices.",
+      "evidenceFiles": [
+        "examples/repolis-hero/artifact-manifest.json",
+        "examples/brick-offroad-hero/artifact-manifest.json",
+        "examples/seoul-palace-hero/artifact-manifest.json",
+        "examples/brick-offroad-hero/evidence/visual-regression-matrix.json",
+        "examples/seoul-palace-hero/evidence/visual-regression-matrix.json"
+      ]
+    }
+  ],
+  "verification": {
+    "repositoryCommands": [
+      {
+        "id": "capability-contract",
+        "workingDirectory": ".",
+        "command": [
+          "python3",
+          "scripts/verify_capability_proof.py",
+          "--json"
+        ]
+      },
+      {
+        "id": "executable-policy",
+        "workingDirectory": ".",
+        "command": [
+          "python3",
+          "scripts/audit_script_policy.py",
+          "--json"
+        ]
+      },
+      {
+        "id": "python-contracts",
+        "workingDirectory": ".",
+        "command": [
+          "python3",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-q"
+        ]
+      },
+      {
+        "id": "release-evidence",
+        "workingDirectory": ".",
+        "command": [
+          "python3",
+          "scripts/verify_release.py"
+        ]
+      }
+    ],
+    "browserMatrix": {
+      "workingDirectories": [
+        "examples/repolis-hero",
+        "examples/brick-offroad-hero",
+        "examples/seoul-palace-hero",
+        "examples/showcase"
+      ],
+      "commands": [
+        [
+          "npm",
+          "ci"
+        ],
+        [
+          "npm",
+          "audit",
+          "--audit-level=high"
+        ],
+        [
+          "npm",
+          "audit",
+          "--omit=dev",
+          "--audit-level=high"
+        ],
+        [
+          "npm",
+          "run",
+          "build"
+        ]
+      ],
+      "captureContractDirectories": [
+        "examples/repolis-hero",
+        "examples/brick-offroad-hero",
+        "examples/seoul-palace-hero"
+      ],
+      "captureCommand": [
+        "npm",
+        "run",
+        "test:capture"
+      ]
+    }
+  }
+}

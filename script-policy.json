@@ -221,6 +221,12 @@
       "subprocesses": []
     },
     {
+      "path": "scripts/verify_capability_proof.py",
+      "mode": "read-only",
+      "network": false,
+      "subprocesses": []
+    },
+    {
       "path": "scripts/verify_release.py",
       "mode": "read-only",
       "network": false,

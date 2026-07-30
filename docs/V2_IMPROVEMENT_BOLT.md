@@ -12,7 +12,8 @@
   hardening initiative, not a forced SemVer 2.0 compatibility break.
 - **External comparison:** `vinhhien112/Three.js-Object-Sculptor-Codex-Plugin`
 - **Constraint:** preserve Sculpt DNA, production evidence, and flagship
-  contracts; do not merge the upstream modular kernel blindly.
+  contracts; integrate the upstream modular kernel only with explicit schema
+  dispatch, provenance, and regression coverage.
 
 ## Diagnosis
 
@@ -22,22 +23,32 @@ strict spec validation, and eight-pass status check, and installed through
 direct repository, local path, and repository marketplace modes in Copilot CLI
 1.0.73.
 
-The apparent clone-to-star gap is mainly a measurement and distribution gap:
+The apparent clone-to-star gap is mainly an exposure and attribution gap, not
+a broken clone path. The GitHub traffic snapshot observed on 2026-07-31 showed
+11 views from 6 unique visitors and 10 clones from 10 unique cloners in the
+rolling 14-day window. Clone/fetch traffic includes CI, mirrors, indexers, and
+anonymous IPs, so it is not a count of ten developers who evaluated the
+product.
 
-- recorded traffic reached 116 unique 14-day cloners while only 21 unique web
-  visitors were observed; clone/fetch traffic includes CI, mirrors, indexers,
-  and anonymous IPs and should not be treated as 116 evaluating developers;
-- one star divided by the 21 recently observed unique web visitors is a
-  descriptive 4.8% ratio, not a cohort conversion rate: the time windows and
-  identities do not align, and the sample is too small. Qualified reach is the
-  stronger diagnosis;
-- the upstream project owns the original search phrase, received large Reddit
-  distribution, and has more than one thousand stars;
+- one star against six recently observed unique web visitors is too small and
+  identity-misaligned to support a conversion diagnosis;
+- the upstream repository has accumulated roughly 1.5k stars and 160 forks,
+  owns the original search phrase, and received launch distribution from
+  Reddit and X; the current repository did not inherit that history or GitHub
+  fork graph;
+- therefore the measurable problem is that almost nobody reached the canonical
+  repository page, not that a large qualified audience cloned it and rejected
+  it;
 - the official `github/copilot-plugins` submission remains open and review
   blocked, while the `awesome-copilot` submission was rejected because
   script-heavy behavior was considered opaque and a possible attack surface;
 - the strongest visual proof currently appears well below the README opening,
   and three alternative install modes can create duplicate cached plugins.
+
+This Bolt does not answer that gap with star solicitation or unverifiable
+superiority copy. It turns the repository into a proof-bearing combined
+release and reserves visual superiority language for a same-input blinded
+comparison.
 
 ## File-level change orders
 
@@ -95,12 +106,32 @@ The apparent clone-to-star gap is mainly a measurement and distribution gap:
 
 - **Change:** show the visual result and unique Sculpt DNA value above the fold,
   recommend exactly one marketplace install, add a doctor command and honest
-  upstream differentiation, and move deep internals behind the successful
-  first run.
+  upstream differentiation, replace the star request with verified release
+  state, and move deep internals behind the successful first run.
 - **Why:** this is a visual product competing with a search-dominant upstream;
   users need result, differentiation, trust, install, and proof in that order.
 - **Risk:** do not imply photogrammetry, automatic hero quality, official
   marketplace acceptance, or human usage from clone counts.
+
+### CO-07 · Kernel convergence without contract regression
+
+- **Change:** integrate upstream source commit
+  `543da1fc0e45a703b0ac037fb040ce082c79a1c2`, retain its modular tests, and
+  dispatch published schema-v2 documents to explicit compatibility modules.
+- **Why:** Sculpt DNA should contain the strongest current upstream modeling
+  kernel instead of competing with an older inherited baseline.
+- **Risk:** do not silently coerce schema-v2 production documents into the
+  adaptive v3.1/v4 state machine or discard SHA-bound flagship behavior.
+
+### CO-08 · Machine-verifiable capability and comparison boundary
+
+- **Change:** publish `capability-proof.json`, a read-only verifier, exact
+  upstream provenance, a verified capability matrix, and a same-input blinded
+  comparison protocol.
+- **Why:** source breadth, tests, executable trust, and production integrity can
+  be proven now; visual superiority requires a different controlled experiment.
+- **Risk:** never convert stars, file counts, unequal showcases, or test counts
+  alone into a visual-quality claim.
 
 ## Work order
 
@@ -121,19 +152,28 @@ The apparent clone-to-star gap is mainly a measurement and distribution gap:
     port/lock tests; normal page lifecycle disposes resources.
 - [x] **BOLT-06 · Rebuild the first README screen**
   - Acceptance: result, differentiation, one recommended install, doctor, and
-    star CTA are visible before the detailed architecture.
+    executable proof are visible before the detailed architecture.
 - [x] **BOLT-07 · Prepare the 0.5.0 release contract**
   - Acceptance: root/marketplace versions and changelog agree; registry status
     is documented honestly; no tag or external release is claimed before push.
 - [ ] **BOLT-08 · Re-run from a clean public clone**
   - Acceptance: doctor, compile, unit tests, release gate, Node tests, audits,
     four builds, and isolated marketplace install all pass.
+- [x] **BOLT-09 · Converge the modular kernel and Sculpt DNA production lane**
+  - Acceptance: the reviewed upstream snapshot, modular workflow, geometry
+    registry, specialized systems, and upstream tests are present; schema-v2
+    flagships remain supported by explicit compatibility dispatch.
+- [x] **BOLT-10 · Make capability claims machine-verifiable**
+  - Acceptance: release metadata, lineage, eight capability claims, evidence
+    paths, test floor, executable inventory, production matrices, and CI
+    commands are checked locally without network access.
+- [x] **BOLT-11 · Block popularity-based superiority claims**
+  - Acceptance: the README contains no star solicitation; proof limitations
+    reject stars as quality evidence; comparative output claims require the
+    published same-input, equal-budget, blinded protocol.
 
 ## Defer conditions
 
-- [ ] **DEFER:** importing the upstream 26k-line modular geometry kernel is a
-  separate architecture migration. It must not be mixed into this hardening
-  Bolt without a schema migration and flagship compatibility plan.
 - [ ] **DEFER:** rewriting Git history or moving evidence media to LFS would
   change clone and archival contracts and needs an explicit repository
   migration decision.
@@ -147,6 +187,7 @@ The apparent clone-to-star gap is mainly a measurement and distribution gap:
 ## Required validation
 
 - [x] `python3 scripts/doctor.py --skip-copilot`
+- [x] `python3 scripts/verify_capability_proof.py --json`
 - [x] `python3 scripts/audit_script_policy.py`
 - [x] `python3 -m compileall -q scripts tests`
 - [x] `python3 -m unittest discover -s tests -v`
@@ -161,12 +202,21 @@ The apparent clone-to-star gap is mainly a measurement and distribution gap:
 
 ### Local implementation result · 2026-07-31
 
-- BOLT-01 through BOLT-07 meet their acceptance criteria.
-- The doctor reports `READY`; its only local warning identifies three duplicate
-  Copilot installations, which is the intended shadowing diagnostic.
-- All 134 Python tests pass. Release verification, Python compilation, the
-  executable-policy audit, Node capture/factory tests, all four Vite builds,
-  generated TypeScript bundling/parsing, and both dependency audit modes pass.
+- BOLT-01 through BOLT-07 and BOLT-09 through BOLT-11 meet their acceptance
+  criteria. BOLT-08 is the remaining post-push clean-clone gate.
+- The reviewed upstream modular source snapshot is integrated with explicit
+  schema-v2 compatibility modules. A doctor regression that initially
+  reinterpreted the completed schema-v2 sample through the adaptive pipeline
+  was caught and fixed; the public status command now reports all eight passes
+  complete.
+- The doctor reports `READY` when optional Copilot inspection is skipped. Its
+  normal local mode may warn when duplicate Copilot installations can shadow
+  each other, which is the intended diagnostic.
+- The capability proof verifies 8 claims, 56 evidence files, 273 tests, and 40
+  network-disabled Python scripts. All 273 tests pass. Release verification,
+  Python compilation, 12 Node capture/factory tests, all four Vite builds,
+  generated TypeScript bundling/parsing, and both dependency audit modes pass
+  with zero reported npm vulnerabilities.
 - Brick and Seoul each pass four of four production matrix cells. Two
   independent regenerations are byte-identical to the committed reports:
   Brick `2786a451b2204229259245761bbb192b97f1dba4c996f9a7feaa6d4b8ffd85a7`;

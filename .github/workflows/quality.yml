@@ -14,8 +14,11 @@ on:
       - "assets/**"
       - "README.md"
       - "CHANGELOG.md"
+      - "ROADMAP.md"
+      - "UPSTREAM.md"
       - "SECURITY.md"
       - "CODE_OF_CONDUCT.md"
+      - "capability-proof.json"
       - "script-policy.json"
   push:
     branches: [main]
@@ -31,8 +34,11 @@ on:
       - "assets/**"
       - "README.md"
       - "CHANGELOG.md"
+      - "ROADMAP.md"
+      - "UPSTREAM.md"
       - "SECURITY.md"
       - "CODE_OF_CONDUCT.md"
+      - "capability-proof.json"
       - "script-policy.json"
   workflow_dispatch:
 
@@ -53,6 +59,8 @@ jobs:
           python-version: "3.11"
       - name: Audit executable policy
         run: python3 scripts/audit_script_policy.py
+      - name: Verify capability proof
+        run: python3 scripts/verify_capability_proof.py --json
       - name: Run first-clone doctor
         run: python3 scripts/doctor.py --skip-copilot
       - name: Compile Python
