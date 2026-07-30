@@ -156,7 +156,7 @@ comparison.
 - [x] **BOLT-07 · Prepare the 0.5.0 release contract**
   - Acceptance: root/marketplace versions and changelog agree; registry status
     is documented honestly; no tag or external release is claimed before push.
-- [ ] **BOLT-08 · Re-run from a clean public clone**
+- [x] **BOLT-08 · Re-run from a clean public clone**
   - Acceptance: doctor, compile, unit tests, release gate, Node tests, audits,
     four builds, and isolated marketplace install all pass.
 - [x] **BOLT-09 · Converge the modular kernel and Sculpt DNA production lane**
@@ -178,8 +178,8 @@ comparison.
   change clone and archival contracts and needs an explicit repository
   migration decision.
 - [ ] **DEFER:** updating the external marketplace PR, resubmitting to Awesome
-  Copilot, pushing commits, tagging, or publishing a release requires the local
-  changes to be reviewed and pushed first.
+  Copilot, tagging, or publishing a release requires this draft PR to pass
+  public checks and merge first.
 - [ ] **DEFER:** star growth is not an acceptance test. Measure qualified web
   visitors, successful doctor runs or issue feedback, demo engagement, and
   marketplace installs separately from anonymous clone traffic.
@@ -196,14 +196,13 @@ comparison.
 - [x] all four `npm run build` commands pass
 - [x] capture isolation tests pass
 - [x] full and production-only npm audits are reviewed
-- [ ] clean-clone marketplace installation reports exactly two installed skills
+- [x] clean-clone marketplace installation reports exactly two installed skills
 
 ## Completion report
 
 ### Local implementation result · 2026-07-31
 
-- BOLT-01 through BOLT-07 and BOLT-09 through BOLT-11 meet their acceptance
-  criteria. BOLT-08 is the remaining post-push clean-clone gate.
+- BOLT-01 through BOLT-11 meet their acceptance criteria.
 - The reviewed upstream modular source snapshot is integrated with explicit
   schema-v2 compatibility modules. A doctor regression that initially
   reinterpreted the completed schema-v2 sample through the adaptive pipeline
@@ -225,10 +224,18 @@ comparison.
   on the physical 75 Hz display. The base and three promoted variants average
   at least 75.01 FPS, have p95 frame time at or below 15.3 ms, and record zero
   dropped frames under the committed probe.
-- BOLT-08 remains open because version 0.5.0 is not pushed. The previous public
-  commit was clean-cloned and installed successfully in all three Copilot CLI
-  modes, but the new source cannot honestly be validated from a *public* clone
-  until it has a reviewed remote commit.
+- Public branch commit `6b7be56650215f81c3d1f1c27d1b75adf72e78d0` was
+  HTTPS depth-1 cloned into a fresh 118 MB checkout. Before npm installation,
+  the dependency-free suite discovered all 273 tests, passed, and explicitly
+  skipped only the three declared Brick runtime probes. After locked npm
+  installation, all 273 tests ran without skips and the Brick CI module passed
+  all 12 of its tests.
+- The same public clone passed the doctor, proof, policy audit, compilation,
+  release gate, 12 Node contracts, four browser builds, all eight dependency
+  audits, and generated TypeScript bundling/parsing. An empty isolated
+  `COPILOT_HOME` registered that checkout as a marketplace, installed
+  `threejs-sculpt-dna@threejs-copilot-plugins` v0.5.0, and exposed exactly
+  `object-to-threejs-procedural` and `sculpt-dna-variants` as plugin skills.
 
 Remaining distribution work is intentionally separate from local
 implementation. Do not represent these changes as causing star growth.
