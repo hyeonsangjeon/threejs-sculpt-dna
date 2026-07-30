@@ -6,7 +6,7 @@ evidence, and reproducible commands.
 
 ## Release proof
 
-The `0.5.0` capability contract binds eight claims to implementation files,
+The `0.5.1` capability contract binds eight claims to implementation files,
 tests, public CI, production reports, and the exact upstream source snapshot.
 The verifier rejects undeclared claims, missing or escaping evidence paths,
 version drift, incomplete skill registration, a failing production matrix, a
@@ -21,7 +21,7 @@ Expected state for this release:
 | Contract | Verifiable state |
 | --- | --- |
 | Capability claims | 8 claims with repository-local evidence |
-| Python contract surface | 273 discovered and executed tests |
+| Python contract surface | 274 discovered and executed tests |
 | Executable boundary | 40 declared Python scripts; network disabled |
 | Public skills | 2 registered skills |
 | Production family matrices | Brick 4/4 and Seoul 4/4 passing |
@@ -33,11 +33,11 @@ Expected state for this release:
 dependency-free contracts job runs the suite and may skip the three Brick
 runtime probes when `three` is not installed; the Brick browser job installs
 its locked dependency graph and then runs that module, so the combined public
-workflow executes the full 273-test surface.
+workflow executes the full 274-test surface.
 
 ## Combined capability surface
 
-| Layer | Present in `0.5.0` | Primary evidence |
+| Layer | Present in `0.5.1` | Primary evidence |
 | --- | --- | --- |
 | Modular reconstruction | v4 root manifests, independent modules, adaptive passes, module hashes/cache, correction batches, build/runtime receipts | `scripts/sculpt_manifest.py`, `scripts/sculpt_module_state.py`, `tests/test_modular_workflow.py` |
 | Procedural modeling | compound assemblies; sweeps; lathes; extrusions; lofts; fitted shells; branch/scatter/instance systems; modifiers; welded sculpted surfaces; specialized regions | `scripts/sculpt_geometry.py`, `scripts/sculpt_special_geometry_typescript.py`, modeling tests |
