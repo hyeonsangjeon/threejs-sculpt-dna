@@ -1,7 +1,27 @@
 {
-  "name": "brick-offroad-flagship",
+  "name": "@threejs-sculpt-dna/brick-offroad-factory",
+  "version": "0.6.0",
+  "description": "Deterministic action-ready Brick off-road Three.js factory used by the Sculpt DNA flagships.",
   "private": true,
   "type": "module",
+  "sideEffects": false,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hyeonsangjeon/threejs-sculpt-dna.git",
+    "directory": "examples/brick-offroad-hero"
+  },
+  "files": [
+    "brick-output/createBrickOffroad.js",
+    "brick-output/createBrickOffroad.d.ts",
+    "brick-output/brick-variant-config.json"
+  ],
+  "exports": {
+    ".": {
+      "types": "./brick-output/createBrickOffroad.d.ts",
+      "import": "./brick-output/createBrickOffroad.js"
+    }
+  },
   "scripts": {
     "dev": "vite --host 127.0.0.1 --port 4176",
     "build": "vite build",

@@ -5,7 +5,7 @@ import { normalizeFactoryOutput } from '@threejs-sculpt-dna/react-three-fiber';
 import {
   BRICK_BASE_CONFIG,
   createBrickOffroad,
-} from '../brick-offroad-hero/brick-output/createBrickOffroad.js';
+} from '@threejs-sculpt-dna/brick-offroad-factory';
 
 test('real Brick factory exposes the complete R3F adapter contract', () => {
   const source = createBrickOffroad({

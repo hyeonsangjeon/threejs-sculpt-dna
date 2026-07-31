@@ -19,6 +19,8 @@ All notable changes to `threejs-sculpt-dna` are documented here.
   factory binding, invalid output, and cleanup behavior.
 - Added a live React Three Fiber demo that reuses the Brick production factory,
   exposes live runtime metrics and articulation, and tracks a real roof socket.
+- Exposed that unchanged Brick factory through a private, source-only file
+  package so clean consumers install its runtime boundary without copying it.
 - Added two real-factory Node integration contracts and seven offline Python
   repository contracts for the optional adapter boundary.
 

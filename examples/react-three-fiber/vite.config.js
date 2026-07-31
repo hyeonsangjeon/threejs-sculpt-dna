@@ -5,8 +5,8 @@ export default defineConfig({
   base: './',
   plugins: [react()],
   resolve: {
-    // The reused Brick source sits beside this app and has its own install.
-    // Force every import through this app's React/Three runtime.
+    // The reusable Brick file package retains its plain Three.js entry point.
+    // Force every browser import through this app's single runtime.
     dedupe: ['react', 'react-dom', 'three', '@react-three/fiber'],
   },
   build: {

@@ -8,7 +8,7 @@ import {
   BRICK_BASE_CONFIG,
   BRICK_VARIANTS,
   createBrickOffroad,
-} from '../../brick-offroad-hero/brick-output/createBrickOffroad.js';
+} from '@threejs-sculpt-dna/brick-offroad-factory';
 
 const INSTALL_COMMAND = 'copilot plugin install hyeonsangjeon/threejs-sculpt-dna';
 const REPOSITORY = 'https://github.com/hyeonsangjeon/threejs-sculpt-dna';

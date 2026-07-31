@@ -68,7 +68,11 @@ class ReactThreeFiberAdapterTests(unittest.TestCase):
             package["dependencies"]["@threejs-sculpt-dna/react-three-fiber"],
             "file:../../adapters/react-three-fiber",
         )
-        self.assertIn("../../brick-offroad-hero/brick-output/createBrickOffroad.js", app)
+        self.assertEqual(
+            package["dependencies"]["@threejs-sculpt-dna/brick-offroad-factory"],
+            "file:../brick-offroad-hero",
+        )
+        self.assertIn("@threejs-sculpt-dna/brick-offroad-factory", app)
         self.assertIn("factory={createBrickOffroad}", app)
         self.assertIn("normalizeFactoryOutput(createBrickOffroad(options))", contracts)
         self.assertTrue((EXAMPLE / "package-lock.json").is_file())

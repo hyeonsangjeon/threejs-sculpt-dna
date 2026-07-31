@@ -11,10 +11,11 @@
   },
   "dependencies": {
     "@react-three/fiber": "9.6.1",
+    "@threejs-sculpt-dna/brick-offroad-factory": "file:../brick-offroad-hero",
     "@threejs-sculpt-dna/react-three-fiber": "file:../../adapters/react-three-fiber",
     "react": "19.2.8",
     "react-dom": "19.2.8",
-    "three": "0.182.0"
+    "three": "0.180.0"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "6.0.5",
