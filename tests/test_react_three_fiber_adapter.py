@@ -72,6 +72,10 @@ class ReactThreeFiberAdapterTests(unittest.TestCase):
         self.assertIn("factory={createBrickOffroad}", app)
         self.assertIn("normalizeFactoryOutput(createBrickOffroad(options))", contracts)
         self.assertTrue((EXAMPLE / "package-lock.json").is_file())
+        self.assertEqual(
+            (EXAMPLE / ".npmrc").read_text(encoding="utf-8").strip(),
+            "install-links=true",
+        )
 
     def test_quality_and_pages_cover_the_adapter_and_live_route(self) -> None:
         quality = (ROOT / ".github" / "workflows" / "quality.yml").read_text(
