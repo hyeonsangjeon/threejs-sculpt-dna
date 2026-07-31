@@ -36,12 +36,17 @@ npm ci --prefix examples/repolis-hero
 npm ci --prefix examples/brick-offroad-hero
 npm ci --prefix examples/seoul-palace-hero
 npm ci --prefix examples/proof-lab
+npm ci --prefix adapters/react-three-fiber
+npm ci --prefix examples/react-three-fiber
 ```
 
 Build the flagship:
 
 ```bash
 npm --prefix examples/repolis-hero run build
+npm --prefix adapters/react-three-fiber run check
+npm --prefix examples/react-three-fiber test
+npm --prefix examples/react-three-fiber run build
 ```
 
 Install the working plugin locally only after removing any marketplace copy;
@@ -75,6 +80,16 @@ copilot plugin install "$(pwd)"
 - make every bundled reference reachable through a Markdown link
 - use concrete Three.js and technical-art terminology
 - distinguish production variants from preview exploration
+
+### React Three Fiber adapter
+
+- keep React, Three.js, and React Three Fiber as peer dependencies
+- create procedural resources after commit, never as a render-phase side effect
+- keep high-frequency updates in `useFrame` or the factory, not React state
+- render factory roots through `primitive` with R3F disposal disabled
+- delegate cleanup to the plain factory exactly once, or use the adapter's
+  owned-root fallback when a plain `Object3D` exposes no disposer
+- test mount, semantic prop rebuild, StrictMode, frame update, and unmount
 
 ### Visual changes
 

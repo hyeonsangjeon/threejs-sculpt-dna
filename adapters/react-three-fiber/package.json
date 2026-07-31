@@ -1,0 +1,49 @@
+{
+  "name": "@threejs-sculpt-dna/react-three-fiber",
+  "version": "0.6.0",
+  "description": "Lifecycle-safe React Three Fiber adapter for action-ready Three.js Sculpt DNA factories.",
+  "type": "module",
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "test": "vitest run",
+    "check": "npm run build && npm test"
+  },
+  "peerDependencies": {
+    "@react-three/fiber": ">=8 <10",
+    "react": ">=18 <20",
+    "three": ">=0.160 <1"
+  },
+  "devDependencies": {
+    "@react-three/fiber": "9.6.1",
+    "@react-three/test-renderer": "9.1.0",
+    "@types/react": "19.2.18",
+    "@types/three": "0.182.0",
+    "react": "19.2.8",
+    "three": "0.182.0",
+    "typescript": "7.0.2",
+    "vitest": "4.1.10"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hyeonsangjeon/threejs-sculpt-dna.git",
+    "directory": "adapters/react-three-fiber"
+  },
+  "keywords": [
+    "react-three-fiber",
+    "threejs",
+    "procedural-3d",
+    "sculpt-dna"
+  ]
+}

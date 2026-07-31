@@ -17,7 +17,7 @@ const claims = [
 ];
 const CAPABILITY_SHA256 = 'c'.repeat(64);
 
-function capability(release = '0.5.2') {
+function capability(release = '0.6.0') {
   return {
     schemaVersion: '1.0',
     artifactType: 'threejs-sculpt-dna-capability-proof',
@@ -34,7 +34,7 @@ function capability(release = '0.5.2') {
 }
 
 function proofRun({
-  release = '0.5.2',
+  release = '0.6.0',
   status = 'pass',
   ok = status === 'pass',
 } = {}) {
@@ -73,7 +73,7 @@ test('passing proof produces the complete visible ledger', () => {
     CAPABILITY_SHA256,
   );
   assert.equal(model.state, 'pass');
-  assert.equal(model.release, '0.5.2');
+  assert.equal(model.release, '0.6.0');
   assert.equal(model.checks.length, 6);
   assert.equal(model.claims.length, 2);
   assert.equal(model.claims[0].label, 'Region-aware PBR');
@@ -96,7 +96,7 @@ test('a failed check cannot render as passing', () => {
 test('release mismatch fails closed', () => {
   assert.throws(
     () => makeProofViewModel(
-      capability('0.5.2'),
+      capability('0.6.0'),
       proofRun({ release: '0.5.1' }),
       CAPABILITY_SHA256,
     ),

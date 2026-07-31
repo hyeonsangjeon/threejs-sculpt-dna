@@ -1,7 +1,7 @@
 {
   "name": "threejs-sculpt-dna",
-  "version": "0.5.2",
-  "description": "Build verifiable modular procedural Three.js reconstructions and deterministic asset families from references.",
+  "version": "0.6.0",
+  "description": "Build verifiable procedural Three.js reconstructions, deterministic asset families, and lifecycle-safe React Three Fiber runtimes.",
   "author": {
     "name": "hyeonsangjeon"
   },
@@ -11,6 +11,8 @@
     "codex",
     "procedural-3d",
     "procedural-modeling",
+    "react-three-fiber",
+    "r3f",
     "deterministic-generation",
     "visual-regression",
     "image-analysis",
@@ -33,6 +35,7 @@
       "Deterministic Asset Families",
       "Modular Sculpt Specs",
       "Action-Ready Models",
+      "React Three Fiber Runtime",
       "Quality Gates",
       "Validation"
     ],

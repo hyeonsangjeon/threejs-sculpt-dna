@@ -4,7 +4,7 @@
 
 The roadmap prioritizes reproducibility, visual evidence, action-ready hierarchy, and honest limits over one-shot output volume.
 
-## Current: 0.5.x
+## Current: 0.6.x
 
 - GitHub Copilot plugin and repository marketplace
 - reference suitability and complexity assessment
@@ -27,11 +27,15 @@ The roadmap prioritizes reproducibility, visual evidence, action-ready hierarchy
 - machine-readable capability proof, exact upstream lineage, and a fair
   same-input blinded comparison protocol
 - one-command offline proof runner and a source-linked public Proof Lab
+- one-command direct Copilot install from the canonical GitHub repository
+- optional React Three Fiber adapter with deterministic prop rebuilds,
+  `useFrame` delegation, action-ready runtime access, and exact-once cleanup
+- live R3F integration reusing the plain Brick production factory
 - isolated capture processes and capture-only WebGL drawing-buffer preservation
 - additive Render Integration Contract v1 for deterministic standalone/host renderer, target, layer/light, fixed-view, semantic, exposure, performance, and error checks
 - Repolis Living Archive flagship and reproducible capture pipeline
 
-## 0.5.x — Next reproducible quality
+## 0.6.x — Next reproducible quality
 
 ### Published same-input benchmark
 
@@ -48,10 +52,9 @@ The roadmap prioritizes reproducibility, visual evidence, action-ready hierarchy
 - detect visually redundant controls
 - support user-prioritized semantic dimensions
 
-## 0.6 — Multi-reference and runtime adapters
+## 0.7 — Multi-reference and additional runtime adapters
 
 - front/side/back reference fusion with explicit confidence
-- React Three Fiber adapter
 - optional GLB export after procedural generation
 - physics adapters for Rapier and Cannon
 - animation helpers for pivots, sockets, bend chains, and material states

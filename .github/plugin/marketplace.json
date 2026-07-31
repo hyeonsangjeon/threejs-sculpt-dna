@@ -11,8 +11,8 @@
   "plugins": [
     {
       "name": "threejs-sculpt-dna",
-      "description": "Build verifiable modular procedural Three.js reconstructions and coverage-curated deterministic asset families from references.",
-      "version": "0.5.2",
+      "description": "Build verifiable procedural Three.js reconstructions, deterministic asset families, and React Three Fiber runtimes from references.",
+      "version": "0.6.0",
       "source": ".",
       "author": {
         "name": "hyeonsangjeon",
@@ -28,6 +28,7 @@
         "threejs",
         "procedural-3d",
         "procedural-modeling",
+        "react-three-fiber",
         "visual-regression",
         "object-reconstruction",
         "asset-variants"
@@ -36,7 +37,8 @@
       "tags": [
         "image-to-3d",
         "sculpt-dna",
-        "coverage-curator"
+        "coverage-curator",
+        "r3f"
       ]
     }
   ]
