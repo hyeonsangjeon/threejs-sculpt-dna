@@ -12,12 +12,7 @@ Describe schema, deterministic output, marketplace, or migration impact.
 
 ## Verification
 
-- [ ] `python3 scripts/doctor.py --skip-copilot`
-- [ ] `python3 scripts/verify_capability_proof.py --json`
-- [ ] `python3 scripts/audit_script_policy.py`
-- [ ] `python3 -m compileall -q scripts tests`
-- [ ] `python3 -m unittest discover -s tests -v`
-- [ ] `python3 scripts/verify_release.py`
+- [ ] `python3 scripts/prove.py --output proof-run.json`
 - [ ] Changed browser examples build and pass `npm audit --audit-level=high`
 - [ ] Changed ObjectSculptSpecs pass strict validation
 - [ ] Marketplace JSON remains valid when applicable

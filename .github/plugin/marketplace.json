@@ -12,7 +12,7 @@
     {
       "name": "threejs-sculpt-dna",
       "description": "Build verifiable modular procedural Three.js reconstructions and coverage-curated deterministic asset families from references.",
-      "version": "0.5.1",
+      "version": "0.5.2",
       "source": ".",
       "author": {
         "name": "hyeonsangjeon",

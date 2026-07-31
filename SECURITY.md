@@ -25,15 +25,16 @@ Audit it without executing the workflow:
 python3 scripts/audit_script_policy.py
 ```
 
-The release claim/evidence boundary has a separate read-only verifier:
+Run the complete release boundary without network access:
 
 ```bash
-python3 scripts/verify_capability_proof.py --json
+python3 scripts/prove.py
 ```
 
-It checks repository-local metadata, paths, tests, production reports, and CI
-declarations. It does not access the network or execute the declared evidence
-commands.
+It executes the script-policy audit, capability verifier, first-clone doctor,
+compilation, Python contracts, and release evidence. No file is written unless
+`--output` explicitly names the machine-readable result. Captured output is
+bounded in that JSON while the complete streams retain SHA-256 digests.
 
 Two image tools may invoke the local macOS `sips` executable when a source
 format cannot be decoded directly. `scripts/doctor.py` may read `copilot
@@ -47,7 +48,7 @@ Python. They are not run when the plugin is installed.
 ## Before running a command
 
 1. Review the relevant entry in `script-policy.json`.
-2. Run `python3 scripts/doctor.py`.
+2. Run `python3 scripts/prove.py`.
 3. Use a copy of valuable specs before passing `--in-place`.
 4. Do not provide secrets, private images, or unredacted filesystem data.
 5. Inspect generated TypeScript before adding it to a production application.

@@ -93,6 +93,14 @@
       "subprocesses": []
     },
     {
+      "path": "scripts/prove.py",
+      "mode": "generated-output",
+      "network": false,
+      "subprocesses": [
+        "python3"
+      ]
+    },
+    {
       "path": "scripts/refresh_brick_reviews.py",
       "mode": "explicit-in-place",
       "network": false,

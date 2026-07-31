@@ -25,11 +25,7 @@ Clone and verify:
 git clone https://github.com/hyeonsangjeon/threejs-sculpt-dna.git
 cd threejs-sculpt-dna
 
-python3 scripts/doctor.py --skip-copilot
-python3 scripts/audit_script_policy.py
-python3 -m compileall -q scripts tests
-python3 -m unittest discover -s tests -v
-python3 scripts/verify_release.py
+python3 scripts/prove.py --output proof-run.json
 ```
 
 Install example dependencies:
@@ -39,6 +35,7 @@ npm ci --prefix examples/showcase
 npm ci --prefix examples/repolis-hero
 npm ci --prefix examples/brick-offroad-hero
 npm ci --prefix examples/seoul-palace-hero
+npm ci --prefix examples/proof-lab
 ```
 
 Build the flagship:

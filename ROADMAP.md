@@ -16,6 +16,8 @@ The roadmap prioritizes reproducibility, visual evidence, action-ready hierarchy
 - explicit schema-v2 Sculpt DNA compatibility lane
 - locked sculpt passes with multi-view browser and AI-vision evidence
 - generated PBR channels and Three.js factory scaffolds
+- region-aware PBR extraction with pixel/normalized crop provenance, source
+  hashes, and mixed-background/material rejection
 - action-ready pivots, sockets, collider proxies, and destruction groups
 - Sculpt DNA constraints, invariants, deterministic provenance, and preview mode
 - Coverage Curator
@@ -24,18 +26,12 @@ The roadmap prioritizes reproducibility, visual evidence, action-ready hierarchy
 - PR quality CI for all plugin, skill, script, documentation, and browser-example surfaces
 - machine-readable capability proof, exact upstream lineage, and a fair
   same-input blinded comparison protocol
+- one-command offline proof runner and a source-linked public Proof Lab
 - isolated capture processes and capture-only WebGL drawing-buffer preservation
 - additive Render Integration Contract v1 for deterministic standalone/host renderer, target, layer/light, fixed-view, semantic, exposure, performance, and error checks
 - Repolis Living Archive flagship and reproducible capture pipeline
 
 ## 0.5.x — Next reproducible quality
-
-### Region-aware reference extraction
-
-- select material crops independently from the full reference
-- preserve crop coordinates and source hashes in `referencePbr`
-- compare extraction confidence per material
-- reject mixed-background or mixed-material crops
 
 ### Published same-input benchmark
 

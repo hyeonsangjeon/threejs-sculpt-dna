@@ -45,16 +45,18 @@ You should see:
 
 GitHub Copilot plugin marketplaces are decentralized Git repositories. The file `.github/plugin/marketplace.json` registers this repository as the `threejs-copilot-plugins` marketplace.
 
-If you cloned the repository, run the read-only health check:
+If you cloned the repository, run the complete offline release proof:
 
 ```bash
-python3 scripts/doctor.py
+python3 scripts/prove.py
 ```
 
-`READY` means the manifests, two skills, executable policy, public sample, all
-eight passes, and Brick/Seoul production matrices are healthy. Warnings report
-optional runtime gaps or duplicate Copilot installations; the doctor never
-installs, updates, removes, renders, or accesses the network.
+`PROOF PASS: 6/6 checks passed` means executable policy, capability contract,
+first-clone health, Python compilation/contracts, and release evidence all
+pass. The runner never accesses the network and writes nothing unless
+`--output` explicitly names a proof JSON file. Run
+`python3 scripts/doctor.py` separately when diagnosing optional runtime gaps or
+duplicate Copilot installations.
 
 ## 2. Attach a reference image
 

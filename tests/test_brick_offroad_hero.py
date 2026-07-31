@@ -704,10 +704,14 @@ class BrickOffroadHeroTests(unittest.TestCase):
             workflow,
         )
         self.assertIn('- "examples/showcase/**"', workflow)
+        self.assertIn('- "examples/proof-lab/**"', workflow)
         self.assertIn('- "scripts/**"', workflow)
         self.assertIn('- "tests/**"', workflow)
-        self.assertIn("python3 scripts/verify_release.py", workflow)
-        self.assertIn("python3 -m unittest discover -s tests -q", workflow)
+        self.assertIn("python3 scripts/prove.py", workflow)
+        self.assertIn(
+            "--output examples/proof-lab/dist/proof-run.json",
+            workflow,
+        )
         self.assertIn("npm run test:capture", workflow)
         self.assertIn(
             'diff -qr examples/brick-offroad-hero/dist "$PAGES_DIR/brick"',
@@ -715,6 +719,10 @@ class BrickOffroadHeroTests(unittest.TestCase):
         )
         self.assertIn(
             'diff -qr examples/showcase/dist "$PAGES_DIR/showcase"',
+            workflow,
+        )
+        self.assertIn(
+            'diff -qr examples/proof-lab/dist "$PAGES_DIR/proof"',
             workflow,
         )
         self.assertIn(

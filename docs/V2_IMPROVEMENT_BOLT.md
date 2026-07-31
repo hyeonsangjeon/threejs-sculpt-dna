@@ -145,7 +145,7 @@ comparison.
   - Acceptance: NaN/Infinity fidelity and non-standard JSON are rejected; shared
     constants are imported from one module; all focused tests pass.
 - [x] **BOLT-04 · Add full-surface PR quality CI**
-  - Acceptance: plugin/docs/skills/manifests trigger tests; all four browser
+  - Acceptance: plugin/docs/skills/manifests trigger tests; all five browser
     examples build; generated TypeScript parses; audits have no high findings.
 - [x] **BOLT-05 · Update runtime and capture hygiene**
   - Acceptance: framebuffer preservation is capture-only; Repolis has isolated
@@ -164,7 +164,7 @@ comparison.
     registry, specialized systems, and upstream tests are present; schema-v2
     flagships remain supported by explicit compatibility dispatch.
 - [x] **BOLT-10 · Make capability claims machine-verifiable**
-  - Acceptance: release metadata, lineage, eight capability claims, evidence
+  - Acceptance: release metadata, lineage, ten capability claims, evidence
     paths, test floor, executable inventory, production matrices, and CI
     commands are checked locally without network access.
 - [x] **BOLT-11 · Block popularity-based superiority claims**
@@ -176,18 +176,33 @@ comparison.
     showcase link directly to the canonical repository and installation guide;
     Seoul preserves its stricter reviewed-source fingerprint and links back
     through the flagship pager instead of rewriting accepted evidence.
-- [x] **BOLT-13 · Put installation and external validation above the fold**
+- [x] **BOLT-13 · Put installation and repository proof above the fold**
   - Acceptance: the README exposes the single recommended two-command install
-    before architecture detail, links the exact Awesome Copilot intake result,
-    and displays the main Quality workflow state without asking for stars.
+    before architecture detail, links the exact self-contained proof command
+    and live Proof Lab, and displays Quality state without asking for stars.
+- [x] **BOLT-14 · Make one command the release authority**
+  - Acceptance: `python3 scripts/prove.py` runs policy, capability, doctor,
+    compile, Python contracts, and release evidence offline; optional JSON
+    output is bounded, full-stream hashed, versioned, and fail-closed.
+- [x] **BOLT-15 · Ship region-aware reference PBR**
+  - Acceptance: normalized/pixel crops resolve deterministically; source hash,
+    dimensions, coordinate forms, and crop identity survive reports and
+    in-place patches; invalid, tiny, background-heavy, and mixed regions fail;
+    no-crop output keeps the legacy auto-foreground path.
+- [x] **BOLT-16 · Publish proof as a product surface**
+  - Acceptance: a dependency-free Proof Lab renders the actual CI proof,
+    exposes every source-linked claim and limitation, passes desktop/mobile and
+    interaction QA, and deploys at `/proof/` beside the flagships.
 
 ## Defer conditions
 
 - [ ] **DEFER:** rewriting Git history or moving evidence media to LFS would
   change clone and archival contracts and needs an explicit repository
   migration decision.
-- [ ] **DEFER:** updating the external marketplace PR, resubmitting to Awesome
-  Copilot, tagging, or publishing a release requires this draft PR to pass
+- [x] **RETIRED:** external catalog resubmission is outside the release plan.
+  No further comments, reopen attempts, or catalog-specific changes are
+  required; repository-local proof is the authority.
+- [ ] **DEFER:** tagging or publishing a release requires this draft PR to pass
   public checks and merge first.
 - [ ] **DEFER:** star growth is not an acceptance test. Measure qualified web
   visitors, successful doctor runs or issue feedback, demo engagement, and
@@ -195,14 +210,10 @@ comparison.
 
 ## Required validation
 
-- [x] `python3 scripts/doctor.py --skip-copilot`
-- [x] `python3 scripts/verify_capability_proof.py --json`
-- [x] `python3 scripts/audit_script_policy.py`
-- [x] `python3 -m compileall -q scripts tests`
-- [x] `python3 -m unittest discover -s tests -v`
-- [x] `python3 scripts/verify_release.py`
+- [x] `python3 scripts/prove.py --output proof-run.json`
 - [x] Brick and Seoul visual matrix reports are regenerated and byte-identical
-- [x] all four `npm run build` commands pass
+- [x] all five `npm run build` commands pass
+- [x] Proof Lab data contracts and desktop/mobile interaction QA pass
 - [x] capture isolation tests pass
 - [x] full and production-only npm audits are reviewed
 - [x] clean-clone marketplace installation reports exactly two installed skills
@@ -255,10 +266,23 @@ implementation. Do not represent these changes as causing star growth.
   visitors and 10 clone events from 10 unique sources. Clone telemetry includes
   automation, mirrors, and indexers, so it remains unsuitable as a human
   conversion count.
-- Awesome Copilot issue `#2274` now passes Vally lint, isolated install smoke,
-  version match, and ref/SHA consistency and carries `ready-for-review`.
+- External catalog follow-through is retired from the project plan. No further
+  submission-specific work is required for release quality.
 - Official Copilot Plugins PR `#57` remains open for maintainer review.
 - Primary public demo navigation now returns qualified visitors to the
   canonical source and install instructions instead of ending at an isolated
   WebGL experience. Seoul retains its stricter reviewed-source fingerprint and
   routes back through the flagship pager.
+
+### Self-proof upgrade · 0.5.2 · 2026-07-31
+
+- The capability proof now verifies 10 claims, 63 evidence files, 288 Python
+  contracts, and 41 network-disabled Python scripts.
+- The new offline proof runner completes all six declared gates and publishes a
+  bounded, hashed machine-readable result; CI invokes this same command.
+- Region-aware PBR extraction supports deterministic pixel/normalized material
+  regions, preserves complete source/crop provenance, and keeps the legacy
+  no-crop path under regression coverage.
+- The dependency-free Proof Lab renders the real proof result, source-links all
+  claims, exposes limitations, and joins the five-build Pages matrix at
+  `/proof/`.

@@ -16,7 +16,7 @@ from audit_script_policy import audit_policy
 
 ROOT = Path(__file__).resolve().parents[1]
 PROOF_PATH = ROOT / "capability-proof.json"
-EXPECTED_RELEASE = "0.5.1"
+EXPECTED_RELEASE = "0.5.2"
 EXPECTED_REPOSITORY = "https://github.com/hyeonsangjeon/threejs-sculpt-dna"
 EXPECTED_UPSTREAM = (
     "https://github.com/vinhhien112/Three.js-Object-Sculptor-Codex-Plugin"
@@ -30,24 +30,39 @@ EXPECTED_CLAIM_IDS = {
     "modular-v4-modeling-kernel",
     "procedural-geometry-breadth",
     "production-flagships",
+    "region-aware-reference-pbr",
     "schema-compatibility",
+    "self-contained-proof-run",
 }
 EXPECTED_SKILLS = {
     "./skills/object-to-threejs-procedural/",
     "./skills/sculpt-dna-variants/",
 }
 REQUIRED_QUALITY_COMMANDS = {
-    "python3 scripts/verify_capability_proof.py --json",
-    "python3 scripts/audit_script_policy.py",
-    "python3 scripts/doctor.py --skip-copilot",
-    "python3 -m compileall -q scripts tests",
-    "python3 -m unittest discover -s tests -q",
-    "python3 scripts/verify_release.py",
+    'python3 scripts/prove.py --output proof-run.json --commit "$GITHUB_SHA"',
     "npm audit --audit-level=high",
     "npm audit --omit=dev --audit-level=high",
+    "npm test",
     "npm run build",
 }
-MINIMUM_TESTS = 269
+EXPECTED_REPOSITORY_COMMAND = {
+    "id": "self-contained-proof",
+    "workingDirectory": ".",
+    "command": ["python3", "scripts/prove.py"],
+}
+EXPECTED_BROWSER_DIRECTORIES = {
+    "examples/repolis-hero",
+    "examples/brick-offroad-hero",
+    "examples/seoul-palace-hero",
+    "examples/showcase",
+    "examples/proof-lab",
+}
+EXPECTED_CAPTURE_DIRECTORIES = {
+    "examples/repolis-hero",
+    "examples/brick-offroad-hero",
+    "examples/seoul-palace-hero",
+}
+MINIMUM_TESTS = 288
 
 
 class StrictJsonError(ValueError):
@@ -293,6 +308,11 @@ def _verify_commands(root: Path, proof: dict[str, Any], errors: list[str]) -> No
             )
             if working_directory is not None and not working_directory.is_dir():
                 errors.append(f"{label}.workingDirectory does not exist")
+        if repository_commands != [EXPECTED_REPOSITORY_COMMAND]:
+            errors.append(
+                "verification.repositoryCommands must expose the single "
+                "self-contained proof command"
+            )
 
     browser = verification.get("browserMatrix")
     if not isinstance(browser, dict):
@@ -312,6 +332,21 @@ def _verify_commands(root: Path, proof: dict[str, Any], errors: list[str]) -> No
             )
             if path is not None and not (path / "package.json").is_file():
                 errors.append(f"browser verification directory is invalid: {relative}")
+    working_directories = browser.get("workingDirectories")
+    if (
+        isinstance(working_directories, list)
+        and set(working_directories) != EXPECTED_BROWSER_DIRECTORIES
+    ):
+        errors.append(
+            "browser matrix must cover the three production flagships, "
+            "showcase, and Proof Lab"
+        )
+    capture_directories = browser.get("captureContractDirectories")
+    if (
+        isinstance(capture_directories, list)
+        and set(capture_directories) != EXPECTED_CAPTURE_DIRECTORIES
+    ):
+        errors.append("capture matrix must cover exactly the three production flagships")
 
 
 def _verify_public_contracts(root: Path, errors: list[str]) -> None:
@@ -334,7 +369,11 @@ def _verify_public_contracts(root: Path, errors: list[str]) -> None:
     for label, text, required in (
         ("README.md", readme, "capability-proof.json"),
         ("README.md", readme, "docs/VERIFIED_CAPABILITIES.md"),
+        ("README.md", readme, "python3 scripts/prove.py"),
+        ("README.md", readme, "/proof/"),
         ("README.md", readme, "Stars measure attention"),
+        ("VERIFIED_CAPABILITIES.md", verified, "python3 scripts/prove.py"),
+        ("VERIFIED_CAPABILITIES.md", verified, "Proof Lab"),
         ("VERIFIED_CAPABILITIES.md", verified, "FAIR_COMPARISON_PROTOCOL.md"),
         ("UPSTREAM.md", upstream, EXPECTED_UPSTREAM_COMMIT),
         ("UPSTREAM.md", upstream, EXPECTED_UPSTREAM),

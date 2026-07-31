@@ -1,7 +1,7 @@
 {
   "name": "threejs-sculpt-dna",
   "description": "A verifiable GitHub Copilot workflow for modular procedural Three.js reconstruction and deterministic asset families.",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "author": {
     "name": "hyeonsangjeon",
     "email": "wingnut0310@gmail.com",

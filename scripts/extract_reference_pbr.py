@@ -12,6 +12,7 @@ field is retained for schema compatibility.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import math
 import os
@@ -23,10 +24,16 @@ from typing import Any
 from sculpt_contract import write_spec_atomic
 from sculpt_image_io import (
     load_image_rgba_limited as load_image,
-    png_dimensions,
     write_png_rgb,
 )
 from sculpt_manifest import load_document, save_document
+from probe_reference_image import detect_size
+
+
+MIN_CROP_SIDE = 32
+MIN_CROP_AREA = MIN_CROP_SIDE * MIN_CROP_SIDE
+MAX_BACKGROUND_CONTAMINATION = 0.5
+MAX_MIXED_MATERIAL_RISK = 0.8
 
 
 def slugify(value: str) -> str:
@@ -478,12 +485,15 @@ def estimate_confidence(
     stats: dict[str, Any],
     warnings: list[str],
     single_image: bool,
+    material_region: bool = False,
 ) -> tuple[float, list[str]]:
     confidence_notes: list[str] = []
     min_dim = min(width, height)
     resolution_score = clamp(min_dim / 1024.0, 0.35, 1.0)
     coverage = float(mask_diagnostics.get("foregroundCoverage", 1.0))
-    if 0.08 <= coverage <= 0.82:
+    if material_region and coverage >= 0.5:
+        mask_score = 1.0
+    elif 0.08 <= coverage <= 0.82:
         mask_score = 1.0
     elif 0.035 <= coverage < 0.08:
         mask_score = 0.55
@@ -528,6 +538,223 @@ def portable_path(path: Path, path_root: Path) -> str:
     ).as_posix()
 
 
+def source_sha256(data: bytes) -> str:
+    return hashlib.sha256(data).hexdigest()
+
+
+def _canonical_sha256(payload: dict[str, Any]) -> str:
+    canonical = json.dumps(
+        payload,
+        ensure_ascii=False,
+        sort_keys=True,
+        separators=(",", ":"),
+    ).encode("utf-8")
+    return hashlib.sha256(canonical).hexdigest()
+
+
+def resolve_source_crop(
+    source_width: int,
+    source_height: int,
+    *,
+    pixel_crop: list[int] | tuple[int, int, int, int] | None = None,
+    normalized_crop: list[float] | tuple[float, float, float, float] | None = None,
+    image_sha256: str,
+) -> dict[str, Any] | None:
+    """Validate an explicit crop and resolve it to deterministic source pixels."""
+
+    if pixel_crop is not None and normalized_crop is not None:
+        raise ValueError("choose only one of --crop-pixels or --crop-normalized")
+    if pixel_crop is None and normalized_crop is None:
+        return None
+    if source_width <= 0 or source_height <= 0:
+        raise ValueError("source dimensions must be positive before resolving a crop")
+    if len(image_sha256) != 64 or any(char not in "0123456789abcdef" for char in image_sha256):
+        raise ValueError("source image SHA-256 must be a lowercase 64-character hex digest")
+
+    mode = "pixels" if pixel_crop is not None else "normalized"
+    raw_values = pixel_crop if pixel_crop is not None else normalized_crop
+    if raw_values is None or len(raw_values) != 4:
+        raise ValueError("crop requires x y width height")
+    if any(isinstance(value, bool) or not isinstance(value, (int, float)) for value in raw_values):
+        raise ValueError("crop coordinates must be finite numbers")
+    values = [float(value) for value in raw_values]
+    if not all(math.isfinite(value) for value in values):
+        raise ValueError("crop coordinates must be finite numbers")
+    x, y, crop_width, crop_height = values
+    if x < 0 or y < 0 or crop_width <= 0 or crop_height <= 0:
+        raise ValueError("crop x/y must be non-negative and width/height must be positive")
+
+    if mode == "normalized":
+        if x > 1 or y > 1 or crop_width > 1 or crop_height > 1:
+            raise ValueError("normalized crop coordinates must be between 0 and 1")
+        if x + crop_width > 1 + 1e-12 or y + crop_height > 1 + 1e-12:
+            raise ValueError("normalized crop extends beyond the source image")
+        x0 = int(math.floor(x * source_width + 0.5))
+        y0 = int(math.floor(y * source_height + 0.5))
+        x1 = int(math.floor((x + crop_width) * source_width + 0.5))
+        y1 = int(math.floor((y + crop_height) * source_height + 0.5))
+        requested: dict[str, Any] = {
+            "units": "normalized",
+            "x": round(x, 8),
+            "y": round(y, 8),
+            "width": round(crop_width, 8),
+            "height": round(crop_height, 8),
+        }
+    else:
+        if any(not float(value).is_integer() for value in values):
+            raise ValueError("pixel crop coordinates must be integers")
+        x0, y0, pixel_width, pixel_height = (int(value) for value in values)
+        x1 = x0 + pixel_width
+        y1 = y0 + pixel_height
+        if x1 > source_width or y1 > source_height:
+            raise ValueError("pixel crop extends beyond the source image")
+        requested = {
+            "units": "pixels",
+            "x": x0,
+            "y": y0,
+            "width": pixel_width,
+            "height": pixel_height,
+        }
+
+    x0 = max(0, min(source_width, x0))
+    y0 = max(0, min(source_height, y0))
+    x1 = max(0, min(source_width, x1))
+    y1 = max(0, min(source_height, y1))
+    resolved_width = x1 - x0
+    resolved_height = y1 - y0
+    if (
+        resolved_width < MIN_CROP_SIDE
+        or resolved_height < MIN_CROP_SIDE
+        or resolved_width * resolved_height < MIN_CROP_AREA
+    ):
+        raise ValueError(
+            f"resolved crop must be at least {MIN_CROP_SIDE}x{MIN_CROP_SIDE} source pixels"
+        )
+    source_pixels = {
+        "x": x0,
+        "y": y0,
+        "width": resolved_width,
+        "height": resolved_height,
+    }
+    normalized = {
+        "x": round(x0 / source_width, 8),
+        "y": round(y0 / source_height, 8),
+        "width": round(resolved_width / source_width, 8),
+        "height": round(resolved_height / source_height, 8),
+    }
+    identity_payload = {
+        "sourceImageSha256": image_sha256,
+        "sourcePixels": source_pixels,
+    }
+    return {
+        "mode": mode,
+        "requested": requested,
+        "sourcePixels": source_pixels,
+        "normalized": normalized,
+        "sourceDimensions": {
+            "width": source_width,
+            "height": source_height,
+        },
+        "identitySha256": _canonical_sha256(identity_payload),
+    }
+
+
+def working_crop_bbox(
+    crop: dict[str, Any],
+    source_width: int,
+    source_height: int,
+    working_width: int,
+    working_height: int,
+) -> tuple[int, int, int, int]:
+    """Map a validated source crop onto the decoder's bounded working image."""
+
+    pixels = crop["sourcePixels"]
+    x0 = math.floor(int(pixels["x"]) * working_width / source_width)
+    y0 = math.floor(int(pixels["y"]) * working_height / source_height)
+    x1 = math.ceil(
+        (int(pixels["x"]) + int(pixels["width"])) * working_width / source_width
+    )
+    y1 = math.ceil(
+        (int(pixels["y"]) + int(pixels["height"])) * working_height / source_height
+    )
+    x0 = max(0, min(working_width - 1, x0))
+    y0 = max(0, min(working_height - 1, y0))
+    x1 = max(x0 + 1, min(working_width, x1))
+    y1 = max(y0 + 1, min(working_height, y1))
+    return (x0, y0, x1 - x0, y1 - y0)
+
+
+def material_region_diagnostics(
+    pixels: list[tuple[int, int, int]],
+    mask: list[bool],
+    palette: list[str],
+) -> dict[str, Any]:
+    total = max(1, len(mask))
+    foreground = [pixel for pixel, keep in zip(pixels, mask) if keep]
+    foreground_coverage = len(foreground) / total
+    if not foreground:
+        return {
+            "foregroundCoverage": 0.0,
+            "backgroundContamination": 1.0,
+            "paletteEntropy": 1.0,
+            "maxPaletteDistance": 1.0,
+            "mixedMaterialRisk": 1.0,
+        }
+
+    centers = [hex_to_rgb(value) for value in palette]
+    if not centers:
+        centers = [median_color(foreground)]
+    assignments = Counter(
+        min(range(len(centers)), key=lambda index: color_distance(pixel, centers[index]))
+        for pixel in foreground
+    )
+    probabilities = [count / len(foreground) for count in assignments.values()]
+    entropy_denominator = math.log(max(2, len(centers)))
+    entropy = (
+        -sum(probability * math.log(probability) for probability in probabilities)
+        / entropy_denominator
+    )
+    max_distance = max(
+        (
+            color_distance(centers[left], centers[right])
+            for left in range(len(centers))
+            for right in range(left + 1, len(centers))
+        ),
+        default=0.0,
+    ) / math.sqrt(3 * 255 * 255)
+    mixed_risk = clamp01(entropy * max_distance)
+    return {
+        "foregroundCoverage": round(foreground_coverage, 4),
+        "backgroundContamination": round(1.0 - foreground_coverage, 4),
+        "paletteEntropy": round(clamp01(entropy), 4),
+        "maxPaletteDistance": round(clamp01(max_distance), 4),
+        "mixedMaterialRisk": round(mixed_risk, 4),
+    }
+
+
+def region_gate_failures(
+    diagnostics: dict[str, Any],
+    *,
+    explicit_crop: bool,
+) -> list[str]:
+    if not explicit_crop:
+        return []
+    failures: list[str] = []
+    contamination = float(diagnostics.get("backgroundContamination", 1.0))
+    mixed_risk = float(diagnostics.get("mixedMaterialRisk", 1.0))
+    if contamination > MAX_BACKGROUND_CONTAMINATION:
+        failures.append(
+            "selected crop contains too much detected background "
+            f"({contamination:.1%} > {MAX_BACKGROUND_CONTAMINATION:.0%})"
+        )
+    if mixed_risk > MAX_MIXED_MATERIAL_RISK:
+        failures.append(
+            "selected crop has high mixed-material risk "
+            f"({mixed_risk:.3f} > {MAX_MIXED_MATERIAL_RISK:.3f})"
+        )
+    return failures
+
+
 def material_patch(
     material_id: str,
     image: Path,
@@ -542,6 +769,8 @@ def material_patch(
     diagnostics: dict[str, Any],
     warnings: list[str],
     path_root: Path,
+    image_sha256: str | None = None,
+    source_crop: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     prefix = slugify(material_id)
     maps: dict[str, dict[str, Any]] = {
@@ -560,22 +789,29 @@ def material_patch(
         for channel, entry in maps.items():
             entry["url"] = map_url(url_prefix, f"{prefix}_{channel}.png")
     usable = confidence >= threshold
+    reference_pbr: dict[str, Any] = {
+        "version": "1.1",
+        "pathBase": ".",
+        "sourceImage": portable_path(image, path_root),
+        "extractor": "extract_reference_pbr.py",
+        "method": "single-image region-aware pixel evidence with broad/meso/micro de-lighting and tile-edge blending; not photogrammetry",
+        "usable": usable,
+        "verdict": verdict,
+        "confidence": confidence,
+        "extractionSuitability": confidence,
+        "targetThreshold": threshold,
+        "hardLimit": "A single image cannot uniquely recover true albedo/roughness/normal/AO; maps are reference-derived estimates.",
+        "maps": maps,
+        "diagnostics": diagnostics,
+        "warnings": warnings,
+    }
+    if image_sha256:
+        reference_pbr["sourceImageSha256"] = image_sha256
+    if source_crop:
+        reference_pbr["sourceCrop"] = source_crop
     return {
         "referencePbr": {
-            "version": "1.0",
-            "pathBase": ".",
-            "sourceImage": portable_path(image, path_root),
-            "extractor": "extract_reference_pbr.py",
-            "method": "single-image pixel evidence with broad/meso/micro de-lighting and tile-edge blending; not photogrammetry",
-            "usable": usable,
-            "verdict": verdict,
-            "confidence": confidence,
-            "extractionSuitability": confidence,
-            "targetThreshold": threshold,
-            "hardLimit": "A single image cannot uniquely recover true albedo/roughness/normal/AO; maps are reference-derived estimates.",
-            "maps": maps,
-            "diagnostics": diagnostics,
-            "warnings": warnings,
+            **reference_pbr,
         },
         "textureResolution": size,
         "albedo": {
@@ -651,22 +887,27 @@ def merge_material_patch(spec: dict[str, Any], material_id: str, patch: dict[str
             material[key] = value
     history = spec.setdefault("pbrExtractionHistory", [])
     if isinstance(history, list):
-        history.append(
-            {
-                "materialId": material_id,
-                "confidence": patch["referencePbr"]["confidence"],
-                "extractionSuitability": patch["referencePbr"]["extractionSuitability"],
-                "verdict": patch["referencePbr"]["verdict"],
-                "usable": patch["referencePbr"]["usable"],
-                "maps": patch["referencePbr"]["maps"],
-            }
-        )
+        entry = {
+            "materialId": material_id,
+            "confidence": patch["referencePbr"]["confidence"],
+            "extractionSuitability": patch["referencePbr"]["extractionSuitability"],
+            "verdict": patch["referencePbr"]["verdict"],
+            "usable": patch["referencePbr"]["usable"],
+            "maps": patch["referencePbr"]["maps"],
+        }
+        for field in ("sourceImageSha256", "sourceCrop"):
+            if field in patch["referencePbr"]:
+                entry[field] = patch["referencePbr"][field]
+        history.append(entry)
 
 
 def extract(args: argparse.Namespace) -> tuple[dict[str, Any], dict[str, Any]]:
     image = args.image.expanduser().resolve()
     if not image.exists():
         raise ValueError(f"{image} does not exist")
+    image_bytes = image.read_bytes()
+    image_sha256 = source_sha256(image_bytes)
+    original_dimensions = detect_size(image_bytes)
     size = int(2 ** round(math.log2(args.size)))
     size = max(256, min(2048, size))
     out_dir = args.out_dir.expanduser().resolve()
@@ -680,9 +921,21 @@ def extract(args: argparse.Namespace) -> tuple[dict[str, Any], dict[str, Any]]:
             else Path.cwd().resolve()
         )
     )
-    original_dimensions = png_dimensions(image)
     working_dimension = max(size, 1024) if size < 2048 else 2048
     width, height, source_pixels, load_warnings = load_image(image, working_dimension)
+    if original_dimensions is None:
+        original_dimensions = (width, height)
+        load_warnings.append(
+            "source dimensions were not available from the encoded image header; "
+            "crop coordinates use decoder working dimensions"
+        )
+    source_crop = resolve_source_crop(
+        original_dimensions[0],
+        original_dimensions[1],
+        pixel_crop=getattr(args, "crop_pixels", None),
+        normalized_crop=getattr(args, "crop_normalized", None),
+        image_sha256=image_sha256,
+    )
     mask, mask_diag, mask_warnings = build_foreground_mask(width, height, source_pixels)
     explicit_mask_path = getattr(args, "mask", None)
     if explicit_mask_path:
@@ -699,10 +952,29 @@ def extract(args: argparse.Namespace) -> tuple[dict[str, Any], dict[str, Any]]:
         mask_diag["source"] = "explicit-mask"
         mask_diag["path"] = str(resolved_mask)
         mask_diag["foregroundCoverage"] = round(sum(mask) / max(1, len(mask)), 4)
-    bbox = mask_bbox(width, height, mask)
+    bbox = (
+        working_crop_bbox(
+            source_crop,
+            original_dimensions[0],
+            original_dimensions[1],
+            width,
+            height,
+        )
+        if source_crop
+        else mask_bbox(width, height, mask)
+    )
     sampled_pixels, sampled_mask = resample_crop(width, height, source_pixels, mask, bbox, size)
     samples = representative_samples(sampled_pixels, sampled_mask)
     palette = kmeans_palette(samples, max(2, min(6, args.palette_size)))
+    region_diagnostics = material_region_diagnostics(
+        sampled_pixels,
+        sampled_mask,
+        palette,
+    )
+    region_failures = region_gate_failures(
+        region_diagnostics,
+        explicit_crop=source_crop is not None,
+    )
     maps, map_stats = make_maps(sampled_pixels, sampled_mask, size, palette)
     maps = {
         channel: make_tileable_rgb(payload, size)
@@ -710,30 +982,44 @@ def extract(args: argparse.Namespace) -> tuple[dict[str, Any], dict[str, Any]]:
     }
     for channel, payload in maps.items():
         write_png_rgb(out_dir / f"{slugify(args.material_id)}_{channel}.png", size, size, payload)
-    warnings = load_warnings + mask_warnings
+    warnings = load_warnings + mask_warnings + region_failures
     diagnostics = {
-        "sourceWidth": original_dimensions[0] if original_dimensions else width,
-        "sourceHeight": original_dimensions[1] if original_dimensions else height,
+        "sourceWidth": original_dimensions[0],
+        "sourceHeight": original_dimensions[1],
         "workingWidth": width,
         "workingHeight": height,
         "mapSize": size,
+        "cropMode": source_crop["mode"] if source_crop else "auto-foreground",
         "cropBBoxPixels": {
             "x": bbox[0],
             "y": bbox[1],
             "width": bbox[2],
             "height": bbox[3],
         },
+        "sourceCrop": source_crop,
         "mask": mask_diag,
+        "region": {
+            **region_diagnostics,
+            "gateFailures": region_failures,
+        },
         "mapStats": map_stats,
         "palette": palette,
     }
     confidence, confidence_notes = estimate_confidence(
-        original_dimensions[0] if original_dimensions else width,
-        original_dimensions[1] if original_dimensions else height,
-        mask_diag,
+        original_dimensions[0],
+        original_dimensions[1],
+        (
+            {
+                **mask_diag,
+                "foregroundCoverage": region_diagnostics["foregroundCoverage"],
+            }
+            if source_crop
+            else mask_diag
+        ),
         map_stats,
         warnings,
         single_image=True,
+        material_region=source_crop is not None,
     )
     if args.multi_view_reference:
         confidence_notes.append(
@@ -745,7 +1031,17 @@ def extract(args: argparse.Namespace) -> tuple[dict[str, Any], dict[str, Any]]:
         )
     warnings.extend(confidence_notes)
     threshold = clamp01(args.target_threshold)
-    verdict = "pass" if confidence >= threshold else ("conditional" if confidence >= threshold - 0.12 else "reject")
+    if region_failures:
+        confidence = round(min(confidence, max(0.0, threshold - 0.001)), 3)
+    verdict = (
+        "reject"
+        if region_failures
+        else (
+            "pass"
+            if confidence >= threshold
+            else ("conditional" if confidence >= threshold - 0.12 else "reject")
+        )
+    )
     if not args.material_crop_confirmed and verdict == "pass":
         verdict = "conditional"
     patch = material_patch(
@@ -762,13 +1058,21 @@ def extract(args: argparse.Namespace) -> tuple[dict[str, Any], dict[str, Any]]:
         diagnostics,
         warnings,
         path_root,
+        image_sha256,
+        source_crop,
     )
     patch["referencePbr"]["materialCropConfirmed"] = args.material_crop_confirmed
     patch["referencePbr"]["usable"] = bool(
-        confidence >= threshold and args.material_crop_confirmed
+        confidence >= threshold
+        and args.material_crop_confirmed
+        and not region_failures
     )
     report = {
-        "ok": confidence >= threshold and args.material_crop_confirmed,
+        "ok": bool(
+            confidence >= threshold
+            and args.material_crop_confirmed
+            and not region_failures
+        ),
         "usable": patch["referencePbr"]["usable"],
         "verdict": verdict,
         "confidence": confidence,
@@ -777,6 +1081,8 @@ def extract(args: argparse.Namespace) -> tuple[dict[str, Any], dict[str, Any]]:
         "materialId": args.material_id,
         "pathBase": ".",
         "sourceImage": portable_path(image, path_root),
+        "sourceImageSha256": image_sha256,
+        "sourceCrop": source_crop,
         "outDir": portable_path(out_dir, path_root),
         "palette": palette,
         "maps": patch["referencePbr"]["maps"],
@@ -788,7 +1094,7 @@ def extract(args: argparse.Namespace) -> tuple[dict[str, Any], dict[str, Any]]:
     return report, patch
 
 
-def main(argv: list[str]) -> int:
+def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("image", type=Path)
     parser.add_argument("--out-dir", type=Path, required=True)
@@ -797,6 +1103,21 @@ def main(argv: list[str]) -> int:
         "--mask",
         type=Path,
         help="Optional black/white or alpha mask aligned with the material crop; white/opaque pixels are used.",
+    )
+    crop_group = parser.add_mutually_exclusive_group()
+    crop_group.add_argument(
+        "--crop-pixels",
+        type=int,
+        nargs=4,
+        metavar=("X", "Y", "WIDTH", "HEIGHT"),
+        help="Extract only this source-image region, expressed in integer pixels.",
+    )
+    crop_group.add_argument(
+        "--crop-normalized",
+        type=float,
+        nargs=4,
+        metavar=("X", "Y", "WIDTH", "HEIGHT"),
+        help="Extract only this source-image region, with each coordinate normalized to 0..1.",
     )
     parser.add_argument("--size", type=int, default=1024)
     parser.add_argument("--palette-size", type=int, default=5)
@@ -825,6 +1146,11 @@ def main(argv: list[str]) -> int:
         action="store_true",
         help="Deprecated compatibility flag; it no longer raises the score from one image.",
     )
+    return parser
+
+
+def main(argv: list[str]) -> int:
+    parser = build_parser()
     args = parser.parse_args(argv)
 
     try:
