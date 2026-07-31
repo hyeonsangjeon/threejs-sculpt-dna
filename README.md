@@ -5,6 +5,7 @@
 [![Release](https://img.shields.io/github/v/release/hyeonsangjeon/threejs-sculpt-dna?display_name=tag)](https://github.com/hyeonsangjeon/threejs-sculpt-dna/releases/latest)
 [![Quality](https://github.com/hyeonsangjeon/threejs-sculpt-dna/actions/workflows/quality.yml/badge.svg?branch=main)](https://github.com/hyeonsangjeon/threejs-sculpt-dna/actions/workflows/quality.yml)
 [![Live Demo](https://img.shields.io/badge/Live-Repolis%20Demo-19b7a5)](https://hyeonsangjeon.github.io/threejs-sculpt-dna/)
+[![Proof Lab](https://img.shields.io/badge/Proof-6%2F6%20Offline-62dce3)](https://hyeonsangjeon.github.io/threejs-sculpt-dna/proof/)
 [![Copilot Plugin](https://img.shields.io/badge/GitHub%20Copilot-Plugin-8957e5)](docs/USER_GUIDE.md)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
@@ -23,7 +24,7 @@ recorded in [`UPSTREAM.md`](UPSTREAM.md).
 
 > **Canonical repository:** [`hyeonsangjeon/threejs-sculpt-dna`](https://github.com/hyeonsangjeon/threejs-sculpt-dna). GitHub redirects the previous repository name here, but use this canonical path for installs, links, and clones.
 
-**Start here:** [Run the proof](#verified-release-state) · [Install the plugin](#quick-start) · [Run the doctor](#5-minute-reproducible-check) · [Use the reconstruction Skill](skills/object-to-threejs-procedural/SKILL.md) · [Open the live flagships](https://hyeonsangjeon.github.io/threejs-sculpt-dna/) · [Review script safety](SECURITY.md)
+**Start here:** [Open the Proof Lab](https://hyeonsangjeon.github.io/threejs-sculpt-dna/proof/) · [Run the proof](#5-minute-reproducible-check) · [Install the plugin](#quick-start) · [Use the reconstruction Skill](skills/object-to-threejs-procedural/SKILL.md) · [Open the live flagships](https://hyeonsangjeon.github.io/threejs-sculpt-dna/) · [Review script safety](SECURITY.md)
 
 ### Install in 60 seconds
 
@@ -40,10 +41,10 @@ action-ready Three.js model, then curate 3 deterministic variants from
 24 constraint-safe candidates. Do not use an imported mesh.
 ```
 
-The published `v0.5.1` package passed the independent
-[Awesome Copilot external-plugin intake](https://github.com/github/awesome-copilot/issues/2274#issuecomment-4947395313):
-both Skills passed Vally 0.6.0, the isolated marketplace install succeeded,
-and the release tag resolved to its declared full commit SHA.
+The `v0.5.2` release ships its proof with the product. Clone it and run
+`python3 scripts/prove.py`; the same machine-readable result is published in
+the source-linked [Proof Lab](https://hyeonsangjeon.github.io/threejs-sculpt-dna/proof/).
+No catalog decision or private validation service is part of the quality claim.
 
 ### Verified release state
 
@@ -51,15 +52,17 @@ and the release tag resolved to its declared full commit SHA.
 release by the committed [`capability-proof.json`](capability-proof.json), not
 by a popularity counter.
 
-| Verifiable contract | `0.5.1` state |
+| Verifiable contract | `0.5.2` state |
 | --- | --- |
+| Capability contract | 10 source-linked claims, including region-aware PBR and the self-contained proof run |
 | Combined reconstruction surface | modular v4 kernel + adaptive v3.1 + explicit schema-v2 Sculpt DNA compatibility |
-| Python contracts | 274 tests |
-| Executable boundary | 40 declared scripts, network disabled |
+| Python contracts | 288 tests |
+| Executable boundary | 41 declared scripts, network disabled |
 | Production evidence | 3 artifact manifests; Brick 4/4 and Seoul 4/4 family matrices |
-| External install validation | both Skills pass Vally 0.6.0; isolated marketplace install smoke passes |
-| Public CI | proof, doctor, tests, release evidence, 4 browser builds, capture tests, and dependency audits |
+| Reproducible proof | one offline command, 6 fail-closed gates, bounded output plus full-stream/input SHA-256 |
+| Public CI | the same proof command, 5 browser builds, capture/data tests, and dependency audits |
 
+[Open the live Proof Lab](https://hyeonsangjeon.github.io/threejs-sculpt-dna/proof/) ·
 [Read the verified capability matrix](docs/VERIFIED_CAPABILITIES.md) ·
 [Audit upstream lineage](UPSTREAM.md) ·
 [Use the fair comparison protocol](docs/FAIR_COMPARISON_PROTOCOL.md)
@@ -78,16 +81,18 @@ Clone the canonical repository and run the committed public sample through the s
 git clone https://github.com/hyeonsangjeon/threejs-sculpt-dna.git
 cd threejs-sculpt-dna
 
-python3 scripts/doctor.py --skip-copilot
+python3 scripts/prove.py
 ```
 
-Expected result: `READY`. The doctor is read-only: it audits every declared
-Python executable, plugin manifests, the committed reference/spec, all eight
-passes, and the Brick/Seoul production matrices. It does not install, update,
-render, or access the network.
+Expected result: `PROOF PASS: 6/6 checks passed`. The runner is offline and
+read-only unless `--output` explicitly names a JSON destination. It audits the
+executable policy and capability contract, runs the first-clone doctor,
+compiles every Python surface, executes all contracts, and verifies release
+evidence. Captured streams are bounded in the JSON while their complete
+SHA-256 digests remain available for integrity checks.
 
 <details>
-<summary>See the underlying checks</summary>
+<summary>Inspect the committed sample directly</summary>
 
 ```bash
 python3 scripts/probe_reference_image.py \
@@ -400,7 +405,7 @@ technical probe -> pre-spec assessment -> ObjectSculptSpec
 | Visual QA | Browser screenshots, custom comparison sheets, semantic feature gates | Makes visual evidence—not code inspection—the acceptance authority |
 | Integration QA | Deterministic renderer/target/layer/view/performance snapshots | Detects host-only rendering regressions without adding a browser runtime dependency or manufacturing an AI pass |
 | Variant engine | `copy`, SHA-256 seed derivation, `random.Random`, rejection sampling | Creates reproducible variants and retries samples until constraints pass |
-| Verification | `unittest`, `tempfile`, `subprocess`, `compileall` | Tests both Python APIs and end-to-end CLI/factory generation without third-party test tools |
+| Verification | `unittest`, `tempfile`, `subprocess`, `compileall`, machine-readable proof runs | Tests Python APIs and end-to-end generation, then publishes bounded, hashed evidence without third-party test tools |
 
 ### Dependency Model
 
@@ -412,6 +417,7 @@ The browser, TypeScript compiler, bundler, and Three.js version belong to the ta
 
 | Script | Responsibility |
 | --- | --- |
+| `prove.py` | Run the six network-free repository gates and optionally emit a bounded, machine-readable proof result |
 | `doctor.py` | Run the read-only first-clone health check, including plugin, policy, sample, runtime, duplicate-install, and production-matrix status |
 | `audit_script_policy.py` | Compare every Python executable with the network-disabled trust inventory in `script-policy.json` |
 | `verify_capability_proof.py` | Bind release metadata, upstream provenance, capability claims, evidence files, tests, production matrices, and public CI into one read-only proof |
@@ -425,7 +431,7 @@ The browser, TypeScript compiler, bundler, and Three.js version belong to the ta
 | `validate_sculpt_spec.py` | Validate structure, references, quality depth, action readiness, PBR intent, pass state, and Sculpt DNA |
 | `sculpt_pass_orchestrator.py` | Lock deeper passes until prior visual evidence and reviews succeed |
 | `generate_threejs_factory.py` | Emit the unlocked TypeScript Three.js factory and look-dev lights |
-| `extract_reference_pbr.py` | Infer reference-derived PBR evidence and enforce a confidence threshold |
+| `extract_reference_pbr.py` | Infer reference-derived PBR evidence from an auto or validated material region and record its source/crop identity |
 | `make_visual_comparison_sheet.py` | Package reference and render into one AI-reviewable PNG |
 | `visual_feature_gate.py` | Enforce critical and important semantic feature thresholds |
 | `append_sculpt_review.py` | Record AI-vision scores, mismatches, evidence, and correction decisions |
@@ -433,6 +439,27 @@ The browser, TypeScript compiler, bundler, and Three.js version belong to the ta
 | `sculpt_dna_core.py` | Shared DNA schema, target resolver, constraints, invariants, sampling, and provenance |
 | `visual_regression_matrix.py` | Verify the deterministic base/variant viewpoint matrix against current SHA-bound latest-pass reviews |
 | `render_integration_contract.py` | Compare a versioned contract with standalone and host runtime snapshots using stable typed checks and explicit exit codes |
+
+For a source that contains several materials, select exactly one region in
+source pixels or normalized coordinates:
+
+```bash
+python3 scripts/sculpt.py pbr reference.png \
+  --out-dir generated/pbr \
+  --material-id stone \
+  --crop-normalized 0.12 0.18 0.36 0.44 \
+  --material-crop-confirmed \
+  --url-prefix /textures/stone \
+  --report generated/pbr/report.json
+```
+
+Use `--crop-pixels X Y WIDTH HEIGHT` instead when exact source pixels are
+known. The extractor rejects conflicting, out-of-bounds, tiny,
+background-heavy, or high mixed-material-risk regions. Its report and
+`referencePbr` patch preserve the requested units, resolved pixel/normalized
+coordinates, source dimensions, source SHA-256, and deterministic crop
+identity. Omitting both crop flags keeps the existing automatic foreground
+path.
 
 ## Requirements
 
@@ -847,12 +874,15 @@ skills/
     ├── SKILL.md
     └── references/
 scripts/
+├── prove.py
 ├── render_integration_contract.py
 ├── sculpt_dna.py
 ├── sculpt_dna_core.py
 ├── visual_regression_matrix.py
 └── ...
 examples/
+├── proof-lab/
+│   └── ...
 ├── render-integration-contract/
 │   ├── render-integration-contract.json
 │   ├── standalone-snapshot.json
@@ -869,11 +899,16 @@ tests/
 ## Test
 
 ```bash
-python3 -m compileall -q scripts tests
-python3 -m unittest discover -s tests -v
+python3 scripts/prove.py --output proof-run.json
 ```
 
-The test suite covers DNA derivation, schema validation, immutable-target rejection, deterministic generation, evidence reset, manifest output, matrix ordering/classification/latest-review precedence, render-integration safety/classification/cwd determinism, generated TypeScript metadata, release-image dimensions, file-size budgets, EXIF removal, and inherited-asset exclusion.
+The six-gate proof includes compilation and the full test suite. Contracts cover
+DNA derivation, schema validation, deterministic region-aware PBR extraction,
+bounded proof output, immutable-target rejection, deterministic generation,
+evidence reset, manifest output, matrix ordering/classification/latest-review
+precedence, render-integration safety/classification/cwd determinism, generated
+TypeScript metadata, release-image dimensions, file-size budgets, EXIF
+removal, and inherited-asset exclusion.
 
 ## Limitations
 

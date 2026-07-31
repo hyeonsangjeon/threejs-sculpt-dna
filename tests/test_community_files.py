@@ -29,7 +29,10 @@ class CommunityFilesTests(unittest.TestCase):
         pull_request = (
             ROOT / ".github" / "pull_request_template.md"
         ).read_text(encoding="utf-8")
-        self.assertIn("python3 -m unittest discover -s tests -v", pull_request)
+        self.assertIn(
+            "python3 scripts/prove.py --output proof-run.json",
+            pull_request,
+        )
         self.assertIn("Preview variants are not described as production-ready", pull_request)
 
     def test_trust_and_quality_contracts_are_public(self) -> None:
@@ -54,7 +57,10 @@ class CommunityFilesTests(unittest.TestCase):
             '"examples/**"',
         ):
             self.assertIn(required_path, quality)
-        self.assertIn("python3 scripts/doctor.py --skip-copilot", quality)
+        self.assertIn(
+            'python3 scripts/prove.py --output proof-run.json --commit "$GITHUB_SHA"',
+            quality,
+        )
         self.assertIn(
             "python3 -m unittest tests.test_brick_offroad_hero -q",
             quality,

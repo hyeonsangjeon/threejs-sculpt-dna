@@ -4,6 +4,33 @@ All notable changes to `threejs-sculpt-dna` are documented here.
 
 ## [Unreleased]
 
+## [0.5.2] - 2026-07-31
+
+### Added
+
+- Added region-aware reference PBR extraction with mutually exclusive pixel or
+  normalized crops, strict bounds/minimum-size validation, background and
+  mixed-material suitability gates, deterministic crop identities, source
+  SHA-256/dimension provenance, and preserved no-crop behavior.
+- Added `scripts/prove.py`, a single network-free command that executes six
+  fail-closed repository gates and can emit a versioned JSON result with
+  bounded output previews, complete-stream hashes, and hashes binding its
+  capability, policy, and plugin inputs.
+- Added the dependency-free public Proof Lab, which renders the committed
+  capability contract and CI-generated proof result, links each claim to
+  source evidence, exposes failures, and states the proof's limits.
+- Added 13 Python contracts for crop behavior and the proof runner, plus six
+  Node data-contract tests for the Proof Lab.
+
+### Changed
+
+- Made the self-contained proof command the primary release and CI contract;
+  quality CI now runs it directly and verifies five browser builds.
+- Published Proof Lab at `/proof/` in the flagship Pages artifact and linked it
+  from the Repolis runtime and top-level documentation.
+- Made repository-local executable evidence the release authority. External
+  catalogs and popularity counters are not inputs to the quality verdict.
+
 ## [0.5.1] - 2026-07-31
 
 ### Fixed
@@ -105,4 +132,5 @@ All notable changes to `threejs-sculpt-dna` are documented here.
 
 [0.4.3]: https://github.com/hyeonsangjeon/threejs-sculpt-dna/releases/tag/v0.4.3
 [0.5.0]: https://github.com/hyeonsangjeon/threejs-sculpt-dna/compare/v0.4.3...v0.5.0
-[0.5.1]: https://github.com/hyeonsangjeon/threejs-sculpt-dna/compare/v0.5.0...HEAD
+[0.5.1]: https://github.com/hyeonsangjeon/threejs-sculpt-dna/compare/v0.5.0...v0.5.1
+[0.5.2]: https://github.com/hyeonsangjeon/threejs-sculpt-dna/compare/v0.5.1...HEAD

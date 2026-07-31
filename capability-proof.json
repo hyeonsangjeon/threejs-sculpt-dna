@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0",
   "artifactType": "threejs-sculpt-dna-capability-proof",
-  "release": "0.5.1",
+  "release": "0.5.2",
   "repository": "https://github.com/hyeonsangjeon/threejs-sculpt-dna",
   "upstreamLineage": {
     "repository": "https://github.com/vinhhien112/Three.js-Object-Sculptor-Codex-Plugin",
@@ -13,7 +13,8 @@
     "proves": [
       "The declared release metadata, skills, implementation surfaces, tests, trust inventory, CI gates, and production evidence are present and mutually consistent in this checkout.",
       "The modular upstream modeling kernel and the Sculpt DNA compatibility, family-generation, evidence, and host-integration layers coexist in this release.",
-      "Every committed Python script is declared in a network-disabled executable policy and the public quality workflow runs the proof, tests, release gate, browser builds, and dependency audits."
+      "Every committed Python script is declared in a network-disabled executable policy, and one offline proof command runs the policy, capability, first-clone, compile, contract, and release gates.",
+      "The published Proof Lab reads only committed capability evidence and the machine-readable result produced by that same proof command."
     ],
     "doesNotProve": [
       "GitHub stars, clone counts, or social reach are not treated as evidence of software quality.",
@@ -45,6 +46,15 @@
         "tests/test_modeling_kernel.py",
         "tests/test_special_surfaces.py",
         "tests/test_specialized_regions.py"
+      ]
+    },
+    {
+      "id": "region-aware-reference-pbr",
+      "statement": "Reference-derived PBR extraction accepts validated pixel or normalized material regions and records source dimensions, source SHA-256, resolved crop identity, suitability diagnostics, and patch history without changing the no-crop path.",
+      "evidenceFiles": [
+        "scripts/extract_reference_pbr.py",
+        "scripts/sculpt_image_io.py",
+        "tests/test_reference_pbr_regions.py"
       ]
     },
     {
@@ -116,6 +126,16 @@
       ]
     },
     {
+      "id": "self-contained-proof-run",
+      "statement": "One network-free command executes six release gates, fails closed, bounds captured output, hashes full streams and declared proof inputs, and feeds a source-linked public Proof Lab without a private validation service.",
+      "evidenceFiles": [
+        "scripts/prove.py",
+        "examples/proof-lab/proof-model.mjs",
+        ".github/workflows/quality.yml",
+        "tests/test_proof_runner.py"
+      ]
+    },
+    {
       "id": "production-flagships",
       "statement": "Three code-native flagships carry committed artifact manifests, while Brick and Seoul additionally carry passing base-plus-variant production matrices.",
       "evidenceFiles": [
@@ -130,42 +150,11 @@
   "verification": {
     "repositoryCommands": [
       {
-        "id": "capability-contract",
+        "id": "self-contained-proof",
         "workingDirectory": ".",
         "command": [
           "python3",
-          "scripts/verify_capability_proof.py",
-          "--json"
-        ]
-      },
-      {
-        "id": "executable-policy",
-        "workingDirectory": ".",
-        "command": [
-          "python3",
-          "scripts/audit_script_policy.py",
-          "--json"
-        ]
-      },
-      {
-        "id": "python-contracts",
-        "workingDirectory": ".",
-        "command": [
-          "python3",
-          "-m",
-          "unittest",
-          "discover",
-          "-s",
-          "tests",
-          "-q"
-        ]
-      },
-      {
-        "id": "release-evidence",
-        "workingDirectory": ".",
-        "command": [
-          "python3",
-          "scripts/verify_release.py"
+          "scripts/prove.py"
         ]
       }
     ],
@@ -174,7 +163,8 @@
         "examples/repolis-hero",
         "examples/brick-offroad-hero",
         "examples/seoul-palace-hero",
-        "examples/showcase"
+        "examples/showcase",
+        "examples/proof-lab"
       ],
       "commands": [
         [

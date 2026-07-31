@@ -1,0 +1,11 @@
+{
+  "name": "threejs-sculpt-dna-proof-lab",
+  "version": "0.5.2",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "serve": "python3 -m http.server 4180 --bind 127.0.0.1 --directory dist",
+    "test": "node --test proof-lab.test.mjs",
+    "build": "node build.mjs"
+  }
+}
