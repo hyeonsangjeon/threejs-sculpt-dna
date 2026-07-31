@@ -94,6 +94,30 @@ class AssetTests(unittest.TestCase):
             (ROOT / "assets" / "seoul-challenge-reference.jpeg").read_bytes(),
         )
 
+    def test_public_demos_link_back_to_source_and_installation(self) -> None:
+        canonical = "https://github.com/hyeonsangjeon/threejs-sculpt-dna"
+        demos = (
+            ROOT / "examples" / "repolis-hero" / "index.html",
+            ROOT / "examples" / "brick-offroad-hero" / "index.html",
+            ROOT / "examples" / "showcase" / "index.html",
+        )
+        for path in demos:
+            with self.subTest(path=path.relative_to(ROOT)):
+                html = path.read_text(encoding="utf-8")
+                self.assertEqual(html.count(f'href="{canonical}"'), 1)
+                self.assertIn('target="_blank"', html)
+                self.assertIn('rel="noopener"', html)
+                self.assertRegex(
+                    html,
+                    r'aria-label="[^"]*(?:source|Source)[^"]*(?:install|installation)',
+                )
+
+        seoul = (
+            ROOT / "examples" / "seoul-palace-hero" / "index.html"
+        ).read_text(encoding="utf-8")
+        self.assertIn('href="../"', seoul)
+        self.assertIn('data-flagship="tree"', seoul)
+
     def test_inherited_demo_images_are_not_released(self) -> None:
         for filename in (
             "ancient-autumn-tree-demo.png",

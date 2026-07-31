@@ -37,7 +37,14 @@
         backdrop-filter: blur(8px);
         font-size: 12px;
         letter-spacing: 0.08em;
+        text-decoration: none;
         text-transform: uppercase;
+      }
+      .badge:hover, .badge:focus-visible {
+        border-color: rgba(96, 218, 227, 0.72);
+        color: #ffffff;
+        outline: 2px solid rgba(96, 218, 227, 0.28);
+        outline-offset: 3px;
       }
     </style>
   </head>
@@ -47,7 +54,13 @@
         <h1 id="title">Sculpt DNA</h1>
         <span id="subtitle">Loading deterministic variants</span>
       </div>
-      <div class="badge">Coverage Curator · 24 → 3</div>
+      <a
+        class="badge"
+        href="https://github.com/hyeonsangjeon/threejs-sculpt-dna"
+        target="_blank"
+        rel="noopener"
+        aria-label="Open Three.js Sculpt DNA source and installation guide on GitHub"
+      >Coverage Curator · 24 → 3 · Source ↗</a>
     </main>
     <script type="module" src="./showcase.js"></script>
   </body>

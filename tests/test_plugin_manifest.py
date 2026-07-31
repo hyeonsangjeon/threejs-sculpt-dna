@@ -79,12 +79,16 @@ class PluginManifestTests(unittest.TestCase):
         skill = (
             ROOT / "skills" / "object-to-threejs-procedural" / "SKILL.md"
         ).read_text(encoding="utf-8")
-        overview = "\n".join(readme.splitlines()[:100])
+        overview = "\n".join(readme.splitlines()[:140])
 
         for expected in (
             "**Canonical repository:**",
             "https://github.com/hyeonsangjeon/threejs-sculpt-dna",
             "skills/object-to-threejs-procedural/SKILL.md",
+            "### Install in 60 seconds",
+            "copilot plugin marketplace add hyeonsangjeon/threejs-sculpt-dna",
+            "copilot plugin install threejs-sculpt-dna@threejs-copilot-plugins",
+            "Awesome Copilot external-plugin intake",
             "### Verified release state",
             "capability-proof.json",
             "Stars measure attention",

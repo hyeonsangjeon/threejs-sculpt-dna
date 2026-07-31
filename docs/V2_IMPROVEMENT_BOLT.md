@@ -171,6 +171,15 @@ comparison.
   - Acceptance: the README contains no star solicitation; proof limitations
     reject stars as quality evidence; comparative output claims require the
     published same-input, equal-budget, blinded protocol.
+- [x] **BOLT-12 · Close the public-demo conversion loop**
+  - Acceptance: the primary Repolis and Brick flagships plus the variant
+    showcase link directly to the canonical repository and installation guide;
+    Seoul preserves its stricter reviewed-source fingerprint and links back
+    through the flagship pager instead of rewriting accepted evidence.
+- [x] **BOLT-13 · Put installation and external validation above the fold**
+  - Acceptance: the README exposes the single recommended two-command install
+    before architecture detail, links the exact Awesome Copilot intake result,
+    and displays the main Quality workflow state without asking for stars.
 
 ## Defer conditions
 
@@ -239,3 +248,17 @@ comparison.
 
 Remaining distribution work is intentionally separate from local
 implementation. Do not represent these changes as causing star growth.
+
+### Distribution follow-through · 2026-07-31
+
+- The rolling GitHub traffic window contained 11 page views from 6 unique
+  visitors and 10 clone events from 10 unique sources. Clone telemetry includes
+  automation, mirrors, and indexers, so it remains unsuitable as a human
+  conversion count.
+- Awesome Copilot issue `#2274` now passes Vally lint, isolated install smoke,
+  version match, and ref/SHA consistency and carries `ready-for-review`.
+- Official Copilot Plugins PR `#57` remains open for maintainer review.
+- Primary public demo navigation now returns qualified visitors to the
+  canonical source and install instructions instead of ending at an isolated
+  WebGL experience. Seoul retains its stricter reviewed-source fingerprint and
+  routes back through the flagship pager.
