@@ -16,7 +16,7 @@ from audit_script_policy import audit_policy
 
 ROOT = Path(__file__).resolve().parents[1]
 PROOF_PATH = ROOT / "capability-proof.json"
-EXPECTED_RELEASE = "0.5.2"
+EXPECTED_RELEASE = "0.6.0"
 EXPECTED_REPOSITORY = "https://github.com/hyeonsangjeon/threejs-sculpt-dna"
 EXPECTED_UPSTREAM = (
     "https://github.com/vinhhien112/Three.js-Object-Sculptor-Codex-Plugin"
@@ -30,6 +30,7 @@ EXPECTED_CLAIM_IDS = {
     "modular-v4-modeling-kernel",
     "procedural-geometry-breadth",
     "production-flagships",
+    "react-three-fiber-runtime-adapter",
     "region-aware-reference-pbr",
     "schema-compatibility",
     "self-contained-proof-run",
@@ -56,13 +57,14 @@ EXPECTED_BROWSER_DIRECTORIES = {
     "examples/seoul-palace-hero",
     "examples/showcase",
     "examples/proof-lab",
+    "examples/react-three-fiber",
 }
 EXPECTED_CAPTURE_DIRECTORIES = {
     "examples/repolis-hero",
     "examples/brick-offroad-hero",
     "examples/seoul-palace-hero",
 }
-MINIMUM_TESTS = 288
+MINIMUM_TESTS = 295
 
 
 class StrictJsonError(ValueError):
@@ -339,7 +341,7 @@ def _verify_commands(root: Path, proof: dict[str, Any], errors: list[str]) -> No
     ):
         errors.append(
             "browser matrix must cover the three production flagships, "
-            "showcase, and Proof Lab"
+            "showcase, Proof Lab, and the React Three Fiber demo"
         )
     capture_directories = browser.get("captureContractDirectories")
     if (
@@ -371,7 +373,7 @@ def _verify_public_contracts(root: Path, errors: list[str]) -> None:
         ("README.md", readme, "docs/VERIFIED_CAPABILITIES.md"),
         ("README.md", readme, "python3 scripts/prove.py"),
         ("README.md", readme, "/proof/"),
-        ("README.md", readme, "Stars measure attention"),
+        ("README.md", readme, "Every release claim below is executable"),
         ("VERIFIED_CAPABILITIES.md", verified, "python3 scripts/prove.py"),
         ("VERIFIED_CAPABILITIES.md", verified, "Proof Lab"),
         ("VERIFIED_CAPABILITIES.md", verified, "FAIR_COMPARISON_PROTOCOL.md"),

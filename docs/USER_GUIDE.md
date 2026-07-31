@@ -1,29 +1,12 @@
 # threejs-sculpt-dna — A GitHub Copilot Plugin: User Guide
 
-## 1. Install from the Copilot plugin marketplace
+## 1. Install from the canonical repository
 
-Choose this marketplace installation as the single active copy. Installing the
-same plugin again from a local path or direct repository URL can leave multiple
-cached copies that shadow one another.
-
-Register this repository as a marketplace:
+Choose one installation source. Current Copilot CLI releases install a plugin
+directly from a GitHub repository:
 
 ```bash
-copilot plugin marketplace add \
-  hyeonsangjeon/threejs-sculpt-dna
-```
-
-Browse the registered plugin:
-
-```bash
-copilot plugin marketplace browse threejs-copilot-plugins
-```
-
-Install it:
-
-```bash
-copilot plugin install \
-  threejs-sculpt-dna@threejs-copilot-plugins
+copilot plugin install hyeonsangjeon/threejs-sculpt-dna
 ```
 
 Verify the installation:
@@ -31,6 +14,19 @@ Verify the installation:
 ```bash
 copilot plugin list
 ```
+
+The repository also contains a decentralized marketplace manifest. Teams that
+need a registered catalog may use this alternative after removing any direct
+copy:
+
+```bash
+copilot plugin marketplace add hyeonsangjeon/threejs-sculpt-dna
+copilot plugin marketplace browse threejs-copilot-plugins
+copilot plugin install threejs-sculpt-dna@threejs-copilot-plugins
+```
+
+Do not keep direct, marketplace, and local copies active together. They can
+shadow one another and make updates appear stale.
 
 Start a new Copilot session and check the available skills:
 
@@ -43,7 +39,10 @@ You should see:
 - `object-to-threejs-procedural`
 - `sculpt-dna-variants`
 
-GitHub Copilot plugin marketplaces are decentralized Git repositories. The file `.github/plugin/marketplace.json` registers this repository as the `threejs-copilot-plugins` marketplace.
+GitHub Copilot plugin marketplaces are decentralized Git repositories. The
+file `.github/plugin/marketplace.json` registers this repository as the
+`threejs-copilot-plugins` marketplace without making that two-step path a
+requirement for direct installation.
 
 If you cloned the repository, run the complete offline release proof:
 
@@ -57,6 +56,28 @@ pass. The runner never accesses the network and writes nothing unless
 `--output` explicitly names a proof JSON file. Run
 `python3 scripts/doctor.py` separately when diagnosing optional runtime gaps or
 duplicate Copilot installations.
+
+### Optional React Three Fiber runtime
+
+The plugin's generated plain Three.js factory remains the runtime source of
+truth. React projects can mount that factory with the optional adapter:
+
+```tsx
+import { SculptDNAAsset } from '@threejs-sculpt-dna/react-three-fiber';
+
+<SculptDNAAsset
+  factory={createModel}
+  seed={20260712}
+  variant="family-v001"
+  onReady={(asset) => console.log(asset.runtime.sockets, asset.stats)}
+/>
+```
+
+Copy `adapters/react-three-fiber` into a workspace package or consume it by a
+local package reference. Its only runtime requirements are peer dependencies:
+React 18/19, React Three Fiber 8/9, and Three.js. See the
+[live adapter demo](https://hyeonsangjeon.github.io/threejs-sculpt-dna/react/)
+and `examples/react-three-fiber` for a complete Vite integration.
 
 ## 2. Attach a reference image
 
@@ -273,10 +294,10 @@ copilot plugin list
 python3 scripts/doctor.py
 ```
 
-Keep exactly one `threejs-sculpt-dna` installation, preferably
-`threejs-sculpt-dna@threejs-copilot-plugins`, remove the other source, and start
-a new Copilot session. Do not use `--force` until you have identified which
-marketplace owns the copy you intend to remove.
+Keep exactly one `threejs-sculpt-dna` installation, preferably the direct
+`hyeonsangjeon/threejs-sculpt-dna` source, remove the other copy, and start a
+new Copilot session. Do not use `--force` until you have identified which
+marketplace owns any catalog-installed copy you intend to remove.
 
 ### Marketplace is already registered from another source
 

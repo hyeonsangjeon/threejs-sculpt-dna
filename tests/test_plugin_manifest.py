@@ -35,7 +35,7 @@ class PluginManifestTests(unittest.TestCase):
             readme,
         )
 
-    def test_readme_and_manual_document_marketplace_install(self) -> None:
+    def test_readme_and_manual_document_direct_and_optional_marketplace_install(self) -> None:
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
         guide = (ROOT / "docs" / "USER_GUIDE.md").read_text(encoding="utf-8")
         install = "threejs-sculpt-dna@threejs-copilot-plugins"
@@ -43,6 +43,7 @@ class PluginManifestTests(unittest.TestCase):
             "hyeonsangjeon/threejs-sculpt-dna"
         )
         for document in (readme, guide):
+            self.assertIn(f"copilot plugin install {repository}", document)
             self.assertIn(install, document)
             self.assertIn(repository, document)
         self.assertIn(
@@ -85,14 +86,15 @@ class PluginManifestTests(unittest.TestCase):
             "**Canonical repository:**",
             "https://github.com/hyeonsangjeon/threejs-sculpt-dna",
             "skills/object-to-threejs-procedural/SKILL.md",
-            "### Install in 60 seconds",
-            "copilot plugin marketplace add hyeonsangjeon/threejs-sculpt-dna",
-            "copilot plugin install threejs-sculpt-dna@threejs-copilot-plugins",
+            "### Install in one command",
+            "copilot plugin install hyeonsangjeon/threejs-sculpt-dna",
             "### Verified release state",
             "capability-proof.json",
             "python3 scripts/prove.py",
             "/proof/",
-            "Stars measure attention",
+            "Every release claim below is executable",
+            "React Three Fiber",
+            "/react/",
             "### 5-minute reproducible check",
             "assets/brick-offroad-reference.jpeg",
             "examples/repolis-tree/object-sculpt-spec.json",

@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0",
   "artifactType": "threejs-sculpt-dna-capability-proof",
-  "release": "0.5.2",
+  "release": "0.6.0",
   "repository": "https://github.com/hyeonsangjeon/threejs-sculpt-dna",
   "upstreamLineage": {
     "repository": "https://github.com/vinhhien112/Three.js-Object-Sculptor-Codex-Plugin",
@@ -12,7 +12,7 @@
   "scope": {
     "proves": [
       "The declared release metadata, skills, implementation surfaces, tests, trust inventory, CI gates, and production evidence are present and mutually consistent in this checkout.",
-      "The modular upstream modeling kernel and the Sculpt DNA compatibility, family-generation, evidence, and host-integration layers coexist in this release.",
+      "The modular upstream modeling kernel and the Sculpt DNA compatibility, family-generation, evidence, host-integration, and optional React Three Fiber runtime layers coexist in this release.",
       "Every committed Python script is declared in a network-disabled executable policy, and one offline proof command runs the policy, capability, first-clone, compile, contract, and release gates.",
       "The published Proof Lab reads only committed capability evidence and the machine-readable result produced by that same proof command."
     ],
@@ -113,6 +113,17 @@
       ]
     },
     {
+      "id": "react-three-fiber-runtime-adapter",
+      "statement": "An optional React Three Fiber adapter mounts plain or structured Sculpt DNA factories, forwards frame updates, exposes action-ready runtime maps and stats, rebuilds on canonical option changes, and performs StrictMode-safe exact-once cleanup without changing the plain Three.js source of truth.",
+      "evidenceFiles": [
+        "adapters/react-three-fiber/src/index.tsx",
+        "adapters/react-three-fiber/test/adapter.test.tsx",
+        "examples/react-three-fiber/src/App.jsx",
+        "examples/react-three-fiber/contract.test.mjs",
+        ".github/workflows/quality.yml"
+      ]
+    },
+    {
       "id": "first-clone-trust",
       "statement": "A read-only doctor, complete executable inventory, static network/subprocess audit, security policy, and least-privilege CI expose the executable and release boundary before use.",
       "evidenceFiles": [
@@ -164,7 +175,8 @@
         "examples/brick-offroad-hero",
         "examples/seoul-palace-hero",
         "examples/showcase",
-        "examples/proof-lab"
+        "examples/proof-lab",
+        "examples/react-three-fiber"
       ],
       "commands": [
         [

@@ -50,9 +50,11 @@ class CommunityFilesTests(unittest.TestCase):
         self.assertIn("BOLT-08", bolt)
         for required_path in (
             '"plugin.json"',
+            '".codex-plugin/**"',
             '".github/plugin/**"',
             '"skills/**"',
             '"scripts/**"',
+            '"adapters/**"',
             '"docs/**"',
             '"examples/**"',
         ):
@@ -68,6 +70,8 @@ class CommunityFilesTests(unittest.TestCase):
         self.assertIn("npm audit --omit=dev --audit-level=high", quality)
         self.assertIn("--bundle", quality)
         self.assertIn("--external:three", quality)
+        self.assertIn("react-three-fiber-adapter:", quality)
+        self.assertIn("Verify committed adapter output", quality)
 
 
 if __name__ == "__main__":

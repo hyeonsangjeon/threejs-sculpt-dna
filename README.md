@@ -6,6 +6,7 @@
 [![Quality](https://github.com/hyeonsangjeon/threejs-sculpt-dna/actions/workflows/quality.yml/badge.svg?branch=main)](https://github.com/hyeonsangjeon/threejs-sculpt-dna/actions/workflows/quality.yml)
 [![Live Demo](https://img.shields.io/badge/Live-Repolis%20Demo-19b7a5)](https://hyeonsangjeon.github.io/threejs-sculpt-dna/)
 [![Proof Lab](https://img.shields.io/badge/Proof-6%2F6%20Offline-62dce3)](https://hyeonsangjeon.github.io/threejs-sculpt-dna/proof/)
+[![React Three Fiber](https://img.shields.io/badge/React%20Three%20Fiber-Live%20Adapter-ecbe64)](https://hyeonsangjeon.github.io/threejs-sculpt-dna/react/)
 [![Copilot Plugin](https://img.shields.io/badge/GitHub%20Copilot-Plugin-8957e5)](docs/USER_GUIDE.md)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
@@ -24,13 +25,12 @@ recorded in [`UPSTREAM.md`](UPSTREAM.md).
 
 > **Canonical repository:** [`hyeonsangjeon/threejs-sculpt-dna`](https://github.com/hyeonsangjeon/threejs-sculpt-dna). GitHub redirects the previous repository name here, but use this canonical path for installs, links, and clones.
 
-**Start here:** [Open the Proof Lab](https://hyeonsangjeon.github.io/threejs-sculpt-dna/proof/) · [Run the proof](#5-minute-reproducible-check) · [Install the plugin](#quick-start) · [Use the reconstruction Skill](skills/object-to-threejs-procedural/SKILL.md) · [Open the live flagships](https://hyeonsangjeon.github.io/threejs-sculpt-dna/) · [Review script safety](SECURITY.md)
+**Start here:** [Open the React Three Fiber demo](https://hyeonsangjeon.github.io/threejs-sculpt-dna/react/) · [Open the Proof Lab](https://hyeonsangjeon.github.io/threejs-sculpt-dna/proof/) · [Install the plugin](#quick-start) · [Run the proof](#5-minute-reproducible-check) · [Use the reconstruction Skill](skills/object-to-threejs-procedural/SKILL.md) · [Open the live flagships](https://hyeonsangjeon.github.io/threejs-sculpt-dna/) · [Review script safety](SECURITY.md)
 
-### Install in 60 seconds
+### Install in one command
 
 ```bash
-copilot plugin marketplace add hyeonsangjeon/threejs-sculpt-dna
-copilot plugin install threejs-sculpt-dna@threejs-copilot-plugins
+copilot plugin install hyeonsangjeon/threejs-sculpt-dna
 ```
 
 Then attach a reference image in a new GitHub Copilot session and ask:
@@ -41,26 +41,27 @@ action-ready Three.js model, then curate 3 deterministic variants from
 24 constraint-safe candidates. Do not use an imported mesh.
 ```
 
-The `v0.5.2` release ships its proof with the product. Clone it and run
+The `v0.6.0` release ships its proof with the product. Clone it and run
 `python3 scripts/prove.py`; the same machine-readable result is published in
 the source-linked [Proof Lab](https://hyeonsangjeon.github.io/threejs-sculpt-dna/proof/).
 No catalog decision or private validation service is part of the quality claim.
 
 ### Verified release state
 
-**Stars measure attention; executable gates measure this repository.** Judge the
-release by the committed [`capability-proof.json`](capability-proof.json), not
-by a popularity counter.
+**Every release claim below is executable, source-linked, or demonstrated in a
+live runtime.** Audit the committed [`capability-proof.json`](capability-proof.json)
+or run the same proof used by CI.
 
-| Verifiable contract | `0.5.2` state |
+| Verifiable contract | `0.6.0` state |
 | --- | --- |
-| Capability contract | 10 source-linked claims, including region-aware PBR and the self-contained proof run |
+| Capability contract | 11 source-linked claims, including region-aware PBR, self-contained proof, and the optional React Three Fiber runtime |
 | Combined reconstruction surface | modular v4 kernel + adaptive v3.1 + explicit schema-v2 Sculpt DNA compatibility |
-| Python contracts | 288 tests |
+| Python contracts | 295 tests, plus 9 React/R3F lifecycle and real-factory contracts |
 | Executable boundary | 41 declared scripts, network disabled |
 | Production evidence | 3 artifact manifests; Brick 4/4 and Seoul 4/4 family matrices |
 | Reproducible proof | one offline command, 6 fail-closed gates, bounded output plus full-stream/input SHA-256 |
-| Public CI | the same proof command, 5 browser builds, capture/data tests, and dependency audits |
+| React runtime | optional peer-only adapter; seed/variant rebuilds, `useFrame`, nodes, sockets, colliders, destruction groups, stats, exact-once cleanup |
+| Public CI | the same proof command, 6 browser builds, dedicated adapter lifecycle tests, capture/data tests, and dependency audits |
 
 [Open the live Proof Lab](https://hyeonsangjeon.github.io/threejs-sculpt-dna/proof/) ·
 [Read the verified capability matrix](docs/VERIFIED_CAPABILITIES.md) ·
@@ -131,6 +132,38 @@ and runtime metadata in the target project. Do not use an imported mesh.
 - **Action-ready by construction.** Stable pivots, sockets, colliders, constraints, detachable groups, and runtime maps are part of the model contract rather than an animation retrofit.
 - **Code-native and reproducible.** Flagship factories use procedural geometry, generated independent PBR channels, deterministic capture, measured performance budgets, and zero imported meshes.
 
+## React Three Fiber Runtime Adapter
+
+[Open the live React Three Fiber integration](https://hyeonsangjeon.github.io/threejs-sculpt-dna/react/)
+
+The optional adapter mounts the same plain Three.js factories used by the
+flagships. It does not replace or fork their runtime logic.
+It ships in this repository at `adapters/react-three-fiber` as a workspace/file
+package; no npm-registry publication is implied.
+
+```tsx
+import { Canvas } from '@react-three/fiber';
+import { SculptDNAAsset } from '@threejs-sculpt-dna/react-three-fiber';
+import { createBrickOffroad } from './createBrickOffroad.js';
+
+<Canvas>
+  <SculptDNAAsset
+    factory={createBrickOffroad}
+    seed={20260712}
+    variant="brick-offroad-v001"
+    onReady={(asset) => {
+      asset.runtime.nodes['left-door-pivot'].rotation.y = -0.62;
+      console.log(asset.runtime.sockets, asset.stats);
+    }}
+  />
+</Canvas>
+```
+
+React 19 StrictMode, semantic prop changes, frame forwarding, stable runtime
+identities, and exact-once cleanup are exercised by the committed adapter
+tests. React, R3F, and Three.js remain peer dependencies; existing plain
+Three.js users gain no required runtime dependency.
+
 ## 03 · Flagship: Repolis Living Archive
 
 [Open the interactive Repolis Tree demo](https://hyeonsangjeon.github.io/threejs-sculpt-dna/)
@@ -175,14 +208,10 @@ The middle contact sheet is design-space exploration, not the finished asset. Co
 
 ## Quick Start
 
-1. Register the marketplace and install the plugin:
+1. Install the plugin directly from the canonical repository:
 
    ```bash
-   copilot plugin marketplace add \
-     hyeonsangjeon/threejs-sculpt-dna
-
-   copilot plugin install \
-     threejs-sculpt-dna@threejs-copilot-plugins
+   copilot plugin install hyeonsangjeon/threejs-sculpt-dna
    ```
 
 2. Start a new GitHub Copilot session and verify `/skills list` includes:
@@ -466,45 +495,39 @@ path.
 - GitHub Copilot with plugin support.
 - Python 3.10 or newer.
 - A Three.js browser project for generated model implementation.
+- React 18/19 and React Three Fiber 8/9 only when using the optional adapter.
 - A rendered screenshot and AI-vision review for visual acceptance.
 
 For non-PNG source images on platforms without macOS `sips`, convert the input to an RGB/RGBA PNG before PBR extraction or comparison-sheet generation.
 
 ## Install
 
-Use exactly one installation source. The repository marketplace is the
-recommended and tested path:
+Use exactly one installation source. Current Copilot CLI releases support a
+direct canonical-repository install:
 
 ```bash
-copilot plugin marketplace add \
-  hyeonsangjeon/threejs-sculpt-dna
-
-copilot plugin install \
-  threejs-sculpt-dna@threejs-copilot-plugins
-
+copilot plugin install hyeonsangjeon/threejs-sculpt-dna
 copilot plugin list
 ```
 
-GitHub Copilot plugin marketplaces are decentralized repositories rather than a single approval-based catalog. The checked-in `.github/plugin/marketplace.json` makes this repository a supported marketplace source.
-
-Do not also install the same plugin from a local path or direct repository URL.
-Duplicate cached copies can shadow one another and make upgrades appear stale.
+Do not also install the same plugin from a marketplace or local path. Duplicate
+cached copies can shadow one another and make upgrades appear stale.
 From a cloned checkout, `python3 scripts/doctor.py` warns when it detects more
 than one `threejs-sculpt-dna` installation.
 
 <details>
-<summary>Local contributor install</summary>
+<summary>Optional repository marketplace install</summary>
 
-Use this only while developing the plugin, and remove the marketplace copy
-first:
+The repository also carries a decentralized marketplace manifest for teams
+that prefer a registered catalog:
 
 ```bash
-copilot plugin install "$(pwd)"
+copilot plugin marketplace add hyeonsangjeon/threejs-sculpt-dna
+copilot plugin install threejs-sculpt-dna@threejs-copilot-plugins
 copilot plugin list
 ```
 
-Direct repository installs still work in current Copilot CLI builds but emit a
-marketplace-migration warning, so they are not the recommended onboarding path.
+Remove a direct or local copy before choosing this source.
 
 </details>
 

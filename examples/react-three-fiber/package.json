@@ -1,0 +1,24 @@
+{
+  "name": "threejs-sculpt-dna-r3f-example",
+  "version": "0.6.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "test": "node --test contract.test.mjs",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@react-three/fiber": "9.6.1",
+    "@threejs-sculpt-dna/brick-offroad-factory": "file:../brick-offroad-hero",
+    "@threejs-sculpt-dna/react-three-fiber": "file:../../adapters/react-three-fiber",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "three": "0.180.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "6.0.5",
+    "vite": "8.2.0"
+  }
+}

@@ -1,7 +1,7 @@
 {
   "name": "threejs-sculpt-dna",
-  "description": "A verifiable GitHub Copilot workflow for modular procedural Three.js reconstruction and deterministic asset families.",
-  "version": "0.5.2",
+  "description": "A verifiable GitHub Copilot workflow for procedural Three.js reconstruction, deterministic asset families, and React Three Fiber runtimes.",
+  "version": "0.6.0",
   "author": {
     "name": "hyeonsangjeon",
     "email": "wingnut0310@gmail.com",
@@ -18,6 +18,8 @@
     "copilot-cli",
     "procedural-3d",
     "procedural-modeling",
+    "react-three-fiber",
+    "r3f",
     "deterministic-generation",
     "visual-regression",
     "image-analysis",

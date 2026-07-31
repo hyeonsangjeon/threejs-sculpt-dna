@@ -32,8 +32,8 @@ class CapabilityProofTests(unittest.TestCase):
     def test_committed_capability_proof_is_complete(self) -> None:
         result = verify_capability_proof(root=ROOT)
         self.assertTrue(result["ok"], result["errors"])
-        self.assertEqual(result["claimsChecked"], 10)
-        self.assertGreaterEqual(result["testsDiscovered"], 288)
+        self.assertEqual(result["claimsChecked"], 11)
+        self.assertGreaterEqual(result["testsDiscovered"], 295)
         self.assertGreaterEqual(result["scriptsChecked"], 41)
 
     def test_proof_rejects_repository_path_escape(self) -> None:

@@ -4,6 +4,37 @@ All notable changes to `threejs-sculpt-dna` are documented here.
 
 ## [Unreleased]
 
+## [0.6.0] - 2026-07-31
+
+### Added
+
+- Added an optional `@threejs-sculpt-dna/react-three-fiber` adapter for both
+  plain generated `Object3D` factories and structured flagship results.
+- Added commit-phase allocation, canonical seed/variant/stage rebuild keys,
+  `useFrame` delegation, nodes/meshes/instances/sockets/colliders/destruction
+  maps, immutable stats, and idempotent detach/dispose behavior, including a
+  duplicate-safe resource fallback for plain `Object3D` factories.
+- Added seven React Three Test Renderer contracts covering mount, frame
+  advancement, stable semantic props, prop rebuilds, React 19 StrictMode,
+  factory binding, invalid output, and cleanup behavior.
+- Added a live React Three Fiber demo that reuses the Brick production factory,
+  exposes live runtime metrics and articulation, and tracks a real roof socket.
+- Exposed that unchanged Brick factory through a private, source-only file
+  package so clean consumers install its runtime boundary without copying it.
+- Added two real-factory Node integration contracts and seven offline Python
+  repository contracts for the optional adapter boundary.
+
+### Changed
+
+- Made the canonical repository a one-command Copilot install while retaining
+  the repository marketplace as an optional team-catalog path.
+- Expanded the capability proof to 11 source-linked claims, 295 Python tests,
+  six browser builds, and a dedicated locked adapter package job.
+- Upgraded all GitHub-owned workflow actions to their current Node 24-backed
+  major releases while preserving commit-SHA pinning.
+- Published the React runtime at `/react/` and linked it from the flagship,
+  README, user guide, verified capability matrix, and Proof Lab.
+
 ## [0.5.2] - 2026-07-31
 
 ### Added
@@ -133,4 +164,5 @@ All notable changes to `threejs-sculpt-dna` are documented here.
 [0.4.3]: https://github.com/hyeonsangjeon/threejs-sculpt-dna/releases/tag/v0.4.3
 [0.5.0]: https://github.com/hyeonsangjeon/threejs-sculpt-dna/compare/v0.4.3...v0.5.0
 [0.5.1]: https://github.com/hyeonsangjeon/threejs-sculpt-dna/compare/v0.5.0...v0.5.1
-[0.5.2]: https://github.com/hyeonsangjeon/threejs-sculpt-dna/compare/v0.5.1...HEAD
+[0.5.2]: https://github.com/hyeonsangjeon/threejs-sculpt-dna/compare/v0.5.1...v0.5.2
+[0.6.0]: https://github.com/hyeonsangjeon/threejs-sculpt-dna/compare/v0.5.2...v0.6.0

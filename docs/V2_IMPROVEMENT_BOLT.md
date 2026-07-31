@@ -145,8 +145,9 @@ comparison.
   - Acceptance: NaN/Infinity fidelity and non-standard JSON are rejected; shared
     constants are imported from one module; all focused tests pass.
 - [x] **BOLT-04 · Add full-surface PR quality CI**
-  - Acceptance: plugin/docs/skills/manifests trigger tests; all five browser
-    examples build; generated TypeScript parses; audits have no high findings.
+  - Acceptance: plugin/docs/skills/manifests trigger tests; all six browser
+    examples and the adapter package build; generated TypeScript parses;
+    audits have no high findings.
 - [x] **BOLT-05 · Update runtime and capture hygiene**
   - Acceptance: framebuffer preservation is capture-only; Repolis has isolated
     port/lock tests; normal page lifecycle disposes resources.
@@ -168,16 +169,16 @@ comparison.
     paths, test floor, executable inventory, production matrices, and CI
     commands are checked locally without network access.
 - [x] **BOLT-11 · Block popularity-based superiority claims**
-  - Acceptance: the README contains no star solicitation; proof limitations
-    reject stars as quality evidence; comparative output claims require the
-    published same-input, equal-budget, blinded protocol.
+  - Acceptance: proof limitations reject stars as quality evidence;
+    comparative output claims require the published same-input, equal-budget,
+    blinded protocol; ordinary source links remain separate from proof claims.
 - [x] **BOLT-12 · Close the public-demo conversion loop**
   - Acceptance: the primary Repolis and Brick flagships plus the variant
     showcase link directly to the canonical repository and installation guide;
     Seoul preserves its stricter reviewed-source fingerprint and links back
     through the flagship pager instead of rewriting accepted evidence.
 - [x] **BOLT-13 · Put installation and repository proof above the fold**
-  - Acceptance: the README exposes the single recommended two-command install
+  - Acceptance: the README exposes the single recommended one-command install
     before architecture detail, links the exact self-contained proof command
     and live Proof Lab, and displays Quality state without asking for stars.
 - [x] **BOLT-14 · Make one command the release authority**
@@ -193,6 +194,15 @@ comparison.
   - Acceptance: a dependency-free Proof Lab renders the actual CI proof,
     exposes every source-linked claim and limitation, passes desktop/mobile and
     interaction QA, and deploys at `/proof/` beside the flagships.
+- [x] **BOLT-17 · Join the React Three Fiber runtime**
+  - Acceptance: a peer-only adapter mounts plain and structured factories,
+    rebuilds only on semantic option changes, delegates frames, exposes action
+    maps and stats, survives React 19 StrictMode without leaks, disposes once,
+    and ships with a real-factory live demo at `/react/`.
+- [x] **BOLT-18 · Remove first-install friction**
+  - Acceptance: current Copilot CLI users can install directly from the
+    canonical repository in one command; the repository marketplace remains
+    documented as an optional alternative, not a required gate.
 
 ## Defer conditions
 
@@ -202,8 +212,8 @@ comparison.
 - [x] **RETIRED:** external catalog resubmission is outside the release plan.
   No further comments, reopen attempts, or catalog-specific changes are
   required; repository-local proof is the authority.
-- [ ] **DEFER:** tagging or publishing a release requires this draft PR to pass
-  public checks and merge first.
+- [x] **RELEASE ORDER:** tag or publish only after the quality PR passes public
+  checks and its exact commit reaches `main`.
 - [ ] **DEFER:** star growth is not an acceptance test. Measure qualified web
   visitors, successful doctor runs or issue feedback, demo engagement, and
   marketplace installs separately from anonymous clone traffic.
@@ -212,11 +222,11 @@ comparison.
 
 - [x] `python3 scripts/prove.py --output proof-run.json`
 - [x] Brick and Seoul visual matrix reports are regenerated and byte-identical
-- [x] all five `npm run build` commands pass
+- [x] all six browser `npm run build` commands and the adapter declaration build pass
 - [x] Proof Lab data contracts and desktop/mobile interaction QA pass
 - [x] capture isolation tests pass
 - [x] full and production-only npm audits are reviewed
-- [x] clean-clone marketplace installation reports exactly two installed skills
+- [x] clean-clone direct or marketplace installation reports exactly two installed skills
 
 ## Completion report
 
@@ -286,3 +296,20 @@ implementation. Do not represent these changes as causing star growth.
 - The dependency-free Proof Lab renders the real proof result, source-links all
   claims, exposes limitations, and joins the five-build Pages matrix at
   `/proof/`.
+
+### React runtime upgrade · 0.6.0 · 2026-07-31
+
+- The capability proof now covers 11 claims, 295 Python contracts, six browser
+  builds, and the dedicated React Three Fiber adapter package.
+- Seven React Three Test Renderer contracts prove mount, semantic rebuild,
+  frame delegation, React 19 StrictMode allocation balance, factory binding,
+  invalid-output rejection, and exact-once disposal. Two more contracts bind
+  the adapter to the real Brick production factory.
+- The live `/react/` route exposes deterministic variant/seed rebuilds,
+  articulation, runtime counts, factory metrics, and a tracked roof socket
+  without replacing the plain Three.js factory.
+- The primary Copilot onboarding path is now the CLI-supported direct
+  repository install. The two-command marketplace path remains optional.
+- GitHub-owned workflow actions are pinned to current Node 24-backed release
+  commits, removing the previous deprecation annotation without weakening SHA
+  pinning.

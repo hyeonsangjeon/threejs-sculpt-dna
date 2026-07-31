@@ -15,6 +15,7 @@ const CLAIM_LABELS = {
   'deterministic-asset-families': 'Deterministic asset families',
   'evidence-and-review-integrity': 'Evidence and review integrity',
   'action-ready-host-integration': 'Action-ready integration',
+  'react-three-fiber-runtime-adapter': 'React Three Fiber runtime',
   'first-clone-trust': 'First-clone trust',
   'production-flagships': 'Production flagships',
   'self-contained-proof-run': 'Self-contained proof run',
