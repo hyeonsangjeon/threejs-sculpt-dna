@@ -1,8 +1,9 @@
 # threejs-sculpt-dna — A GitHub Copilot Plugin
 
-> A community-built GitHub Copilot plugin for code-native procedural Three.js reconstruction and deterministic asset families.
+> Turn reference images into code-native procedural Three.js models, then turn one model into a deterministic, topology-safe asset family.
 
 [![Release](https://img.shields.io/github/v/release/hyeonsangjeon/threejs-sculpt-dna?display_name=tag)](https://github.com/hyeonsangjeon/threejs-sculpt-dna/releases/latest)
+[![Quality](https://github.com/hyeonsangjeon/threejs-sculpt-dna/actions/workflows/quality.yml/badge.svg?branch=main)](https://github.com/hyeonsangjeon/threejs-sculpt-dna/actions/workflows/quality.yml)
 [![Live Demo](https://img.shields.io/badge/Live-Repolis%20Demo-19b7a5)](https://hyeonsangjeon.github.io/threejs-sculpt-dna/)
 [![Copilot Plugin](https://img.shields.io/badge/GitHub%20Copilot-Plugin-8957e5)](docs/USER_GUIDE.md)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
@@ -24,6 +25,26 @@ recorded in [`UPSTREAM.md`](UPSTREAM.md).
 
 **Start here:** [Run the proof](#verified-release-state) · [Install the plugin](#quick-start) · [Run the doctor](#5-minute-reproducible-check) · [Use the reconstruction Skill](skills/object-to-threejs-procedural/SKILL.md) · [Open the live flagships](https://hyeonsangjeon.github.io/threejs-sculpt-dna/) · [Review script safety](SECURITY.md)
 
+### Install in 60 seconds
+
+```bash
+copilot plugin marketplace add hyeonsangjeon/threejs-sculpt-dna
+copilot plugin install threejs-sculpt-dna@threejs-copilot-plugins
+```
+
+Then attach a reference image in a new GitHub Copilot session and ask:
+
+```text
+Use Three.js Sculpt DNA to reconstruct this reference as a procedural,
+action-ready Three.js model, then curate 3 deterministic variants from
+24 constraint-safe candidates. Do not use an imported mesh.
+```
+
+The published `v0.5.1` package passed the independent
+[Awesome Copilot external-plugin intake](https://github.com/github/awesome-copilot/issues/2274#issuecomment-4947395313):
+both Skills passed Vally 0.6.0, the isolated marketplace install succeeded,
+and the release tag resolved to its declared full commit SHA.
+
 ### Verified release state
 
 **Stars measure attention; executable gates measure this repository.** Judge the
@@ -36,6 +57,7 @@ by a popularity counter.
 | Python contracts | 274 tests |
 | Executable boundary | 40 declared scripts, network disabled |
 | Production evidence | 3 artifact manifests; Brick 4/4 and Seoul 4/4 family matrices |
+| External install validation | both Skills pass Vally 0.6.0; isolated marketplace install smoke passes |
 | Public CI | proof, doctor, tests, release evidence, 4 browser builds, capture tests, and dependency audits |
 
 [Read the verified capability matrix](docs/VERIFIED_CAPABILITIES.md) ·
