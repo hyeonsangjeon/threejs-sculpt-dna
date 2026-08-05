@@ -1,6 +1,6 @@
 # threejs-sculpt-dna — A GitHub Copilot Plugin
 
-> Turn reference images into code-native procedural Three.js models, then turn one model into a deterministic, topology-safe asset family.
+> Turn a reference image into editable Three.js code with GitHub Copilot.
 
 [![Release](https://img.shields.io/github/v/release/hyeonsangjeon/threejs-sculpt-dna?display_name=tag)](https://github.com/hyeonsangjeon/threejs-sculpt-dna/releases/latest)
 [![Quality](https://github.com/hyeonsangjeon/threejs-sculpt-dna/actions/workflows/quality.yml/badge.svg?branch=main)](https://github.com/hyeonsangjeon/threejs-sculpt-dna/actions/workflows/quality.yml)
@@ -12,20 +12,23 @@
 
 [![Rotating high-detail procedural Repolis Tree](assets/repolis-tree-hero.gif)](https://hyeonsangjeon.github.io/threejs-sculpt-dna/)
 
-Turn an object reference image into a quality-gated, action-ready procedural Three.js model, then expand that model into a deterministic family of constraint-safe variants.
+Give Copilot an image and get a plain Three.js factory you can read, diff,
+refine, animate, and ship. The workflow builds with procedural geometry instead
+of downloading or hiding an imported mesh.
 
-`threejs-sculpt-dna` is an evidence-gated GitHub Copilot workflow, not a one-click image-to-mesh converter or a manifest-only port. It treats every reconstruction as a versioned production system: semantic topology, action contracts, deterministic variation, browser evidence, and release integrity advance together.
+**[Try the live model →](https://hyeonsangjeon.github.io/threejs-sculpt-dna/)** ·
+**[See the React Three Fiber runtime →](https://hyeonsangjeon.github.io/threejs-sculpt-dna/react/)** ·
+**[Star on GitHub →](https://github.com/hyeonsangjeon/threejs-sculpt-dna)**
 
-This repository integrates a reviewed source snapshot of the original
-[`Three.js-Object-Sculptor-Codex-Plugin`](https://github.com/vinhhien112/Three.js-Object-Sculptor-Codex-Plugin)
-modular modeling kernel with **Sculpt DNA**, Coverage Curator, schema-v2
-compatibility, SHA-bound pass evidence, production family matrices,
-action-ready contracts, and host-integration gates. Exact source provenance is
+> If image-to-code Three.js work is on your roadmap, star the repository to keep
+> the workflow, examples, and future releases easy to find.
+
+**Provenance:** the current release combines Sculpt DNA with a reviewed,
+MIT-licensed upstream modeling kernel. The exact imported scope and commit are
 recorded in [`UPSTREAM.md`](UPSTREAM.md).
 
-> **Canonical repository:** [`hyeonsangjeon/threejs-sculpt-dna`](https://github.com/hyeonsangjeon/threejs-sculpt-dna). GitHub redirects the previous repository name here, but use this canonical path for installs, links, and clones.
-
-**Start here:** [Open the React Three Fiber demo](https://hyeonsangjeon.github.io/threejs-sculpt-dna/react/) · [Open the Proof Lab](https://hyeonsangjeon.github.io/threejs-sculpt-dna/proof/) · [Install the plugin](#quick-start) · [Run the proof](#5-minute-reproducible-check) · [Use the reconstruction Skill](skills/object-to-threejs-procedural/SKILL.md) · [Open the live flagships](https://hyeonsangjeon.github.io/threejs-sculpt-dna/) · [Review script safety](SECURITY.md)
+**Canonical repository:** [`hyeonsangjeon/threejs-sculpt-dna`](https://github.com/hyeonsangjeon/threejs-sculpt-dna).
+Use this path for installs, clones, and links.
 
 ### Install in one command
 
@@ -33,18 +36,19 @@ recorded in [`UPSTREAM.md`](UPSTREAM.md).
 copilot plugin install hyeonsangjeon/threejs-sculpt-dna
 ```
 
-Then attach a reference image in a new GitHub Copilot session and ask:
+Attach a reference image in a new Copilot session and ask:
 
 ```text
-Use Three.js Sculpt DNA to reconstruct this reference as a procedural,
-action-ready Three.js model, then curate 3 deterministic variants from
-24 constraint-safe candidates. Do not use an imported mesh.
+Use Three.js Sculpt DNA to rebuild this reference as editable procedural
+Three.js code. Keep it action-ready and do not use an imported mesh.
 ```
 
-The `v0.6.0` release ships its proof with the product. Clone it and run
-`python3 scripts/prove.py`; the same machine-readable result is published in
-the source-linked [Proof Lab](https://hyeonsangjeon.github.io/threejs-sculpt-dna/proof/).
-No catalog decision or private validation service is part of the quality claim.
+**You get:** a versioned `ObjectSculptSpec`, a plain Three.js factory, browser
+comparison evidence, action-ready runtime maps, and optional deterministic
+variants. See the complete [reconstruction Skill](skills/object-to-threejs-procedural/SKILL.md).
+
+<details>
+<summary><strong>Why trust it? Inspect the executable proof and runtime contract</strong></summary>
 
 ### Verified release state
 
@@ -163,6 +167,8 @@ React 19 StrictMode, semantic prop changes, frame forwarding, stable runtime
 identities, and exact-once cleanup are exercised by the committed adapter
 tests. React, R3F, and Three.js remain peer dependencies; existing plain
 Three.js users gain no required runtime dependency.
+
+</details>
 
 ## 03 · Flagship: Repolis Living Archive
 
@@ -314,6 +320,9 @@ npm run serve
 ```
 
 Then open `http://127.0.0.1:4173/?scene=tree`, replacing `tree` with `brick` or `seoul`.
+
+<details>
+<summary><strong>Open the advanced workflow and technical reference</strong></summary>
 
 ## At A Glance
 
@@ -932,6 +941,8 @@ evidence reset, manifest output, matrix ordering/classification/latest-review
 precedence, render-integration safety/classification/cwd determinism, generated
 TypeScript metadata, release-image dimensions, file-size budgets, EXIF
 removal, and inherited-asset exclusion.
+
+</details>
 
 ## Limitations
 
