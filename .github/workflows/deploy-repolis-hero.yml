@@ -159,12 +159,14 @@ jobs:
           cp -R examples/showcase/dist/. "$PAGES_DIR/showcase/"
           cp -R examples/proof-lab/dist/. "$PAGES_DIR/proof/"
           cp -R examples/react-three-fiber/dist/. "$PAGES_DIR/react/"
-          diff -qr examples/repolis-hero/dist "$PAGES_DIR" --exclude brick --exclude seoul --exclude showcase --exclude proof --exclude react
+          cp assets/social-preview.png "$PAGES_DIR/social-preview.png"
+          diff -qr examples/repolis-hero/dist "$PAGES_DIR" --exclude brick --exclude seoul --exclude showcase --exclude proof --exclude react --exclude social-preview.png
           diff -qr examples/brick-offroad-hero/dist "$PAGES_DIR/brick"
           diff -qr examples/seoul-palace-hero/dist "$PAGES_DIR/seoul"
           diff -qr examples/showcase/dist "$PAGES_DIR/showcase"
           diff -qr examples/proof-lab/dist "$PAGES_DIR/proof"
           diff -qr examples/react-three-fiber/dist "$PAGES_DIR/react"
+          cmp assets/social-preview.png "$PAGES_DIR/social-preview.png"
       - uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
       - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:

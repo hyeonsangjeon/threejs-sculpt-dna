@@ -30,9 +30,9 @@
     "stage": "full"
   },
   "sourceSha256": {
-    "index.html": "106bbbfa54395a2b698999bde5f724384670035c508367f52a160e7816d8a761",
+    "index.html": "02be0125bafcf7965338df4b9f8c360a0f1e0aa1a26e313d26f8e2aefc8e9a11",
     "main.js": "b13c7c45f452cac4c445d9c913d73a8f328bafbafafae57f52209246e6944f33",
-    "style.css": "60b00a0fd810bd5073727768497646d71a0621ea33a4549a4b58aa8166e61587",
+    "style.css": "ff4264ad4f8c6d966a5d1eb1ff97dbe279fdf75d8124ceea4ddb58aa9394ff61",
     "repolis-output/createRepolisHero.js": "65bd7fc76013ee0f11898174095556d581be64ea8f15e76e090fb8955a17d0e3",
     "repolis-output/repolis-hero-profile.json": "dbd376bb180aae1d1d93ed579ea3a3558cbd8e397f6da9ed853f0b1325916351",
     "../repolis-tree/object-sculpt-spec.json": "9556e708ace61dbd2a4128700e41ec8dac3d0c930f0e85e09cc2915013aa40d8",

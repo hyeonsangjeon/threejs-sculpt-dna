@@ -6,11 +6,38 @@
     <meta name="theme-color" content="#06121d" />
     <meta
       name="description"
-      content="A high-detail procedural Repolis Tree generated with Three.js Sculpt DNA."
+      content="Turn a reference image into editable procedural Three.js code with the Three.js Sculpt DNA GitHub Copilot plugin."
     />
+    <link rel="canonical" href="https://hyeonsangjeon.github.io/threejs-sculpt-dna/" />
+    <meta property="og:title" content="Three.js Sculpt DNA — Reference image to editable Three.js code" />
+    <meta
+      property="og:description"
+      content="Explore a code-native procedural model, then install the GitHub Copilot plugin that created it."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://hyeonsangjeon.github.io/threejs-sculpt-dna/" />
+    <meta property="og:image" content="https://hyeonsangjeon.github.io/threejs-sculpt-dna/social-preview.png" />
+    <meta property="og:image:width" content="1280" />
+    <meta property="og:image:height" content="640" />
+    <meta property="og:image:alt" content="Reference images transformed into procedural Three.js flagship models" />
+    <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ctext y='52' font-size='52'%3E%E2%9C%A6%3C/text%3E%3C/svg%3E" />
     <title>Repolis Tree — Three.js Sculpt DNA Flagship</title>
     <link rel="stylesheet" href="./style.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareSourceCode",
+        "name": "Three.js Sculpt DNA",
+        "description": "A GitHub Copilot plugin that turns reference images into editable procedural Three.js models.",
+        "codeRepository": "https://github.com/hyeonsangjeon/threejs-sculpt-dna",
+        "license": "https://opensource.org/license/mit",
+        "programmingLanguage": ["JavaScript", "TypeScript", "Python"],
+        "runtimePlatform": "GitHub Copilot CLI",
+        "url": "https://hyeonsangjeon.github.io/threejs-sculpt-dna/",
+        "image": "https://hyeonsangjeon.github.io/threejs-sculpt-dna/social-preview.png"
+      }
+    </script>
     <script type="importmap">
       {
         "imports": {
@@ -32,6 +59,21 @@
           <span>No imported mesh</span>
           <span id="generation-time">Generating…</span>
         </div>
+        <div class="project-actions" aria-label="Project actions">
+          <a
+            class="project-action primary"
+            href="https://github.com/hyeonsangjeon/threejs-sculpt-dna"
+            target="_blank"
+            rel="noopener"
+            aria-label="Open source, installation guide, and star Three.js Sculpt DNA on GitHub"
+          >★ Star on GitHub</a>
+          <a
+            class="project-action"
+            href="https://github.com/hyeonsangjeon/threejs-sculpt-dna#install-in-one-command"
+            target="_blank"
+            rel="noopener"
+          >Install plugin ↗</a>
+        </div>
       </section>
 
       <nav class="controls" aria-label="Repolis Tree controls">
@@ -41,13 +83,6 @@
         <span class="flagship-pager" role="group" aria-label="Flagship demos">
           <a href="./seoul/" data-flagship="seoul" aria-label="Previous flagship: Seoul Palace" title="Seoul Palace">‹</a>
           <span aria-label="Flagship 1 of 3">01/03</span>
-          <a
-            href="https://github.com/hyeonsangjeon/threejs-sculpt-dna"
-            target="_blank"
-            rel="noopener"
-            aria-label="Open source and installation guide on GitHub"
-            title="Source and install"
-          >GH</a>
           <a
             href="./proof/"
             aria-label="Open the self-contained verification Proof Lab"

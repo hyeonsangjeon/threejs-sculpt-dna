@@ -100,6 +100,7 @@ class AssetTests(unittest.TestCase):
             ROOT / "examples" / "repolis-hero" / "index.html",
             ROOT / "examples" / "brick-offroad-hero" / "index.html",
             ROOT / "examples" / "showcase" / "index.html",
+            ROOT / "examples" / "proof-lab" / "index.html",
         )
         for path in demos:
             with self.subTest(path=path.relative_to(ROOT)):
@@ -111,12 +112,64 @@ class AssetTests(unittest.TestCase):
                     html,
                     r'aria-label="[^"]*(?:source|Source)[^"]*(?:install|installation)',
                 )
+                self.assertIn("Star on GitHub", html)
 
         seoul = (
             ROOT / "examples" / "seoul-palace-hero" / "index.html"
         ).read_text(encoding="utf-8")
         self.assertIn('href="../"', seoul)
         self.assertIn('data-flagship="tree"', seoul)
+
+    def test_public_pages_have_complete_share_metadata(self) -> None:
+        pages = {
+            "repolis-hero": "https://hyeonsangjeon.github.io/threejs-sculpt-dna/",
+            "brick-offroad-hero": "https://hyeonsangjeon.github.io/threejs-sculpt-dna/brick/",
+            "showcase": "https://hyeonsangjeon.github.io/threejs-sculpt-dna/showcase/",
+            "proof-lab": "https://hyeonsangjeon.github.io/threejs-sculpt-dna/proof/",
+            "react-three-fiber": "https://hyeonsangjeon.github.io/threejs-sculpt-dna/react/",
+        }
+        social_image = (
+            "https://hyeonsangjeon.github.io/threejs-sculpt-dna/"
+            "social-preview.png"
+        )
+        for directory, canonical in pages.items():
+            with self.subTest(directory=directory):
+                html = (
+                    ROOT / "examples" / directory / "index.html"
+                ).read_text(encoding="utf-8")
+                self.assertIn(f'<link rel="canonical" href="{canonical}"', html)
+                self.assertIn(
+                    f'<meta property="og:url" content="{canonical}"',
+                    html,
+                )
+                self.assertIn(
+                    f'<meta property="og:image" content="{social_image}"',
+                    html,
+                )
+                self.assertIn(
+                    '<meta name="twitter:card" content="summary_large_image"',
+                    html,
+                )
+
+    def test_pages_publish_crawl_and_social_assets(self) -> None:
+        public = ROOT / "examples" / "repolis-hero" / "public"
+        robots = (public / "robots.txt").read_text(encoding="utf-8")
+        sitemap = (public / "sitemap.xml").read_text(encoding="utf-8")
+        workflow = (
+            ROOT / ".github" / "workflows" / "deploy-repolis-hero.yml"
+        ).read_text(encoding="utf-8")
+
+        self.assertIn("Allow: /", robots)
+        self.assertIn("sitemap.xml", robots)
+        for route in ("/brick/", "/seoul/", "/showcase/", "/proof/", "/react/"):
+            self.assertIn(
+                f"https://hyeonsangjeon.github.io/threejs-sculpt-dna{route}",
+                sitemap,
+            )
+        self.assertIn(
+            'cp assets/social-preview.png "$PAGES_DIR/social-preview.png"',
+            workflow,
+        )
 
     def test_inherited_demo_images_are_not_released(self) -> None:
         for filename in (
