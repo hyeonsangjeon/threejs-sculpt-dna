@@ -457,6 +457,7 @@ async function main() {
       'evidence/optimization-material.png',
       'evidence/optimization-hierarchy.png',
       'evidence/optimization-pass-comparison.png',
+      'evidence/runtime-identity-rebind.json',
       'evidence/visual-regression-matrix.json',
     ];
     const sourceSha256 = {};

@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0",
-  "sourceFingerprint": "7c91bef53b1103666a72660f829ef66478b81940cc63f3fef9659f9bbc49e78c",
+  "sourceFingerprint": "b40633040377ccd502e834739a07bbf2844f50f80b2201e047250ca2d43612fa",
   "sourceFiles": [
     "../seoul-challenge/assessment.json",
     "../seoul-challenge/object-sculpt-spec.json",
@@ -29,20 +29,20 @@
   ],
   "sourceSha256": {
     "../seoul-challenge/assessment.json": "a1fc1c5345c6bf651739c387e50565d74eb9aa68e74fa4fe57f8913f44aaef9d",
-    "../seoul-challenge/object-sculpt-spec.json": "f293de26124014148ece6ec92bad5dd86769ae65101be6ca2e68b0537265c562",
-    "../showcase/variants/seoul-production/sculpt-dna-manifest.json": "cefd594fb9bbedf8306a8146f6efce95442eac6b71472e710e49ebccb750e5ae",
-    "../showcase/variants/seoul-production/seoul-palace-hero-v001.json": "0963f19e92bab334ffcb2af26561bbb3cec93453baa7b5c032dc953afa5a47d2",
-    "../showcase/variants/seoul-production/seoul-palace-hero-v002.json": "0845b95d3a79cfe35233eaf79a3d0da400a1495653ac4542de904e4e8f91b9ac",
-    "../showcase/variants/seoul-production/seoul-palace-hero-v003.json": "9c08d0dd634fc837dc0e1e72c5b4f9d1c4b6770b5925c9bf860bd3fcd468ab3e",
+    "../seoul-challenge/object-sculpt-spec.json": "3bc9fc4008cf16ba400fbffd40228f26abc61e17e203e0e87eae9d15d4ce5fdf",
+    "../showcase/variants/seoul-production/sculpt-dna-manifest.json": "c041dec17406c627f4f08ed8521e4cf0262a3f95fab8d33eb3396789a3b38730",
+    "../showcase/variants/seoul-production/seoul-palace-hero-v001.json": "7357edd2e6288473bd3436537efd1f56ee5fa438e431aad0e178d78a03fe80cf",
+    "../showcase/variants/seoul-production/seoul-palace-hero-v002.json": "7102bb58d8539f093900921dd322ad3a025c91646f15840402dc66dfe97eeecc",
+    "../showcase/variants/seoul-production/seoul-palace-hero-v003.json": "b8fcf492f15c1df7940898dd4cfa1ebd1a3faf197fd5009fad73d1253200724c",
     "../../assets/seoul-challenge-reference.jpeg": "c227a3ac8958b14cf64e7e95b0943f9cdc1ab9455beca2b9ab8fb1f6d0931290",
     "../../scripts/make_visual_comparison_sheet.py": "2ec1b859c5e77c65366bf461c03d549373c9b721f69f2e34f7e09e5d45e256c4",
     "index.html": "b9e527caad7c4a8ed74f7c299847d1d2660f6a01bedaa67e727b75bba8531b0b",
     "main.js": "cee89f164ebb3a11fc9d5b5f9c52faa9e2bafebf6977d123c1566192112f2e22",
-    "package-lock.json": "46610c2eac0139dd6985fbef0b36aa39c399adc358a176a280ca99e65bb8dc72",
+    "package-lock.json": "eb4a58927e905aa882cc7813b89c77aed501b758f9daaaec5aa22ffec763164a",
     "package.json": "6c0beba30372d7f9059624242be10159d84cbbc9513fcbee0e2990f6611bdc50",
     "reference/seoul-challenge-reference.jpeg": "c227a3ac8958b14cf64e7e95b0943f9cdc1ab9455beca2b9ab8fb1f6d0931290",
-    "scripts/capture-isolation.test.mjs": "d29f5894ceb8bbe98040721f51b2099a78de3a627c789cc5d0409bea260f9ff8",
-    "scripts/capture.mjs": "92be8f1202b1faccb881280384800bc7176425735474e71ae8aed76a9b783e58",
+    "scripts/capture-isolation.test.mjs": "772730308e9f5a81bbe236bea1eb728d4d76b09425be7defd943755490f794a1",
+    "scripts/capture.mjs": "e32d547090f64ab5673bfbd94c35fbd539bdd462fbe75432417b13deca3e68f9",
     "scripts/factory-contract.test.mjs": "01989ff728985426d3656ad15b26475e54c4655d6f5ca830dc57d48200572dbe",
     "scripts/performance-probe.mjs": "5190fe69038013b9bd7ac7422836921bf0cc8256b1d0880064dc9a632f71a22c",
     "style.css": "86fe3387e246a9c2bb30efc7a8bef3383bf6713d4f6ec6ecc231fde563870c63",
@@ -50,10 +50,10 @@
     "seoul-output/createSeoulPalaceHero.d.ts": "95ae0e67f6357c0650b4d6bc7a54f3090e9f5cbd3927e41866a9c2a91e3d3659",
     "seoul-output/createSeoulPalaceHero.js": "ef4c0d3391ecef1e3102b5848ba6f6b9d242cba62e648d1d24ca7a1c31b0312d",
     "seoul-output/createProceduralMaterials.js": "fe0d123ff0de85645cd5b8868e9b4f63c0e427513af938ce7ae828fdb2509199",
-    "seoul-output/seoul-palace-profile.json": "31befea61acb53680893128109ba954b6726b414c1ecaa6db6e94eafd88c673c",
+    "seoul-output/seoul-palace-profile.json": "cc188897748a6cd440b42e9fb0f8dc627b9d5a4b794155680c279954ef825930",
     "seoul-output/seoul-variant-config.json": "d5851b02af152fb96cf76a463f3b7584a9d4f1c7d85013133c22c049fa5229a7"
   },
-  "runtimeFingerprint": "e4f25666ef6044cd243191f6be417a1e4288979cb0a01dfedc3b21dbcab7350a",
+  "runtimeFingerprint": "ad920b6c17b69718c7c17cfd7a3201961b7f94141ba30092d3213f2668ad8d93",
   "runtimeFiles": [
     "index.html",
     "main.js",
@@ -69,7 +69,7 @@
   "runtimeSha256": {
     "index.html": "b9e527caad7c4a8ed74f7c299847d1d2660f6a01bedaa67e727b75bba8531b0b",
     "main.js": "cee89f164ebb3a11fc9d5b5f9c52faa9e2bafebf6977d123c1566192112f2e22",
-    "package-lock.json": "46610c2eac0139dd6985fbef0b36aa39c399adc358a176a280ca99e65bb8dc72",
+    "package-lock.json": "eb4a58927e905aa882cc7813b89c77aed501b758f9daaaec5aa22ffec763164a",
     "package.json": "6c0beba30372d7f9059624242be10159d84cbbc9513fcbee0e2990f6611bdc50",
     "reference/seoul-challenge-reference.jpeg": "c227a3ac8958b14cf64e7e95b0943f9cdc1ab9455beca2b9ab8fb1f6d0931290",
     "style.css": "86fe3387e246a9c2bb30efc7a8bef3383bf6713d4f6ec6ecc231fde563870c63",
@@ -1305,7 +1305,8 @@
     "evidence/optimization-material.png": "2163758e3ebaa388ceb9113f1a44ee2459d7601f0df37bfe8ab5c087340b000d",
     "evidence/optimization-hierarchy.png": "f5013c3b097dee5a229c7e51600b2ed44f1870dd0d2937b00ee79234f5f47ff5",
     "evidence/optimization-pass-comparison.png": "b3a7f8392d88ec4ab60ac1475ae2862112530d6fe9434cbf13d50b9b498bb101",
-    "evidence/visual-regression-matrix.json": "38f8979976aaec10a5a764d7564970685a8c9cd0a391d767f63f928f83d6609b"
+    "evidence/runtime-identity-rebind.json": "c5de6b89f14515f91259717d8330e713d9fffe4f0270359236a7d782a06167fc",
+    "evidence/visual-regression-matrix.json": "4ebb85f8d74c827712800d7f77de9927f9d9d2f3eb5a3a4e11cc2fed35c85506"
   },
   "runtimeStats": {
     "generationMs": 777.9000000059605,
@@ -1326,8 +1327,8 @@
     "generatedTextureCount": 35,
     "renderCalls": 388,
     "renderedTriangles": 288944,
-    "sourceFingerprint": "7c91bef53b1103666a72660f829ef66478b81940cc63f3fef9659f9bbc49e78c",
-    "runtimeFingerprint": "e4f25666ef6044cd243191f6be417a1e4288979cb0a01dfedc3b21dbcab7350a"
+    "sourceFingerprint": "b40633040377ccd502e834739a07bbf2844f50f80b2201e047250ca2d43612fa",
+    "runtimeFingerprint": "ad920b6c17b69718c7c17cfd7a3201961b7f94141ba30092d3213f2668ad8d93"
   },
   "variantRuntimeStats": [
     {
@@ -1349,8 +1350,8 @@
       "generatedTextureCount": 35,
       "renderCalls": 388,
       "renderedTriangles": 282928,
-      "sourceFingerprint": "7c91bef53b1103666a72660f829ef66478b81940cc63f3fef9659f9bbc49e78c",
-      "runtimeFingerprint": "e4f25666ef6044cd243191f6be417a1e4288979cb0a01dfedc3b21dbcab7350a"
+      "sourceFingerprint": "b40633040377ccd502e834739a07bbf2844f50f80b2201e047250ca2d43612fa",
+      "runtimeFingerprint": "ad920b6c17b69718c7c17cfd7a3201961b7f94141ba30092d3213f2668ad8d93"
     },
     {
       "generationMs": 773.3000000119209,
@@ -1371,8 +1372,8 @@
       "generatedTextureCount": 35,
       "renderCalls": 388,
       "renderedTriangles": 291360,
-      "sourceFingerprint": "7c91bef53b1103666a72660f829ef66478b81940cc63f3fef9659f9bbc49e78c",
-      "runtimeFingerprint": "e4f25666ef6044cd243191f6be417a1e4288979cb0a01dfedc3b21dbcab7350a"
+      "sourceFingerprint": "b40633040377ccd502e834739a07bbf2844f50f80b2201e047250ca2d43612fa",
+      "runtimeFingerprint": "ad920b6c17b69718c7c17cfd7a3201961b7f94141ba30092d3213f2668ad8d93"
     },
     {
       "generationMs": 733.4000000059605,
@@ -1393,8 +1394,8 @@
       "generatedTextureCount": 35,
       "renderCalls": 388,
       "renderedTriangles": 286912,
-      "sourceFingerprint": "7c91bef53b1103666a72660f829ef66478b81940cc63f3fef9659f9bbc49e78c",
-      "runtimeFingerprint": "e4f25666ef6044cd243191f6be417a1e4288979cb0a01dfedc3b21dbcab7350a"
+      "sourceFingerprint": "b40633040377ccd502e834739a07bbf2844f50f80b2201e047250ca2d43612fa",
+      "runtimeFingerprint": "ad920b6c17b69718c7c17cfd7a3201961b7f94141ba30092d3213f2668ad8d93"
     }
   ],
   "capture": {

@@ -9,9 +9,9 @@
   },
   "inputs": {
     "baseSpec": "examples/seoul-challenge/object-sculpt-spec.json",
-    "baseSpecSha256": "f293de26124014148ece6ec92bad5dd86769ae65101be6ca2e68b0537265c562",
+    "baseSpecSha256": "3bc9fc4008cf16ba400fbffd40228f26abc61e17e203e0e87eae9d15d4ce5fdf",
     "curatedManifest": "examples/showcase/variants/seoul-production/sculpt-dna-manifest.json",
-    "curatedManifestSha256": "cefd594fb9bbedf8306a8146f6efce95442eac6b71472e710e49ebccb750e5ae"
+    "curatedManifestSha256": "c041dec17406c627f4f08ed8521e4cf0262a3f95fab8d33eb3396789a3b38730"
   },
   "policy": {
     "authoritativeReview": "latest-per-pass",
@@ -39,7 +39,7 @@
       "id": "base",
       "role": "base",
       "path": "examples/seoul-challenge/object-sculpt-spec.json",
-      "sha256": "f293de26124014148ece6ec92bad5dd86769ae65101be6ca2e68b0537265c562",
+      "sha256": "3bc9fc4008cf16ba400fbffd40228f26abc61e17e203e0e87eae9d15d4ce5fdf",
       "variantIndex": 0,
       "targetName": "Seoul Palace Scene Challenge"
     },
@@ -47,7 +47,7 @@
       "id": "seoul-palace-hero-v001",
       "role": "variant",
       "path": "examples/showcase/variants/seoul-production/seoul-palace-hero-v001.json",
-      "sha256": "0963f19e92bab334ffcb2af26561bbb3cec93453baa7b5c032dc953afa5a47d2",
+      "sha256": "7357edd2e6288473bd3436537efd1f56ee5fa438e431aad0e178d78a03fe80cf",
       "variantIndex": 1,
       "targetName": "Seoul Palace Scene Challenge"
     },
@@ -55,7 +55,7 @@
       "id": "seoul-palace-hero-v002",
       "role": "variant",
       "path": "examples/showcase/variants/seoul-production/seoul-palace-hero-v002.json",
-      "sha256": "0845b95d3a79cfe35233eaf79a3d0da400a1495653ac4542de904e4e8f91b9ac",
+      "sha256": "7102bb58d8539f093900921dd322ad3a025c91646f15840402dc66dfe97eeecc",
       "variantIndex": 2,
       "targetName": "Seoul Palace Scene Challenge"
     },
@@ -63,7 +63,7 @@
       "id": "seoul-palace-hero-v003",
       "role": "variant",
       "path": "examples/showcase/variants/seoul-production/seoul-palace-hero-v003.json",
-      "sha256": "9c08d0dd634fc837dc0e1e72c5b4f9d1c4b6770b5925c9bf860bd3fcd468ab3e",
+      "sha256": "b8fcf492f15c1df7940898dd4cfa1ebd1a3faf197fd5009fad73d1253200724c",
       "variantIndex": 3,
       "targetName": "Seoul Palace Scene Challenge"
     }
@@ -88,41 +88,41 @@
         "comparisonSha256": "b3a7f8392d88ec4ab60ac1475ae2862112530d6fe9434cbf13d50b9b498bb101"
       },
       "review": {
-        "historyIndex": 17,
-        "reviewId": "optimization-pass-canonical-release-2026-07-13T04:09:37.358Z",
-        "reviewedAt": "2026-07-13T04:09:37.358Z",
+        "historyIndex": 18,
+        "reviewId": "optimization-pass-canonical-release-2026-08-14T07:29:35.173272+00:00",
+        "reviewedAt": "2026-08-14T07:29:35.173272+00:00",
         "action": "continue",
-        "aiVisionScore": 0.88,
+        "aiVisionScore": 0.87,
         "requiredThreshold": 0.86
       },
       "layerScores": [
         {
           "id": "componentStructure",
-          "score": 0.9,
+          "score": 0.89,
           "minimum": 0.86,
           "status": "passing"
         },
         {
           "id": "formDetail",
-          "score": 0.9,
+          "score": 0.87,
           "minimum": 0.86,
           "status": "passing"
         },
         {
           "id": "lightingCamera",
-          "score": 0.88,
+          "score": 0.86,
           "minimum": 0.86,
           "status": "passing"
         },
         {
           "id": "materialSurface",
-          "score": 0.88,
+          "score": 0.86,
           "minimum": 0.86,
           "status": "passing"
         },
         {
           "id": "silhouetteProportion",
-          "score": 0.89,
+          "score": 0.87,
           "minimum": 0.86,
           "status": "passing"
         }
@@ -138,21 +138,21 @@
         {
           "id": "atmospheric-depth-layers",
           "visible": true,
-          "score": 0.87,
+          "score": 0.86,
           "minimum": 0.86,
           "status": "passing"
         },
         {
           "id": "ceremonial-negative-space",
           "visible": true,
-          "score": 0.89,
+          "score": 0.88,
           "minimum": 0.86,
           "status": "passing"
         },
         {
           "id": "korean-roof-system",
           "visible": true,
-          "score": 0.91,
+          "score": 0.9,
           "minimum": 0.86,
           "status": "passing"
         },

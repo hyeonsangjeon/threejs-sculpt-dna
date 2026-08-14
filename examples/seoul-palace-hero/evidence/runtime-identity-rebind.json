@@ -1,0 +1,52 @@
+{
+  "schemaVersion": "1.0",
+  "artifactType": "threejs-sculpt-dna-runtime-identity-rebind",
+  "reason": "GHSA-2v37-7h3g-55p8",
+  "dependency": {
+    "name": "nanoid",
+    "scope": "dev-only",
+    "from": "3.3.16",
+    "to": "3.3.18"
+  },
+  "lockfileSha256": {
+    "before": "46610c2eac0139dd6985fbef0b36aa39c399adc358a176a280ca99e65bb8dc72",
+    "after": "eb4a58927e905aa882cc7813b89c77aed501b758f9daaaec5aa22ffec763164a"
+  },
+  "rawSnapshot": {
+    "sourceFingerprint": "043752a107905f5bffab040af7d6cf7c2c04461dddd792b30564462fd5a69f48",
+    "runtimeFingerprint": "e4f25666ef6044cd243191f6be417a1e4288979cb0a01dfedc3b21dbcab7350a",
+    "sha256": "25922c374eb5eb78bb32ef316461f2cde65a9bf03676b17f2c03371ee53d1ce0"
+  },
+  "currentRuntimeFingerprint": "ad920b6c17b69718c7c17cfd7a3201961b7f94141ba30092d3213f2668ad8d93",
+  "equivalence": {
+    "method": "Clean npm ci and Vite production builds before and after the lockfile patch.",
+    "javascript": {
+      "beforeFile": "assets/index-B76AzwwI.js",
+      "afterFile": "assets/index-zZasiA62.js",
+      "beforeSha256": "69ec66ea179a8be9627d0f45f2ab4ac67980a6330234730a4c11edab06f7dae0",
+      "afterSha256": "b04d6efaf37419aa1f385eab3d6b31a1586577dc99d264de84532a280467f33b",
+      "normalizedBeforeSha256": "e7cf5037eb89400f7d35bb02a6dfa29de199234ade1da1379184f876b0042441",
+      "normalizedAfterSha256": "e7cf5037eb89400f7d35bb02a6dfa29de199234ade1da1379184f876b0042441"
+    },
+    "html": {
+      "beforeSha256": "6f7b095ba27a3b78d89d2d9a8af222b7ed24ad80102a2fa18b8fc490ff99bb51",
+      "afterSha256": "9a16eab6ad61f7f747a13d9ae0ca41efcf9d4fb955d8066788f6311e9ea03713",
+      "normalizedBeforeSha256": "d6888ec57e7230070ac46996fd148f10012723e65ce53dc891f22e335b83138b",
+      "normalizedAfterSha256": "d6888ec57e7230070ac46996fd148f10012723e65ce53dc891f22e335b83138b"
+    },
+    "staticFiles": {
+      "assets/index-a5NIEgYr.css": {
+        "beforeSha256": "48b1532d93634e07cd04701602b0fe713348bececbeacdaee26d9b4755b0dd8d",
+        "afterSha256": "48b1532d93634e07cd04701602b0fe713348bececbeacdaee26d9b4755b0dd8d"
+      },
+      "assets/seoul-challenge-reference-DXp23U6T.jpeg": {
+        "beforeSha256": "c227a3ac8958b14cf64e7e95b0943f9cdc1ab9455beca2b9ab8fb1f6d0931290",
+        "afterSha256": "c227a3ac8958b14cf64e7e95b0943f9cdc1ab9455beca2b9ab8fb1f6d0931290"
+      }
+    }
+  },
+  "limits": [
+    "This artifact rebinds runtime identity only.",
+    "It does not replace the preserved visual review or physical-refresh performance measurements."
+  ]
+}

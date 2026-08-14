@@ -101,6 +101,15 @@ def digest(path: Path) -> str:
     return sha256(path.read_bytes()).hexdigest()
 
 
+def digest_json(value: object) -> str:
+    payload = json.dumps(
+        value,
+        ensure_ascii=False,
+        separators=(",", ":"),
+    ).encode("utf-8")
+    return sha256(payload).hexdigest()
+
+
 class SeoulPalaceHeroTests(unittest.TestCase):
     def test_factory_is_code_native_action_ready_and_layered(self) -> None:
         source = (HERO / "seoul-output" / "createSeoulPalaceHero.js").read_text(
@@ -146,6 +155,10 @@ class SeoulPalaceHeroTests(unittest.TestCase):
         self.assertEqual(
             profile["actionReadiness"]["colliders"],
             stats["colliders"],
+        )
+        self.assertEqual(
+            profile["performance"]["probe"]["runtimeFingerprint"],
+            manifest["runtimeFingerprint"],
         )
         self.assertEqual(stats["generatedTextureCount"], 35)
         self.assertTrue(manifest["capture"]["deterministicRepeatedCapture"])
@@ -229,6 +242,14 @@ class SeoulPalaceHeroTests(unittest.TestCase):
     def test_curated_variant_controls_match_sculpt_dna_mutations(self) -> None:
         config = load(HERO / "seoul-output" / "seoul-variant-config.json")
         manifest = load(VARIANTS / "sculpt-dna-manifest.json")
+        latest = {
+            review["passId"]: review
+            for review in load(SPEC)["reviewHistory"]
+        }["optimization-pass"]
+        self.assertEqual(
+            manifest["visualReviewSet"]["canonicalReleaseReviewId"],
+            latest["visualEvidence"]["reviewId"],
+        )
         fields = {
             "roof-weathering": "roofRoughness",
             "roof-accent-palette": "roofAccent",
@@ -625,11 +646,48 @@ class SeoulPalaceHeroTests(unittest.TestCase):
             probe["runtimeFingerprint"],
             manifest["runtimeFingerprint"],
         )
-        self.assertEqual(metrics["runtime"]["hero"]["variantId"], "seoul-palace-hero-base")
+        binding = probe["runtimeIdentityRebind"]
+        rebind_path = ROOT / binding["path"]
+        rebind = load(rebind_path)
         self.assertEqual(
+            digest(rebind_path),
+            manifest["outputSha256"][
+                "evidence/runtime-identity-rebind.json"
+            ],
+        )
+        self.assertEqual(
+            rebind["rawSnapshot"]["sourceFingerprint"],
+            metrics["runtime"]["render"]["sourceFingerprint"],
+        )
+        self.assertEqual(
+            rebind["rawSnapshot"]["runtimeFingerprint"],
             metrics["runtime"]["render"]["runtimeFingerprint"],
+        )
+        self.assertEqual(
+            rebind["currentRuntimeFingerprint"],
             manifest["runtimeFingerprint"],
         )
+        self.assertEqual(
+            rebind["equivalence"]["javascript"][
+                "normalizedBeforeSha256"
+            ],
+            rebind["equivalence"]["javascript"][
+                "normalizedAfterSha256"
+            ],
+        )
+        self.assertEqual(
+            rebind["equivalence"]["html"]["normalizedBeforeSha256"],
+            rebind["equivalence"]["html"]["normalizedAfterSha256"],
+        )
+        self.assertTrue(
+            all(
+                hashes["beforeSha256"] == hashes["afterSha256"]
+                for hashes in rebind["equivalence"][
+                    "staticFiles"
+                ].values()
+            )
+        )
+        self.assertEqual(metrics["runtime"]["hero"]["variantId"], "seoul-palace-hero-base")
         self.assertEqual(metrics["runtime"]["runtime"], manifest["runtimeSnapshot"])
         self.assertIn(
             "frustum-culling-and-linear-texture-minification",
@@ -637,6 +695,10 @@ class SeoulPalaceHeroTests(unittest.TestCase):
         )
         self.assertRegex(probe["rawArtifactSummarySha256"], r"^[0-9a-f]{64}$")
         self.assertRegex(probe["rawRuntimeSnapshotSha256"], r"^[0-9a-f]{64}$")
+        self.assertEqual(
+            probe["rawRuntimeSnapshotSha256"],
+            digest_json(metrics["runtime"]),
+        )
         self.assertEqual(probe["aggregate"]["droppedFrameCount"], 0)
         for run in probe["runs"]:
             self.assertGreaterEqual(run["meanFps"], 58.5)

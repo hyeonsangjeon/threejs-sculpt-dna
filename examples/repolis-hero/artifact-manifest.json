@@ -37,7 +37,7 @@
     "repolis-output/repolis-hero-profile.json": "dbd376bb180aae1d1d93ed579ea3a3558cbd8e397f6da9ed853f0b1325916351",
     "../repolis-tree/object-sculpt-spec.json": "9556e708ace61dbd2a4128700e41ec8dac3d0c930f0e85e09cc2915013aa40d8",
     "package.json": "eefcba284f66e57fca889ef6c3ef3b9beb2f3687e3cfce7f836a8d45d8e73fe7",
-    "package-lock.json": "7d75e08265dd0f82aaff4ca7a3a3667e902f92660d8579f9c2cff2f60e7f532e",
+    "package-lock.json": "b167b98a078d19edcf0313df2d40637706790d2accf2322938dcfea26fa69a00",
     "scripts/capture.mjs": "7f4e8c6215ae4d19bc9c1b1cc93d173b60d181fb8673b2c36b211567f5b7aff2",
     "scripts/capture-isolation.test.mjs": "9528e671424d5dcd4c9f58c4b7e28153044876991904a706afd12e7eb17a12d5"
   },

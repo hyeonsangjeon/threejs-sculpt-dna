@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0",
   "sourceSpec": "object-sculpt-spec.json",
-  "sourceSpecSha256": "f293de26124014148ece6ec92bad5dd86769ae65101be6ca2e68b0537265c562",
+  "sourceSpecSha256": "3bc9fc4008cf16ba400fbffd40228f26abc61e17e203e0e87eae9d15d4ce5fdf",
   "rootSeed": 20260712,
   "count": 3,
   "variants": [
@@ -180,7 +180,7 @@
         "interaction-pass",
         "optimization-pass"
       ],
-      "performanceEvidenceSha256": "80e3687b3d64e6edd437b2d29ab63ca0a98bc66b38ccd78c96466b0fb380973b"
+      "performanceEvidenceSha256": "d6ec8401c8552f3670decf8ec2ef570dea985b21cfa3dc97ba37ab8e309072fc"
     },
     {
       "variantId": "seoul-palace-hero-v002",
@@ -357,7 +357,7 @@
         "interaction-pass",
         "optimization-pass"
       ],
-      "performanceEvidenceSha256": "80e3687b3d64e6edd437b2d29ab63ca0a98bc66b38ccd78c96466b0fb380973b"
+      "performanceEvidenceSha256": "d6ec8401c8552f3670decf8ec2ef570dea985b21cfa3dc97ba37ab8e309072fc"
     },
     {
       "variantId": "seoul-palace-hero-v003",
@@ -534,7 +534,7 @@
         "interaction-pass",
         "optimization-pass"
       ],
-      "performanceEvidenceSha256": "80e3687b3d64e6edd437b2d29ab63ca0a98bc66b38ccd78c96466b0fb380973b"
+      "performanceEvidenceSha256": "d6ec8401c8552f3670decf8ec2ef570dea985b21cfa3dc97ba37ab8e309072fc"
     }
   ],
   "samplingMode": "coverage-curated",
@@ -589,10 +589,10 @@
       "seoul-palace-hero-v003-sol-max-polish-fresh-review-2026-07-13T02:56:06Z"
     ],
     "variantPipelinesComplete": true,
-    "canonicalReleaseReviewId": "optimization-pass-canonical-release-2026-07-13T04:09:37.358Z",
+    "canonicalReleaseReviewId": "optimization-pass-canonical-release-2026-08-14T07:29:35.173272+00:00",
     "variantPerformanceEvidence": {
       "path": "examples/seoul-palace-hero/evidence/variant-runtime-metrics.json",
-      "sha256": "80e3687b3d64e6edd437b2d29ab63ca0a98bc66b38ccd78c96466b0fb380973b",
+      "sha256": "d6ec8401c8552f3670decf8ec2ef570dea985b21cfa3dc97ba37ab8e309072fc",
       "binding": "local-sha256"
     }
   }

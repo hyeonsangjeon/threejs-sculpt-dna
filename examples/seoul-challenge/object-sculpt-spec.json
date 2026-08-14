@@ -7857,6 +7857,153 @@
           "binding": "local-sha256"
         }
       ]
+    },
+    {
+      "timestamp": "2026-08-14T07:29:35.173272+00:00",
+      "passId": "optimization-pass",
+      "estimatedFidelity": 0.87,
+      "aiVisionScore": 0.87,
+      "visualAcceptanceThreshold": 0.86,
+      "layerScores": {
+        "silhouetteProportion": 0.87,
+        "componentStructure": 0.89,
+        "formDetail": 0.87,
+        "materialSurface": 0.86,
+        "lightingCamera": 0.86
+      },
+      "featureReviews": [
+        {
+          "id": "palace-axial-hierarchy",
+          "score": 0.89,
+          "visible": true,
+          "viewIds": [
+            "primary-comparison",
+            "reference-aerial",
+            "palace-axis",
+            "hierarchy-interaction"
+          ],
+          "notes": "Central procession axis, nested gates, elevated halls, and flanking compounds remain legible."
+        },
+        {
+          "id": "korean-roof-system",
+          "score": 0.9,
+          "visible": true,
+          "viewIds": [
+            "palace-axis",
+            "side-depth",
+            "roof-grazing-closeup",
+            "hierarchy-interaction"
+          ],
+          "notes": "Layered hip-and-gable masses, tiled ribs, ridges, and upturned eaves consistently establish the Korean roof language."
+        },
+        {
+          "id": "ceremonial-negative-space",
+          "score": 0.88,
+          "visible": true,
+          "viewIds": [
+            "primary-comparison",
+            "reference-aerial",
+            "palace-axis",
+            "hierarchy-interaction"
+          ],
+          "notes": "Broad sequential courtyards and controlled spacing preserve the ceremonial scale and axis."
+        },
+        {
+          "id": "atmospheric-depth-layers",
+          "score": 0.86,
+          "visible": true,
+          "viewIds": [
+            "primary-comparison",
+            "reference-aerial",
+            "side-depth",
+            "mountain-silhouette"
+          ],
+          "notes": "Palace, vegetation, urban massing, and faded mountain bands provide readable depth, though less natural than the photographic haze."
+        },
+        {
+          "id": "asymmetric-mountain-composition",
+          "score": 0.86,
+          "visible": true,
+          "viewIds": [
+            "primary-comparison",
+            "reference-aerial",
+            "mountain-silhouette"
+          ],
+          "notes": "Dedicated views confirm unequal edge peaks and a varied valley rhythm; peak profiles remain stylized rather than exact."
+        }
+      ],
+      "reviewId": "optimization-pass-canonical-release-2026-08-14T07:29:35.173272+00:00",
+      "reviewedAt": "2026-08-14T07:29:35.173272+00:00",
+      "referenceScreenshot": "assets/seoul-challenge-reference.jpeg",
+      "renderScreenshot": "examples/seoul-palace-hero/evidence/final.png",
+      "comparisonImage": "examples/seoul-palace-hero/evidence/final-comparison.png",
+      "cameraView": "reference-aerial-canonical-release",
+      "notes": "Source, render, comparison, and six deterministic visual views are unchanged. Only the dev-only nanoid lock entry and declared runtime identity changed; normalized production bundles are byte-equivalent.",
+      "aiVisionNotes": "Independent multiview review accepts the stylized reconstruction at 0.87. Hidden topology, unseen elevations, and exact material properties remain unverified from one aerial source.",
+      "referenceSha256": "c227a3ac8958b14cf64e7e95b0943f9cdc1ab9455beca2b9ab8fb1f6d0931290",
+      "referenceBinding": "local-sha256",
+      "renderSha256": "949c602517b73ed10c6889ef8b62601ea4a182773513693308635157b638be10",
+      "renderBinding": "local-sha256",
+      "comparisonSha256": "b3a7f8392d88ec4ab60ac1475ae2862112530d6fe9434cbf13d50b9b498bb101",
+      "comparisonBinding": "local-sha256",
+      "reviewerModel": "gpt-5.6-sol",
+      "supplementalEvidence": [
+        {
+          "path": "assets/seoul-palace-hero.gif",
+          "sha256": "143856881f5302ddcf1a022ec4b8cb2c9d18e06f746cd4ac289b20ad7193afc1",
+          "binding": "local-sha256"
+        },
+        {
+          "path": "assets/seoul-challenge-sculpt-dna-result.png",
+          "sha256": "34ff48d78ee5f0db9a81eba4a172dfa96fe0e15275a2c45ac8e4fd06f8b92b76",
+          "binding": "local-sha256"
+        },
+        {
+          "path": "examples/seoul-palace-hero/evidence/optimization-reference.png",
+          "sha256": "949c602517b73ed10c6889ef8b62601ea4a182773513693308635157b638be10",
+          "binding": "local-sha256"
+        },
+        {
+          "path": "examples/seoul-palace-hero/evidence/optimization-axis.png",
+          "sha256": "b74821b350b10993fef9115dcccf3906401dcd0deff003c4826ea6f2e692d897",
+          "binding": "local-sha256"
+        },
+        {
+          "path": "examples/seoul-palace-hero/evidence/optimization-side.png",
+          "sha256": "be71af64bab37e845d6e38686c54935d72fdf2f9ab105d8b01e5733d59e3a3e7",
+          "binding": "local-sha256"
+        },
+        {
+          "path": "examples/seoul-palace-hero/evidence/optimization-mountain.png",
+          "sha256": "a0ea8c77f5c0767418a4e0b320d1bff04091a48e0a67d2259a4c5bd1aaf7875d",
+          "binding": "local-sha256"
+        },
+        {
+          "path": "examples/seoul-palace-hero/evidence/optimization-material.png",
+          "sha256": "2163758e3ebaa388ceb9113f1a44ee2459d7601f0df37bfe8ab5c087340b000d",
+          "binding": "local-sha256"
+        },
+        {
+          "path": "examples/seoul-palace-hero/evidence/optimization-hierarchy.png",
+          "sha256": "f5013c3b097dee5a229c7e51600b2ed44f1870dd0d2937b00ee79234f5f47ff5",
+          "binding": "local-sha256"
+        },
+        {
+          "path": "examples/seoul-palace-hero/evidence/optimization-pass-comparison.png",
+          "sha256": "b3a7f8392d88ec4ab60ac1475ae2862112530d6fe9434cbf13d50b9b498bb101",
+          "binding": "local-sha256"
+        },
+        {
+          "path": "examples/seoul-palace-hero/evidence/optimization-metrics.json",
+          "sha256": "1dacc4d81ca36e8e1aa87ef5a899ae3472e4f5270b39e665cd78f0d3699bf0c9",
+          "binding": "local-sha256"
+        },
+        {
+          "path": "examples/seoul-palace-hero/evidence/variant-runtime-metrics.json",
+          "sha256": "d6ec8401c8552f3670decf8ec2ef570dea985b21cfa3dc97ba37ab8e309072fc",
+          "binding": "local-sha256"
+        }
+      ]
     }
   ],
   "reviewHistory": [
@@ -9742,6 +9889,185 @@
           {
             "path": "examples/seoul-palace-hero/evidence/variant-runtime-metrics.json",
             "sha256": "80e3687b3d64e6edd437b2d29ab63ca0a98bc66b38ccd78c96466b0fb380973b",
+            "binding": "local-sha256"
+          }
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-08-14T07:29:35.173272+00:00",
+      "passId": "optimization-pass",
+      "estimatedFidelity": 0.87,
+      "aiVisionScore": 0.87,
+      "visualAcceptanceThreshold": 0.86,
+      "layerScores": {
+        "silhouetteProportion": 0.87,
+        "componentStructure": 0.89,
+        "formDetail": 0.87,
+        "materialSurface": 0.86,
+        "lightingCamera": 0.86
+      },
+      "featureReviews": [
+        {
+          "id": "palace-axial-hierarchy",
+          "score": 0.89,
+          "visible": true,
+          "viewIds": [
+            "primary-comparison",
+            "reference-aerial",
+            "palace-axis",
+            "hierarchy-interaction"
+          ],
+          "notes": "Central procession axis, nested gates, elevated halls, and flanking compounds remain legible."
+        },
+        {
+          "id": "korean-roof-system",
+          "score": 0.9,
+          "visible": true,
+          "viewIds": [
+            "palace-axis",
+            "side-depth",
+            "roof-grazing-closeup",
+            "hierarchy-interaction"
+          ],
+          "notes": "Layered hip-and-gable masses, tiled ribs, ridges, and upturned eaves consistently establish the Korean roof language."
+        },
+        {
+          "id": "ceremonial-negative-space",
+          "score": 0.88,
+          "visible": true,
+          "viewIds": [
+            "primary-comparison",
+            "reference-aerial",
+            "palace-axis",
+            "hierarchy-interaction"
+          ],
+          "notes": "Broad sequential courtyards and controlled spacing preserve the ceremonial scale and axis."
+        },
+        {
+          "id": "atmospheric-depth-layers",
+          "score": 0.86,
+          "visible": true,
+          "viewIds": [
+            "primary-comparison",
+            "reference-aerial",
+            "side-depth",
+            "mountain-silhouette"
+          ],
+          "notes": "Palace, vegetation, urban massing, and faded mountain bands provide readable depth, though less natural than the photographic haze."
+        },
+        {
+          "id": "asymmetric-mountain-composition",
+          "score": 0.86,
+          "visible": true,
+          "viewIds": [
+            "primary-comparison",
+            "reference-aerial",
+            "mountain-silhouette"
+          ],
+          "notes": "Dedicated views confirm unequal edge peaks and a varied valley rhythm; peak profiles remain stylized rather than exact."
+        }
+      ],
+      "action": "continue",
+      "summary": "The unchanged six-view Seoul evidence remains accepted after rebinding byte-identical production output to the patched dev-dependency runtime identity.",
+      "matched": [
+        "strong palace axis and nested hierarchy",
+        "recognizable Korean tiled roof system",
+        "large ceremonial courtyards",
+        "palace-city-mountain depth sequence",
+        "deliberately asymmetric mountain framing",
+        "readable roof roughness, ribs, wood, and masonry response"
+      ],
+      "mismatches": [
+        "mountain contours remain faceted and do not reproduce exact photographic peak profiles",
+        "urban blocks and vegetation remain coarse abstractions",
+        "ground boundaries and surrounding voids remain conspicuous in several views",
+        "materials remain comparatively uniform and cannot establish exact physical fidelity",
+        "camera framing and building placement simplify the source layout"
+      ],
+      "specFixes": [],
+      "codeFixes": [],
+      "evidence": [
+        "examples/seoul-palace-hero/evidence/optimization-reference.png",
+        "examples/seoul-palace-hero/evidence/optimization-axis.png",
+        "examples/seoul-palace-hero/evidence/optimization-side.png",
+        "examples/seoul-palace-hero/evidence/optimization-mountain.png",
+        "examples/seoul-palace-hero/evidence/optimization-material.png",
+        "examples/seoul-palace-hero/evidence/optimization-hierarchy.png",
+        "examples/seoul-palace-hero/evidence/optimization-pass-comparison.png",
+        "examples/seoul-palace-hero/evidence/optimization-metrics.json",
+        "examples/seoul-palace-hero/evidence/variant-runtime-metrics.json"
+      ],
+      "visualEvidence": {
+        "reviewId": "optimization-pass-canonical-release-2026-08-14T07:29:35.173272+00:00",
+        "reviewedAt": "2026-08-14T07:29:35.173272+00:00",
+        "referenceScreenshot": "assets/seoul-challenge-reference.jpeg",
+        "renderScreenshot": "examples/seoul-palace-hero/evidence/final.png",
+        "comparisonImage": "examples/seoul-palace-hero/evidence/final-comparison.png",
+        "cameraView": "reference-aerial-canonical-release",
+        "notes": "Source, render, comparison, and six deterministic visual views are unchanged. Only the dev-only nanoid lock entry and declared runtime identity changed; normalized production bundles are byte-equivalent.",
+        "aiVisionNotes": "Independent multiview review accepts the stylized reconstruction at 0.87. Hidden topology, unseen elevations, and exact material properties remain unverified from one aerial source.",
+        "referenceSha256": "c227a3ac8958b14cf64e7e95b0943f9cdc1ab9455beca2b9ab8fb1f6d0931290",
+        "referenceBinding": "local-sha256",
+        "renderSha256": "949c602517b73ed10c6889ef8b62601ea4a182773513693308635157b638be10",
+        "renderBinding": "local-sha256",
+        "comparisonSha256": "b3a7f8392d88ec4ab60ac1475ae2862112530d6fe9434cbf13d50b9b498bb101",
+        "comparisonBinding": "local-sha256",
+        "reviewerModel": "gpt-5.6-sol",
+        "supplementalEvidence": [
+          {
+            "path": "assets/seoul-palace-hero.gif",
+            "sha256": "143856881f5302ddcf1a022ec4b8cb2c9d18e06f746cd4ac289b20ad7193afc1",
+            "binding": "local-sha256"
+          },
+          {
+            "path": "assets/seoul-challenge-sculpt-dna-result.png",
+            "sha256": "34ff48d78ee5f0db9a81eba4a172dfa96fe0e15275a2c45ac8e4fd06f8b92b76",
+            "binding": "local-sha256"
+          },
+          {
+            "path": "examples/seoul-palace-hero/evidence/optimization-reference.png",
+            "sha256": "949c602517b73ed10c6889ef8b62601ea4a182773513693308635157b638be10",
+            "binding": "local-sha256"
+          },
+          {
+            "path": "examples/seoul-palace-hero/evidence/optimization-axis.png",
+            "sha256": "b74821b350b10993fef9115dcccf3906401dcd0deff003c4826ea6f2e692d897",
+            "binding": "local-sha256"
+          },
+          {
+            "path": "examples/seoul-palace-hero/evidence/optimization-side.png",
+            "sha256": "be71af64bab37e845d6e38686c54935d72fdf2f9ab105d8b01e5733d59e3a3e7",
+            "binding": "local-sha256"
+          },
+          {
+            "path": "examples/seoul-palace-hero/evidence/optimization-mountain.png",
+            "sha256": "a0ea8c77f5c0767418a4e0b320d1bff04091a48e0a67d2259a4c5bd1aaf7875d",
+            "binding": "local-sha256"
+          },
+          {
+            "path": "examples/seoul-palace-hero/evidence/optimization-material.png",
+            "sha256": "2163758e3ebaa388ceb9113f1a44ee2459d7601f0df37bfe8ab5c087340b000d",
+            "binding": "local-sha256"
+          },
+          {
+            "path": "examples/seoul-palace-hero/evidence/optimization-hierarchy.png",
+            "sha256": "f5013c3b097dee5a229c7e51600b2ed44f1870dd0d2937b00ee79234f5f47ff5",
+            "binding": "local-sha256"
+          },
+          {
+            "path": "examples/seoul-palace-hero/evidence/optimization-pass-comparison.png",
+            "sha256": "b3a7f8392d88ec4ab60ac1475ae2862112530d6fe9434cbf13d50b9b498bb101",
+            "binding": "local-sha256"
+          },
+          {
+            "path": "examples/seoul-palace-hero/evidence/optimization-metrics.json",
+            "sha256": "1dacc4d81ca36e8e1aa87ef5a899ae3472e4f5270b39e665cd78f0d3699bf0c9",
+            "binding": "local-sha256"
+          },
+          {
+            "path": "examples/seoul-palace-hero/evidence/variant-runtime-metrics.json",
+            "sha256": "d6ec8401c8552f3670decf8ec2ef570dea985b21cfa3dc97ba37ab8e309072fc",
             "binding": "local-sha256"
           }
         ]

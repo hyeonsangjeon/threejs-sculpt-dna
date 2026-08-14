@@ -220,6 +220,7 @@ EXPECTED_ARTIFACT_OUTPUTS = {
         "evidence/optimization-material.png",
         "evidence/optimization-hierarchy.png",
         "evidence/optimization-pass-comparison.png",
+        "evidence/runtime-identity-rebind.json",
         "evidence/visual-regression-matrix.json",
     },
 }
@@ -227,6 +228,15 @@ EXPECTED_ARTIFACT_OUTPUTS = {
 
 def digest(path: Path) -> str:
     return sha256(path.read_bytes()).hexdigest()
+
+
+def digest_json(value: Any) -> str:
+    payload = json.dumps(
+        value,
+        ensure_ascii=False,
+        separators=(",", ":"),
+    ).encode("utf-8")
+    return sha256(payload).hexdigest()
 
 
 def repository_file(base_dir: Path, relative: str, label: str) -> Path:
@@ -906,6 +916,32 @@ def verify_artifact_manifest(hero_dir: Path) -> None:
         "generatedTextureCount",
     )
     probe = base_metrics["performanceProbe"]
+    rebind_binding = probe.get("runtimeIdentityRebind", {})
+    if not isinstance(rebind_binding, dict):
+        raise ValueError("Seoul runtime identity rebind is missing")
+    rebind_path = repository_file(
+        ROOT,
+        rebind_binding.get("path", ""),
+        "Seoul runtime identity rebind",
+    )
+    rebind = load(rebind_path)
+    raw_snapshot = rebind.get("rawSnapshot", {})
+    equivalence = rebind.get("equivalence", {})
+    javascript_equivalence = equivalence.get("javascript", {})
+    html_equivalence = equivalence.get("html", {})
+    static_equivalence = equivalence.get("staticFiles", {})
+    expected_historical_static = {
+        "assets/index-a5NIEgYr.css": (
+            "48b1532d93634e07cd04701602b0fe713"
+            "348bececbeacdaee26d9b4755b0dd8d"
+        ),
+        "assets/seoul-challenge-reference-DXp23U6T.jpeg": (
+            "c227a3ac8958b14cf64e7e95b0943f9"
+            "cdc1ab9455beca2b9ab8fb1f6d0931290"
+        ),
+    }
+    dependency = rebind.get("dependency", {})
+    lockfile_hashes = rebind.get("lockfileSha256", {})
     raw_hashes = (
         probe.get("rawArtifactSummarySha256", ""),
         probe.get("rawRuntimeSnapshotSha256", ""),
@@ -918,7 +954,6 @@ def verify_artifact_manifest(hero_dir: Path) -> None:
         or measured_render.get("calls") != captured_stats.get("renderCalls")
         or measured_render.get("triangles")
         != captured_stats.get("renderedTriangles")
-        or measured_render.get("runtimeFingerprint") != runtime_fingerprint
         or measured_snapshot.get("runtime") != manifest.get("runtimeSnapshot")
         or (
             "frustum-culling-and-linear-texture-minification"
@@ -930,6 +965,88 @@ def verify_artifact_manifest(hero_dir: Path) -> None:
             len(value) != 64
             or any(character not in "0123456789abcdef" for character in value)
             for value in raw_hashes
+        )
+        or probe.get("rawRuntimeSnapshotSha256")
+        != digest_json(measured_snapshot)
+        or rebind.get("schemaVersion") != "1.0"
+        or rebind.get("artifactType")
+        != "threejs-sculpt-dna-runtime-identity-rebind"
+        or digest(rebind_path)
+        != manifest.get("outputSha256", {}).get(
+            "evidence/runtime-identity-rebind.json"
+        )
+        or raw_snapshot.get("sourceFingerprint")
+        != measured_render.get("sourceFingerprint")
+        or raw_snapshot.get("runtimeFingerprint")
+        != measured_render.get("runtimeFingerprint")
+        or raw_snapshot.get("sha256")
+        != probe.get("rawRuntimeSnapshotSha256")
+        or rebind.get("currentRuntimeFingerprint") != runtime_fingerprint
+        or dependency
+        != {
+            "name": "nanoid",
+            "scope": "dev-only",
+            "from": "3.3.16",
+            "to": "3.3.18",
+        }
+        or lockfile_hashes.get("before")
+        != "46610c2eac0139dd6985fbef0b36aa39c399adc358a176a280ca99e65bb8dc72"
+        or lockfile_hashes.get("after") != digest(hero_dir / "package-lock.json")
+        or {
+            "beforeFile": javascript_equivalence.get("beforeFile"),
+            "beforeSha256": javascript_equivalence.get("beforeSha256"),
+            "normalizedBeforeSha256": javascript_equivalence.get(
+                "normalizedBeforeSha256"
+            ),
+        }
+        != {
+            "beforeFile": "assets/index-B76AzwwI.js",
+            "beforeSha256": (
+                "69ec66ea179a8be9627d0f45f2ab4ac"
+                "67980a6330234730a4c11edab06f7dae0"
+            ),
+            "normalizedBeforeSha256": (
+                "e7cf5037eb89400f7d35bb02a6dfa29"
+                "de199234ade1da1379184f876b0042441"
+            ),
+        }
+        or html_equivalence.get("beforeSha256")
+        != "6f7b095ba27a3b78d89d2d9a8af222b7ed24ad80102a2fa18b8fc490ff99bb51"
+        or html_equivalence.get("normalizedBeforeSha256")
+        != "d6888ec57e7230070ac46996fd148f10012723e65ce53dc891f22e335b83138b"
+        or javascript_equivalence.get("normalizedBeforeSha256")
+        != javascript_equivalence.get("normalizedAfterSha256")
+        or html_equivalence.get("normalizedBeforeSha256")
+        != html_equivalence.get("normalizedAfterSha256")
+        or not isinstance(static_equivalence, dict)
+        or {
+            relative: hashes.get("beforeSha256")
+            for relative, hashes in static_equivalence.items()
+            if isinstance(hashes, dict)
+        }
+        != expected_historical_static
+        or any(
+            not isinstance(hashes, dict)
+            or hashes.get("beforeSha256") != hashes.get("afterSha256")
+            for hashes in static_equivalence.values()
+        )
+        or any(
+            not isinstance(value, str)
+            or len(value) != 64
+            or any(
+                character not in "0123456789abcdef"
+                for character in value
+            )
+            for value in (
+                javascript_equivalence.get("beforeSha256"),
+                javascript_equivalence.get("afterSha256"),
+                javascript_equivalence.get("normalizedBeforeSha256"),
+                javascript_equivalence.get("normalizedAfterSha256"),
+                html_equivalence.get("beforeSha256"),
+                html_equivalence.get("afterSha256"),
+                html_equivalence.get("normalizedBeforeSha256"),
+                html_equivalence.get("normalizedAfterSha256"),
+            )
         )
     ):
         raise ValueError("Seoul base runtime snapshot is stale or incomplete")
@@ -964,6 +1081,10 @@ def verify_artifact_manifest(hero_dir: Path) -> None:
         != len(socket_snapshot)
         or profile.get("actionReadiness", {}).get("colliders")
         != len(collider_snapshot)
+        or profile.get("performance", {}).get("probe", {}).get(
+            "runtimeFingerprint"
+        )
+        != runtime_fingerprint
         or any(
             expected.get("dynamic") != ("-leaf-" in collider_id)
             for collider_id, expected in collider_contract.items()
@@ -1147,11 +1268,8 @@ def verify_seoul_variants() -> None:
     base = verify_spec(base_path)
     verify_production_review_policy(base, base_path)
     variant_gate(base, False, base_path)
-    verify_seoul_visual_acceptance(
-        base,
-        latest_review(base, "optimization-pass"),
-        base_path.name,
-    )
+    base_optimization = latest_review(base, "optimization-pass")
+    verify_seoul_visual_acceptance(base, base_optimization, base_path.name)
     base_action_contract = action_ready_contract(base)
     variant_dir = ROOT / "examples" / "showcase" / "variants" / "seoul-production"
     manifest = load(variant_dir / "sculpt-dna-manifest.json")
@@ -1168,6 +1286,10 @@ def verify_seoul_variants() -> None:
             for item in SEOUL_PRODUCTION_VARIANTS.values()
         ]
         or manifest.get("sourceSpecSha256") != digest(base_path)
+        or manifest.get("visualReviewSet", {}).get(
+            "canonicalReleaseReviewId"
+        )
+        != base_optimization.get("visualEvidence", {}).get("reviewId")
         or manifest.get("passGateStatus") != "evidence-backed-production"
         or manifest.get("visualReviewSet", {}).get("variantPipelinesComplete")
         is not True
