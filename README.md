@@ -52,9 +52,10 @@ variants. See the complete [reconstruction Skill](skills/object-to-threejs-proce
 
 ### Verified release state
 
-**Every release claim below is executable, source-linked, or demonstrated in a
-live runtime.** Audit the committed [`capability-proof.json`](capability-proof.json)
-or run the same proof used by CI.
+**Every release claim below is backed by an executable check, source evidence,
+or a live runtime.** Audit the committed
+[`capability-proof.json`](capability-proof.json) or run the same proof used by
+CI.
 
 | Verifiable contract | `0.6.0` state |
 | --- | --- |
@@ -89,12 +90,12 @@ cd threejs-sculpt-dna
 python3 scripts/prove.py
 ```
 
-Expected result: `PROOF PASS: 6/6 checks passed`. The runner is offline and
-read-only unless `--output` explicitly names a JSON destination. It audits the
+Expected: `PROOF PASS: 6/6 checks passed`. The runner stays offline and
+read-only unless `--output` explicitly names a JSON destination. It checks the
 executable policy and capability contract, runs the first-clone doctor,
 compiles every Python surface, executes all contracts, and verifies release
-evidence. Captured streams are bounded in the JSON while their complete
-SHA-256 digests remain available for integrity checks.
+evidence. JSON captures are bounded, while SHA-256 digests of the complete
+streams remain available for integrity checks.
 
 <details>
 <summary>Inspect the committed sample directly</summary>
@@ -129,9 +130,9 @@ and runtime metadata in the target project. Do not use an imported mesh.
 
 ## What Makes It Different
 
-- **Sculpt DNA, not random variants.** Named semantic controls vary proportions, material response, palette, and repetition systems while protecting component identity, attachment roots, sockets, fracture groups, and action-ready topology.
-- **Coverage Curator, not cherry-picked samples.** A deterministic centroid-extreme plus greedy max-min heuristic selects a broadly separated representative family from a larger constraint-safe candidate pool.
-- **Evidence-bound production gates.** Every locked sculpt pass requires browser screenshots, full reference/render comparisons, semantic AI-vision review, and local SHA-256 bindings. Overwritten or stale evidence automatically invalidates production readiness.
+- **Sculpt DNA controls.** Named semantic controls vary proportions, material response, palette, and repetition systems while protecting component identity, attachment roots, sockets, fracture groups, and action-ready topology.
+- **Coverage Curator.** A deterministic centroid-extreme plus greedy max-min heuristic selects a broadly separated representative family from a larger constraint-safe candidate pool.
+- **Evidence-bound production gates.** Every locked sculpt pass requires browser screenshots, full reference/render comparisons, semantic AI-vision review, and local SHA-256 bindings. Stale or overwritten evidence automatically invalidates production readiness.
 - **Deterministic family regression matrix.** Promoted variants and their base are checked in stable asset/viewpoint order with every cell classified as missing, stale, passing, or failing; AI vision remains the final authority.
 - **Action-ready by construction.** Stable pivots, sockets, colliders, constraints, detachable groups, and runtime maps are part of the model contract rather than an animation retrofit.
 - **Code-native and reproducible.** Flagship factories use procedural geometry, generated independent PBR channels, deterministic capture, measured performance budgets, and zero imported meshes.
@@ -140,10 +141,10 @@ and runtime metadata in the target project. Do not use an imported mesh.
 
 [Open the live React Three Fiber integration](https://hyeonsangjeon.github.io/threejs-sculpt-dna/react/)
 
-The optional adapter mounts the same plain Three.js factories used by the
-flagships. It does not replace or fork their runtime logic.
-It ships in this repository at `adapters/react-three-fiber` as a workspace/file
-package; no npm-registry publication is implied.
+The optional adapter mounts the same plain Three.js factories as the flagships
+without replacing or forking their runtime logic. It lives at
+`adapters/react-three-fiber` as a workspace/file package. This does not imply
+an npm registry release.
 
 ```tsx
 import { Canvas } from '@react-three/fiber';
@@ -163,10 +164,10 @@ import { createBrickOffroad } from './createBrickOffroad.js';
 </Canvas>
 ```
 
-React 19 StrictMode, semantic prop changes, frame forwarding, stable runtime
-identities, and exact-once cleanup are exercised by the committed adapter
-tests. React, R3F, and Three.js remain peer dependencies; existing plain
-Three.js users gain no required runtime dependency.
+Committed adapter tests cover React 19 StrictMode, semantic prop changes, frame
+forwarding, stable runtime identities, and exact-once cleanup. React, R3F, and
+Three.js remain peer dependencies, so plain Three.js users gain no required
+runtime dependency.
 
 </details>
 
@@ -176,7 +177,10 @@ Three.js users gain no required runtime dependency.
 
 <sub>Built and visually reviewed with GitHub Copilot · GPT-5.6 Sol.</sub>
 
-The final flagship is generated entirely with code: **0 imported meshes**, approximately **100ms generation**, **17,761 branch vertices**, **2,600 instanced leaves**, **220 moss instances**, and **72 branch-following code glyphs** in the Golden Canopy configuration.
+The flagship is generated entirely in code. The Golden Canopy configuration
+uses **0 imported meshes**, takes approximately **100ms to generate**, and
+contains **17,761 branch vertices**, **2,600 instanced leaves**, **220 moss
+instances**, and **72 branch-following code glyphs**.
 
 ![Repolis Living Archive interactive hero screen](assets/repolis-tree-hero.png)
 
@@ -206,7 +210,12 @@ The interactive page imports the same reusable output intended for the Repolis a
 
 The reference establishes the identity contract: monumental Y-shaped trunk, gold energy network, amber/cyan canopy, constellation ornaments, and a luminous night landmark.
 
-The middle contact sheet is design-space exploration, not the finished asset. Coverage Curator generated 24 constraint-safe candidates and selected three broadly separated variants while preserving component IDs, parent links, sockets, attachment roots, and review targets. The flagship above then received object-specific geometry, PBR, lighting, camera, interaction, optimization, and eight evidence-backed sculpt-pass reviews.
+The middle contact sheet explores the design space rather than presenting a
+finished asset. Coverage Curator generated 24 constraint-safe candidates and
+selected three broadly separated variants while preserving component IDs,
+parent links, sockets, attachment roots, and review targets. The flagship then
+received object-specific geometry, PBR, lighting, camera, interaction,
+optimization, and eight evidence-backed sculpt-pass reviews.
 
 [Evidence-backed base spec](examples/repolis-tree/object-sculpt-spec.json) ·
 [Coverage Curator manifest](examples/showcase/variants/tree/sculpt-dna-manifest.json) ·
@@ -266,9 +275,18 @@ Brick and Seoul are now evidence-backed production flagships. Every generated va
   </tr>
 </table>
 
-The final hard-surface flagship preserves exactly four correctly oriented wheels, the photographed olive hood/cabin/rear-body proportions, light roof, black structure, glazing, arches, suspension, tire treads, studs, fasteners, roof cargo, lamps, and warm recovery hardware. Its three curated configurations complete the base-sculpt and per-variant visual gates while preserving action-ready topology.
+The hard-surface flagship preserves the photographed olive hood, cabin, and
+rear-body proportions, along with exactly four correctly oriented wheels. The
+same procedural build includes the light roof, black structure, glazing,
+arches, suspension, tire treads, studs, fasteners, roof cargo, lamps, and warm
+recovery hardware. Its three curated configurations pass the base-sculpt and
+per-variant visual gates while preserving action-ready topology.
 
-The committed installed-Chrome manifest records per-run generation timings plus **63,564–68,324 instance-weighted geometry triangles**, **126 scene drawables**, **387 full-frame WebGL calls** including shadow/transmission/output passes, **512px independent PBR channels**, and **0 imported meshes**.
+The committed installed-Chrome manifest records per-run generation timings. It
+also records **63,564–68,324 instance-weighted geometry triangles**, **126
+scene drawables**, **387 full-frame WebGL calls** including
+shadow/transmission/output passes, **512px independent PBR channels**, and **0
+imported meshes**.
 
 [Evidence-backed base spec](examples/brick-offroad/object-sculpt-spec.json) ·
 [Production variant manifest](examples/showcase/variants/brick/sculpt-dna-manifest.json) ·
@@ -299,9 +317,21 @@ The committed installed-Chrome manifest records per-run generation timings plus 
   </tr>
 </table>
 
-This remains deliberately a **conditional stylized reconstruction** from one low-resolution aerial image, not photogrammetry or an exact reverse-engineered palace. The production flagship now completes all eight locked passes and reads as an axial campus with outer and inner gates, a main throne hall, curved Korean roof rhythm, broad ceremonial courts, side corridors, tree and city belts, and a custom asymmetric ridge skyline.
+This is intentionally a **conditional stylized reconstruction** based on one
+low-resolution aerial image, not photogrammetry or an exact reverse-engineered
+palace. The production flagship completes all eight locked passes. It reads as
+an axial campus with outer and inner gates, a main throne hall, curved Korean
+roof rhythm, broad ceremonial courts, side corridors, tree and city belts, and
+a custom asymmetric ridge skyline.
 
-The installed-Chrome manifest records **144,472 instance-weighted triangles**, **194 scene drawables**, **388 full-frame WebGL calls**, **2,275 instances**, **35 independent 1024px texture fields**, one directional shadow map, and **0 imported meshes**. The canonical 1200×675 capture is byte-identical across repeated runs. Three fresh evidence-backed variants were curated from 24 candidates with a 0.506961 coverage score while locking the palace axis, gate order, main-hall and roof topology, sockets, pivots, reference camera, and colliders.
+The installed-Chrome manifest records **144,472 instance-weighted triangles**,
+**194 scene drawables**, **388 full-frame WebGL calls**, **2,275 instances**,
+**35 independent 1024px texture fields**, one directional shadow map, and **0
+imported meshes**. The canonical 1200×675 capture is byte-identical across
+repeated runs. Three fresh evidence-backed variants were curated from 24
+candidates with a 0.506961 coverage score while locking the palace axis, gate
+order, main-hall and roof topology, sockets, pivots, reference camera, and
+colliders.
 
 [Evidence-backed base spec](examples/seoul-challenge/object-sculpt-spec.json) ·
 [Production variant manifest](examples/showcase/variants/seoul-production/sculpt-dna-manifest.json) ·
@@ -348,7 +378,8 @@ It is a code-native reconstruction workflow, not photogrammetry or exact mesh ex
 
 ## Why High-Detail Results Take Multiple Passes
 
-The skill is a disciplined construction workflow, not a one-click detail filter. High-detail procedural assets come from combining:
+The skill is a disciplined construction workflow rather than a one-click
+detail filter. High-detail procedural assets combine:
 
 - custom curve-swept geometry with taper, bends, multi-frequency deformation, and enough radial/longitudinal segments for the hero silhouette
 - hierarchical macro, secondary, tertiary, and fine components rather than one trunk or shell mesh
@@ -360,11 +391,14 @@ The skill is a disciplined construction workflow, not a one-click detail filter.
 
 The generated factory is therefore a pass-gated scaffold. Hero quality still requires object-specific form, material, lighting, and optimization work.
 
-Our extension adds a second problem-solving layer: after those detailed assets define a safe semantic design space, **Coverage Curator** greedily broadens parameter-space coverage without changing topology, attachments, action-ready hierarchy, or visual review targets.
+Once a detailed base asset defines a safe semantic design space, **Coverage
+Curator** greedily broadens parameter-space coverage without changing topology,
+attachments, action-ready hierarchy, or visual review targets.
 
 ## Original Sculpt DNA Idea
 
-A single reconstructed object is useful; a reusable asset family is more valuable. Sculpt DNA turns carefully selected spec fields into named controls such as:
+One reconstructed object can define a reusable asset family. Sculpt DNA exposes
+carefully selected spec fields as named controls such as:
 
 - body width, height, depth, taper, or bevel radius
 - appendage length or radius while preserving the attachment root
@@ -511,8 +545,8 @@ For non-PNG source images on platforms without macOS `sips`, convert the input t
 
 ## Install
 
-Use exactly one installation source. Current Copilot CLI releases support a
-direct canonical-repository install:
+Use exactly one installation source. Current Copilot CLI releases can install
+directly from the canonical repository:
 
 ```bash
 copilot plugin install hyeonsangjeon/threejs-sculpt-dna
@@ -619,13 +653,16 @@ python3 scripts/append_sculpt_review.py object-sculpt-spec.json \
   --in-place
 ```
 
-Repeat the locked render, comparison, review, and pipeline-sync loop for `structural-pass`, `form-refinement`, `material-pass`, and `surface-pass`. Production Sculpt DNA generation intentionally remains blocked until evidence-backed `reviewHistory` completes that sequence.
+Repeat the locked render, comparison, review, and pipeline-sync loop for
+`structural-pass`, `form-refinement`, `material-pass`, and `surface-pass`.
+Production Sculpt DNA generation remains blocked until the evidence-backed
+`reviewHistory` completes that sequence.
 
 `append_sculpt_review.py` SHA-256-binds every local reference, render, and
 comparison file. Pipeline sync, strict validation, and production variant
 generation recompute those hashes, so overwriting a reviewed capture invalidates
 the pass. URL, data, blob, and session-artifact evidence is retained as
-`remote-unverified` record-only evidence and cannot complete a production pass.
+`remote-unverified` record-only evidence. It cannot complete a production pass.
 
 ## Sculpt DNA Quick Start
 
@@ -651,7 +688,9 @@ python3 scripts/sculpt_dna.py generate object-sculpt-spec.json \
   --seed 1337
 ```
 
-For an early, explicitly non-promotable design-space contact sheet, add `--preview`. Preview provenance records the missing base passes and keeps every result blocked pending its own visual review:
+For an early, explicitly non-promotable design-space contact sheet, add
+`--preview`. Preview provenance records the missing base passes. Every result
+remains blocked pending its own visual review:
 
 ```bash
 python3 scripts/sculpt_dna.py curate object-sculpt-spec.json \
@@ -723,8 +762,9 @@ Create three JSON files:
    scene.
 3. `host-snapshot.json` — the same telemetry captured inside the host app.
 
-This complete minimal v1 contract is copy/paste ready for the committed Repolis
-bindings. Replace its IDs, paths, hashes, and thresholds for your asset:
+This complete minimal v1 contract is ready to copy and paste for the committed
+Repolis bindings. Replace its IDs, paths, hashes, and thresholds for your
+asset:
 
 ```json
 {
@@ -841,8 +881,7 @@ bindings. Replace its IDs, paths, hashes, and thresholds for your asset:
 ```
 
 Run the three-angle deterministic demonstration directly from the repository
-root. Its values are explicitly illustrative demonstration data, not claimed
-live measurements:
+root. Its values are illustrative only, not claimed live measurements:
 
 ```bash
 python3 scripts/render_integration_contract.py \

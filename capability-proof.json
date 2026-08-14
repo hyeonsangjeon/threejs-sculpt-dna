@@ -11,8 +11,8 @@
   },
   "scope": {
     "proves": [
-      "The declared release metadata, skills, implementation surfaces, tests, trust inventory, CI gates, and production evidence are present and mutually consistent in this checkout.",
-      "The modular upstream modeling kernel and the Sculpt DNA compatibility, family-generation, evidence, host-integration, and optional React Three Fiber runtime layers coexist in this release.",
+      "This checkout contains the declared release metadata, skills, implementation surfaces, tests, trust inventory, CI gates, and production evidence. These elements are mutually consistent.",
+      "This release combines the modular upstream modeling kernel with Sculpt DNA compatibility, family-generation, evidence, host-integration, and optional React Three Fiber runtime layers.",
       "Every committed Python script is declared in a network-disabled executable policy, and one offline proof command runs the policy, capability, first-clone, compile, contract, and release gates.",
       "The published Proof Lab reads only committed capability evidence and the machine-readable result produced by that same proof command."
     ],
@@ -50,7 +50,7 @@
     },
     {
       "id": "region-aware-reference-pbr",
-      "statement": "Reference-derived PBR extraction accepts validated pixel or normalized material regions and records source dimensions, source SHA-256, resolved crop identity, suitability diagnostics, and patch history without changing the no-crop path.",
+      "statement": "Reference-derived PBR extraction accepts validated pixel or normalized material regions. It records source dimensions, source SHA-256, resolved crop identity, suitability diagnostics, and patch history without changing the no-crop path.",
       "evidenceFiles": [
         "scripts/extract_reference_pbr.py",
         "scripts/sculpt_image_io.py",
@@ -59,7 +59,7 @@
     },
     {
       "id": "schema-compatibility",
-      "statement": "The adaptive v3.1/v4 workflow and the published Sculpt DNA schema-v2 production lane are dispatched explicitly instead of silently weakening either contract.",
+      "statement": "The code dispatches explicitly between the adaptive v3.1/v4 workflow and the published Sculpt DNA schema-v2 production lane rather than silently weakening either contract.",
       "evidenceFiles": [
         "scripts/new_sculpt_spec.py",
         "scripts/new_sculpt_spec_legacy.py",
@@ -114,7 +114,7 @@
     },
     {
       "id": "react-three-fiber-runtime-adapter",
-      "statement": "An optional React Three Fiber adapter mounts plain or structured Sculpt DNA factories, forwards frame updates, exposes action-ready runtime maps and stats, rebuilds on canonical option changes, and performs StrictMode-safe exact-once cleanup without changing the plain Three.js source of truth.",
+      "statement": "An optional React Three Fiber adapter mounts plain or structured Sculpt DNA factories, forwards frame updates, exposes action-ready runtime maps and stats, and rebuilds when canonical options change. It performs StrictMode-safe exact-once cleanup without changing the plain Three.js source of truth.",
       "evidenceFiles": [
         "adapters/react-three-fiber/src/index.tsx",
         "adapters/react-three-fiber/test/adapter.test.tsx",
@@ -125,7 +125,7 @@
     },
     {
       "id": "first-clone-trust",
-      "statement": "A read-only doctor, complete executable inventory, static network/subprocess audit, security policy, and least-privilege CI expose the executable and release boundary before use.",
+      "statement": "A read-only doctor, complete executable inventory, static network/subprocess audit, security policy, and least-privilege CI make the executable and release boundaries visible before use.",
       "evidenceFiles": [
         "scripts/doctor.py",
         "scripts/audit_script_policy.py",
@@ -138,7 +138,7 @@
     },
     {
       "id": "self-contained-proof-run",
-      "statement": "One network-free command executes six release gates, fails closed, bounds captured output, hashes full streams and declared proof inputs, and feeds a source-linked public Proof Lab without a private validation service.",
+      "statement": "One network-free command executes six release gates and fails closed. It bounds captured output, hashes full streams and declared proof inputs, and feeds a source-linked public Proof Lab without a private validation service.",
       "evidenceFiles": [
         "scripts/prove.py",
         "examples/proof-lab/proof-model.mjs",
@@ -148,7 +148,7 @@
     },
     {
       "id": "production-flagships",
-      "statement": "Three code-native flagships carry committed artifact manifests, while Brick and Seoul additionally carry passing base-plus-variant production matrices.",
+      "statement": "Three code-native flagships have committed artifact manifests. Brick and Seoul also have passing base-plus-variant production matrices.",
       "evidenceFiles": [
         "examples/repolis-hero/artifact-manifest.json",
         "examples/brick-offroad-hero/artifact-manifest.json",

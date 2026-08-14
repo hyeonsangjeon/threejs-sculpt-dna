@@ -190,10 +190,10 @@ export default function App() {
 
       <section className="intro-panel">
         <p className="eyebrow">v0.6 · optional adapter</p>
-        <h1>Plain Three.js in.<br />React lifecycle, solved.</h1>
+        <h1>Run plain Three.js<br />factories inside React.</h1>
         <p>
-          The procedural factory remains the source of truth. The adapter owns
-          deterministic rebuilds, frame updates and exact-once cleanup.
+          The procedural factory remains the source of truth. The adapter handles
+          deterministic rebuilds, frame updates, and exact-once cleanup.
         </p>
         <div className="status-row">
           <span className="status-dot" />
@@ -247,7 +247,7 @@ export default function App() {
           <button type="button" onClick={copyInstall}>{copied ? 'Copied' : 'Copy'}</button>
         </div>
         <p className="microcopy">
-          Cyan marker: live roof-cargo socket · Drag to orbit · Scroll to zoom
+          The cyan marker tracks the live roof-cargo socket. Drag to orbit and scroll to zoom.
         </p>
       </section>
     </main>

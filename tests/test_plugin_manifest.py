@@ -92,7 +92,7 @@ class PluginManifestTests(unittest.TestCase):
             "capability-proof.json",
             "python3 scripts/prove.py",
             "/proof/",
-            "Every release claim below is executable",
+            "Every release claim below is backed by an executable check",
             "React Three Fiber",
             "/react/",
             "### 5-minute reproducible check",

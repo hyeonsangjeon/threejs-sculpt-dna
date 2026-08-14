@@ -162,7 +162,7 @@ function updateLabels() {
 
 function syncMotionButton() {
   motionButton.setAttribute('aria-pressed', String(autoRotate));
-  motionButton.textContent = autoRotate ? 'Pause rotation' : 'Auto rotate';
+  motionButton.textContent = autoRotate ? 'Pause rotation' : 'Resume rotation';
 }
 
 function rebuildHero() {

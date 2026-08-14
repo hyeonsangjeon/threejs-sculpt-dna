@@ -373,7 +373,11 @@ def _verify_public_contracts(root: Path, errors: list[str]) -> None:
         ("README.md", readme, "docs/VERIFIED_CAPABILITIES.md"),
         ("README.md", readme, "python3 scripts/prove.py"),
         ("README.md", readme, "/proof/"),
-        ("README.md", readme, "Every release claim below is executable"),
+        (
+            "README.md",
+            readme,
+            "Every release claim below is backed by an executable check",
+        ),
         ("VERIFIED_CAPABILITIES.md", verified, "python3 scripts/prove.py"),
         ("VERIFIED_CAPABILITIES.md", verified, "Proof Lab"),
         ("VERIFIED_CAPABILITIES.md", verified, "FAIR_COMPARISON_PROTOCOL.md"),

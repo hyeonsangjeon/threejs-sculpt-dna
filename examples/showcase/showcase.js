@@ -519,7 +519,7 @@ const config = {
   },
   brick: {
     title: 'Brick Off-Road Explorer · Sculpt DNA Family',
-    subtitle: 'Olive panel palette, tread density, and expedition-detail variants',
+    subtitle: 'Olive panel palette, tread density, and expedition detail variants',
     prefix: 'brick-offroad',
     background: 0x13191c,
     fog: 0x13191c,
@@ -531,7 +531,7 @@ const config = {
   },
   seoul: {
     title: 'Seoul Palace Scene · Production Sculpt DNA Family',
-    subtitle: 'Palace, city-density, vegetation, and mountain-layer variants',
+    subtitle: 'Palace, city density, vegetation, and mountain layer variants',
     family: 'seoul-production',
     prefix: 'seoul-palace-hero',
     background: 0x89b4dc,
